@@ -1,24 +1,14 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                For typesetting the doc,  feed this file into a unix shell!
 %%%
-%%% $Id: lineno.sty,v 1.4 1997/10/08 19:37:37 stephan Exp $
-%%% $Log: lineno.sty,v $
-%%% Revision 1.4  1997/10/08 19:37:37  stephan
-%%% Fixed: endlinenumbers*, fixed global @nobreak
-%%%
-%%% Revision 1.3  1997/03/23 08:27:13  stephan
-%%% \@reinserts added
-%%%
-%%% Revision 1.2  1996/09/17 12:30:22  stephan
-%%% CVS Id, Version, and date fixed
-%%%
+%%% $Id: lineno.sty,v 1.5 1998/03/09 16:13:39 stephan Exp $
 %%%
 %                                      \documentclass[a4paper,12pt]{article}%D
 %                                                        \usepackage{lineno}%D
 %
 %                                                                      \title{
 %                                                             \texttt{\itshape
-%           lineno.sty \ v2.02 1997/03/17
+%           lineno.sty \ v2.04beta 1998/03/09
 %                                                                      }\\\ \\
 %        A \LaTeX\ style option to attach                  
 % \\        Line numbers on paragraphs
@@ -87,7 +77,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{lineno}
-  [1997/03/17 line numbers on paragraphs (c) SIB v2.02]
+  [1998/03/09 line numbers on paragraphs (c) SIB v2.04beta]
 
 %% v1.00 1995/03/31  SIB: first release for Petras interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -96,6 +86,7 @@
 %% v2.00 1995/12/06  SIB:   .. it works, new user interface
 %% v2.01 1996/09/17  SIB: put into CVS
 %% v2.02 1997/03/17  SIB: add: \@reinserts, for footnotes
+%% v2.04 1998/03/09  SIB: add: linenomath environment
 %
 %                                                                    \section{
 %          Put the line numbers to the lines
@@ -230,6 +221,10 @@
 % $$
 %    display \ math
 % $$
+% See the subsection below, for a wrapper enviroment to make
+% it work.  But that requires to wrap each and every display
+% in your LaTeX source.
+%
 % The next two commands are provided to turn on line
 % numbering in a specific mode. Please note the difference:
 % for pagewise numbering, ~\linenumbers~ comes first to
@@ -253,6 +248,93 @@
 \let\endpagewiselinenumbers\endlinenumbers
 \expandafter\let\csname endlinenumbers*\endcsname\endlinenumbers
 \expandafter\let\csname endrunninglinenumbers*\endcsname\endlinenumbers
+
+%                                                                 \subsection{
+%                  Display math
+%                                                                            }
+%
+% Now we tackle the problem to get display math working.  
+% There are different options.
+%                                                      \begin{enumerate}\item[
+% 1.]  Precede every display math with a ~\par~.  
+%      Not too good.
+%                                                                       \item[
+% 2.]  Change ~\interlinepenalty~ and associates globally.  
+%      Unstable.
+%                                                                       \item[
+% 3.]  Wrap each display math with a ~{linenomath}~  
+%      environment. 
+%                                                              \end{enumerate}
+% We'll go for option 3.  See if it works:  
+% \begin{linenomath}
+%   \begin{equation}
+%      display \ math
+%   \end{equation}
+% \end{linenomath}
+% The star form ~{linenomath*}~ should also number the lines
+% of the display itself,
+% \begin{linenomath*}
+%   \begin{eqnarray}
+%     multi   && line \\
+%     display && math \\
+%     & 
+%     \begin{array}{c}
+%       with \\
+%       array
+%     \end{array}
+%     &
+%   \end{eqnarray}
+% \end{linenomath*}
+% including multline displays.
+% 
+% First, here are two macros to turn
+% on linenumbering on paragpaphs preceeding displays, with
+% numbering the lines of the display itself, or without.
+% The ~\ifx..~ tests if line numbering is turned on.  It
+% does not harm to add these wrappers in sections that are
+% not numbered.
+
+\newcommand\linenomathNonumbers{%
+   \ifx\@@par\@@@par\else
+     \advance\interlinepenalty \linenopenalty
+     \advance\predisplaypenalty \linenopenalty
+   \fi
+   \ignorespaces
+ }
+
+\newcommand\linenomathWithnumbers{%
+   \ifx\@@par\@@@par\else
+     \advance\interlinepenalty \linenopenalty
+     \advance\predisplaypenalty \linenopenalty
+     \advance\postdisplaypenalty \linenopenalty
+     \advance\interdisplaylinepenalty \linenopenalty
+   \fi
+   \ignorespaces
+ }
+
+% The ~{linenomath}~ environment has two forms, with and
+% without a star.  The following two macros define the
+% environment, where the stared/non-stared form does/doesn't number the
+% lines of the display or vice versa.
+
+\newcommand\linenumberdisplaymath{%
+  \def\linenomath{\linenomathWithnumbers}%
+  \@namedef{linenomath*}{\linenomathNonumbers}%
+  }
+
+\newcommand\nolinenumberdisplaymath{%
+  \def\linenomath{\linenomathNonumbers}%
+  \@namedef{linenomath*}{\linenomathWithnumbers}%
+  }
+
+\def\endlinenomath{\@ignoretrue}
+\expandafter\let\csname linenomath*\endcsname\endlinenomath
+
+% The default is not to number the lines of a display.  But
+% the package option ~displaymath~ may be used to switch
+% that behavior.
+
+\nolinenumberdisplaymath
 
 %
 %
@@ -781,10 +863,18 @@
 
 \DeclareOption{running}{\setrunninglinenumbers}
 
-% And finally, the option ~modulo~ causes only those
-% linenumbers to be printed which are multiples of five.
+% The option ~modulo~ causes only those linenumbers to be
+% printed which are multiples of five. 
 
 \DeclareOption{modulo}{\modulolinenumbers\relax}
+
+% The package option ~displaymath~ switches the behavior of
+% the ~{linenomath}~ environment with its start form.
+% Without this option, the ~{linenomath}~ environment does
+% not number the lines of the display, while the star-form
+% does.  With this option, its just the opposite.
+
+\DeclareOption{displaymath}{\linenumberdisplays}
 
 \ProcessOptions
 
@@ -868,6 +958,17 @@
 %     current value in the counter ~linenumbermodulo~ is
 %     retained.  <number>=1 turns this off without changing
 %     ~linenumbermodulo~.  The counter is initialized to 5.
+%                                                                        \item
+% [|\linenumberdisplaymath]                                             \ \par
+%     Number the lines of a display math in a ~{linenomath}~
+%     environment, but do not in a ~{linenomath*}~
+%     environment.  This is used by the package option
+%     ~[displaymath]~. 
+%                                                                        \item
+% [|\nolinenumberdisplaymath]                                           \ \par
+%     Do not Number the lines of a display math in a
+%     ~{linenomath}~ environment, but do in a
+%     ~{linenomath*}~ environment.  This is the default.
 %                                                                        \item
 % [|\linelabel]                                                         \ \par
 %     Set a ~\linelabel{~<foo>~}~ to the line number where
