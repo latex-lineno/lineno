@@ -1,55 +1,15 @@
 % Draw frames around some text, across page breaks
 %
-% $Id: bframe.sty,v 1.1 1998/03/20 11:53:17 stephan Exp $
+% $Id: bframe.sty,v 3.0 1999/06/11 22:40:46 stephan Exp $
 %
-% This works only for plain text paragraphs, without special height
-% lines. All lines must be exactly \baselineskip apart, no display
-% math. 
-
-% (c) Stephan I. B"ottcher
+% (c) Stephan I. B"ottcher <stephan@nevis.columbia.edu>
+%
+% Obsolete, provided by {lineno.sty}
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{bframe}[1998/03/10 
-                          frames around some text, across page breaks]
+\ProvidesPackage{bframe}[1999/06/11 OBSOLETE]
 
 \DeclareOption*{\PassOptionsToPackage{\CurrentOption}{lineno}}
 \ProcessOptions*
-\RequirePackage{lineno}
-
-\newdimen\bframerule
-\bframerule=\fboxrule
-\newdimen\bframesep
-\bframesep=\fboxsep
-\newbox\bframebox
-
-\newenvironment{bframe}
-  {\par
-   \@tempdima\textwidth
-   \advance\@tempdima 2\bframesep
-   \setbox\bframebox\hbox to\textwidth{%
-      \hskip-\bframesep
-      \vrule\@width\bframerule\@height\baselineskip\@depth\bframesep
-      \advance\@tempdima-2\bframerule
-      \hskip\@tempdima
-      \vrule\@width\bframerule\@height\baselineskip\@depth\bframesep
-      \hskip-\bframesep
-   }%
-   \hbox{\hskip-\bframesep
-         \vrule\@width\@tempdima\@height\bframerule\@depth\z@}%
-   \nointerlineskip
-   \copy\bframebox
-   \nobreak
-   \kern-\baselineskip
-   \runninglinenumbers
-   \def\makeLineNumber{\copy\bframebox\hss}%
-  }
-  {\par
-   \kern-\prevdepth
-   \kern\bframesep
-   \nointerlineskip
-   \@tempdima\textwidth
-   \advance\@tempdima 2\bframesep
-   \hbox{\hskip-\bframesep
-         \vrule\@width\@tempdima\@height\bframerule\@depth\z@}%
-  }
-
+\@obsoletefile{lineno.sty}{bframe.sty}
+\RequirePackage{lineno}[1999/06/11]

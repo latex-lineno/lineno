@@ -1,16 +1,14 @@
 README
-                          lineno.sty
-                   (c) Stephan I. B"ottcher
-                  stephan@nevis1.columbia.edu
+                      lineno.sty  v3.00
 
-$Id: README,v 1.5 1999/03/02 14:32:44 stephan Exp $
+     $Id: README,v 3.0 1999/06/11 22:40:46 stephan Exp $
 
 The LaTeX package lineno.sty provides line numbers on paragraphs.
 After TeX has broken a paragraph into lines there will be line numbers
 attached to them, with the possibility to make references through the
 LaTeX \ref, \pageref cross reference mechanism.
 
-% Copyright 1995--1999 Stephan B"ottcher <stephan@nevis1.columbia.edu>
+% Copyright 1995--1999 Stephan I. B"ottcher <stephan@nevis1.columbia.edu>
 %
 % This program can be redistributed and/or modified under the terms
 % of the LaTeX Project Public License Distributed from CTAN
@@ -18,59 +16,53 @@ LaTeX \ref, \pageref cross reference mechanism.
 % version 1 of the License, or any later version.
 
 
-Changes:
-   1999-03-02 SIB: Added LPPL License
-
 Todo:
-   Include all those extensions into the main source.
    Find and Fix that \footnote bug.
 
 
+Changes:
+   1999-03-02 SIB: Added LPPL License
+   1999-06-11 SiB: included the extensions into lineno.sty
 
-The users manual is ulineno.tex.
 
-There are some extensions to lineno.sty:
-   
-  ilineno.sty:   Line numbers in internal vertical mode, like in a \parbox
-                 or \table.   
+Files:
+   README        This file.
+   COPYING       The LPPL header.
+   lineno.sty    The package itself, ready to use.
+   lineno.tex    The source documentation.
+   ulineno.tex   The pathetic attempt of a users manual.
+   *.sty         Obsoleted extension packages.
 
-  mlineno.sty:   Line numbers with display math: Redefine
-                 display math environments, to automatically wrap
-                 the standard display math environments into
-                 {linenomath}.
+     As of version v3.00, the extension packages for lineno have all been
+     incorporated into lineno.sty itself.  Except for itemrule.sty,
+     which was removed.
 
-  rlineno.sty:   Refer to a line number with an offset, e.g., 
-                   \lineref[1]{foo}
-                 referes to the line after the one labeled foo.  This is
-                 useful if the line that you want to refer to cannot be
-                 labeled, like in a display math.
 
-  numquote.sty:  Defines quote and quotation environments with
-                 linenumbers, with the numbers indented together with
-                 the quoted text. 
+Home:
+   http://www.nevis.columbia.edu/~stephan/tex
+   CTAN:macros/latex/contrib/supported/lineno
 
-  bframe.sty:    Draw a frame around some text, even across page
-                 breaks. Does not close the frame at page breaks, yet.
 
-  itemrule.sty:  Draw a rule down from the bullet next to an itemized
-                 item. 
+Author:
+   Stephan I. B"ottcher 
+     <stephan@nevis.columbia.edu>
+     <Stephan.Boettcher@cern.ch>
+     <Stephan.Boettcher@desy.de>
+     <stephan@alzt.tau.ac.il>
 
 
 To print the documented soure:
 
-Take the style-file `lineno.sty', and feed it to a unix shell.  This
-will produce the source documentation.  (If you have neither UNIX nor
-AWK, you may need to download the extracted documentation source
-`lineno.tex'.)
+   Take the style-file `lineno.sty', and feed it to a Un*x shell.  (Or
+   download the extracted documentation source `lineno.tex'.)
 
-    csh> source ./lineno.sty
-    sh>  . ./lineno.sty
+      csh> source ./lineno.sty
+      sh>  . ./lineno.sty
 
-Please ignore the error message at the beginning about the iffalse.
-After LaTeX run the document four times,  print the resulting
-`lineno.dvi'.
+   (Please ignore the error message at the beginning about the iffalse.)
 
 
 Please have a look at a similar work of Michal Jaegermann and James
 Fortune:
          CTAN:macros/latex/contrib/supported/numline/
+

@@ -1,33 +1,36 @@
-;; $Id: CatalogEntry,v 1.1 1999/03/02 14:32:42 stephan Exp $
+;; $Id: CatalogEntry,v 3.0 1999/06/11 22:40:46 stephan Exp $ -*- sgml -*-
 
-  <entry id="lineno"
-         datestamp="02 Mar 1999" 
-         modifier="Graham.Williams@cmis.csiro.au">
-    <about>
-      <name>lineno</name>
-      <title>Line numbers on paragraphs.</title>
-      <author>
-        <name>Stephan I. Boettcher</name>
-        <email>stephan@nevis1.columbia.edu</email>
-      </author>
-      <home>
+<?xml version="1.0"?>
+<!DOCTYPE entry SYSTEM "../catalogue.dtd">
+<entry id="lineno"
+       datestamp="1999/06/11" 
+       modifier="stephan@nevis1.columbia.edu">
+  <about>
+    <name>lineno</name>
+    <caption>No caption.</caption>
+    <author>
+      <name>Stephan Boettcher</name>
+      <email>stephan@nevis1.columbia.edu</email>
+    </author>
+    <home>
         http://www.nevis.columbia.edu/~stephan/tex/
       </home>
-      <license type="LPPL"/>
+    <license type="lppl"/>
       <version>
-        <number>2.06</number>
+        <number>3.00</number>
       </version>
-      <xref refid="numline"/>
-    </about>
-    <description>
-      <abstract>
-        Adds line numbers to selected paragraphs with reference
-        possible through the LaTeX \ref and \pageref cross reference
-        mechanism.
-      </abstract>
-    </description>
-    <distribution>
-      <ctan>macros/latex/contrib/supported/lineno</ctan>
-      <texlive>latex3</texlive>
-    </distribution>
-  </entry>
+    <xref refid="numline"/>
+  </about>
+  <description>
+    <abstract>
+      Adds line numbers to selected paragraphs with reference
+      possible through the LaTeX \ref and \pageref cross reference
+      mechanism.
+    </abstract>
+  </description>
+  <distribution>
+    <ctan>macros/latex/contrib/supported/lineno</ctan>
+    <texlive>latex3</texlive>
+  </distribution>
+</entry>
+

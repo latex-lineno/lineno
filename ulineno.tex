@@ -1,17 +1,20 @@
-% Copyright 1995--1999 Stephan B"ottcher <stephan@nevis1.columbia.edu>
+% Copyright 1995--1999 Stephan I. B"ottcher <stephan@nevis1.columbia.edu>
 %
 % This program can be redistributed and/or modified under the terms
 % of the LaTeX Project Public License Distributed from CTAN
 % archives in directory macros/latex/base/lppl.txt; either
 % version 1 of the License, or any later version.
+%
+% $Id: ulineno.tex,v 3.0 1999/06/11 22:40:47 stephan Exp $
+%
+% 1999-06-11 SiB: updated for lineno.sty v3.00
 
 \documentclass[12pt,a4paper,titlepage]{article}
 
-% \$Id: ulineno.tex,v 1.5 1999/03/02 14:32:46 stephan Exp $
-                                               \date{\def\$##1:##2 ##3${##2}%$
+                                              \date{\def\$##1: ##2 ##3${##2}%$
                                                                       Version 
-   \$Revision: 1.5 $, 
-   \$Date: 1999/03/02 14:32:46 $
+   \$Revision: 3.0 $, 
+   \$Date: 1999/06/11 22:40:47 $
                                                                              }
                                  \def\lineno.sty{\texttt{\itshape lineno.sty}}
 
@@ -23,11 +26,6 @@
 }
 
 \usepackage{lineno}
-\usepackage{numquote}
-\usepackage{ilineno}
-\usepackage{rlineno}
-\usepackage{itemrule}
-\usepackage{bframe}
 \usepackage{url}
 
 \def~{\verb~}
@@ -39,11 +37,6 @@
 
 \begin{document}
 \begin{runninglinenumbers}
-%\makeatletter
-%\renewcommand\thelinenumber{%
-%  \ifnum27>\c@linenumber\relax\alph{linenumber}%
-%  \else{\advance\c@linenumber-26\relax\Alph{linenumber}}\fi}
-%\makeatother
 \renewcommand\linenumberfont{\normalfont\small\bfseries}
 \setlength\linenumbersep{1cm}
 \maketitle
@@ -86,10 +79,12 @@ There are other applications, not directly related to line numbering.
 Whenever you want to attach something to your text, after a paragraph
 was broken into lines, across pagebreaks, lineno may do the job.
 
-Say, you need a frame around some text, but the text should be able
-to break across pages, \lineno.sty can be used to draw rules on both
-margins, which can be completed at the top and bottom by some special
-environment, see section\,\,\ref{sec:bframe}.
+\begin{bframe}
+  Say, you need a frame around some text, but the text should be able
+  to break across pages, \lineno.sty can be used to draw rules on both
+  margins, which can be completed at the top and bottom by some
+  special environment, see section\,\,\ref{sec:bframe}.
+\end{bframe}
 
 There may be cases, where other packages do a better job, e.g.,
 \url{CTAN:macros/latex/contrib/supported/numline}.
@@ -101,8 +96,8 @@ There may be cases, where other packages do a better job, e.g.,
   Network} (CTAN), e.g, \url{ftp:// ftp.tex.ac.uk/ tex-archive/
   macros/ latex/ contrib/ supported/ lineno/ lineno.sty}.
 
-The home of \lineno.sty is \url{http:// www.nevis.columbia.edu/ ~stephan/ tex/
-   #lineno}.  Here you can get the latest version.
+The home of \lineno.sty is \url{http:// www.nevis.columbia.edu/
+  ~stephan/ tex/ #lineno}.  Here you can get the latest version.
 
 \end{runninglinenumbers}
 
@@ -136,18 +131,26 @@ The available <options> are:
 \item[\texttt{[modulo]}:] Print line numbers only if they are
   multiples of five.
 
-\item[\texttt{[displaymath]}:]  When using the ~{linenomath}~
+\item[\texttt{[mathlines]}:]  When using the ~{linenomath}~
   environment for display math, put line numbers also on the lines of
   the display.
 
+\item[\texttt{[displaymath]}:]  Automatically wrap the standard LaTeX
+  display math environments in ~{linenomath}~.
+
+  \begin{itshape}
+    Change from v2 to v3:  ~[mathlines]~ was called ~[displaymath]~
+    before, and ~[displaymath]~ was ~\usepacke{mlineno}~.
+  \end{itshape}
+  
 \end{description}
 All effects of these option can also be obtained by calling certain
-macros later in the document.
+macros later in the document, except for ~[displaymath]~.
 
 \subsection{How to turn on line numbering}
 
 The line numbering is not activated by default.  If you want line
-numbers, you have to turn it on.  The simples way is to say
+numbers, you have to turn it on.  The simplest way is to say
 \begin{quote}
     ~\linenumbers~
 \end{quote}
@@ -197,8 +200,8 @@ line).
 \subsection{How to turn off line numbering}
 
 You do not usualy turn of line numbering explicitly, but rather
-restrict line numbering to a group.  However, you can turn it off with
-the command
+restrict line numbering to a group or an environment.  However, you
+can turn it off with the command
 \begin{quote}
    ~\nolinenumbers~
 \end{quote}
@@ -726,7 +729,11 @@ is solved but \lineno.sty, version 2.05.
 
 \section{Extension packages}
 
-\subsection{Display math, \texttt{\itshape mlineno.sty}}
+The extension packages were abolished with version v3.00 of
+\lineno.sty.  One package, ~itemrule.sty~, was dropped, the others
+were put directly into the the main \lineno.sty package file.
+
+\subsection{Display math, \texttt{\itshape mlineno}}
 
 \lineno.sty does not work well with display math.  The parts of a
 paragraph preceeding a display math will not get line numbers.  The
@@ -764,7 +771,7 @@ wrapping an ~{egnarray*}~ like this
   ~  \end{eqnarray*}~\\
   ~\end{linenomath*}~
 \end{quote}
-Specifying the package option ~[displaymath]~, causes the
+Specifying the package option ~[mathlines]~, causes the
 ~{linenomath}~ environment to switch its function with its *-form.
 This allows you to later decide if you want the numbers on the formulas
 or not, without putting in stars everywhere (as long as you have been
@@ -774,20 +781,20 @@ The ~{linenomath}~ wrapper does nothing if line numbering is not
 activated.  You do not need to remove them if you decide to omit the
 line numbering later (although you still have to load \lineno.sty).
 
-There is an extension to \lineno.sty, called \texttt{\itshape
-  mlineno.sty}, which redefines the standard \LaTeX\ display math
-environments to wrap themselves automatically into ~{linenomath}~: 
+The \texttt{\itshape mlineno} extension redefines the standard \LaTeX\ 
+display math environments to wrap themselves automatically into
+~{linenomath}~:
 \begin{quote}\obeylines
    ~{displaymath}~
    ~{equation}~
    ~{eqnarray}~
    ~{eqnarray*}~
 \end{quote}
-You can load \texttt{\itshape mlineno.sty} instead or in addition to
-\lineno.sty, and you can keep existing explicit ~{linenomath}~
+As of version 3.00 you can activate this by the package option
+~[displaymath]~.  You can keep existing explicit ~{linenomath}~
 wrappers without harm.  
 
-\texttt{\itshape mlineno.sty} will probably not work with AMSmath.
+This will probably not work with AMSmath.
 
 Other solutions to make \lineno.sty work with display math are either
 ugly or less stable.  The ugly possibility is to precede every display
@@ -798,17 +805,10 @@ math with an empty line, or better with
 but this gains you nothing compared to using the ~{linenomath}~
 environment, since you still have to modify your document.
 
-The only way to get line numbers with display math without changing
-the document proved to be unstable.  At the end of the file
-~mlineno.sty~ you can find how it can be done, but only if you are
-desperate.  It works by modifying some \TeX\ parameters permanently,
-instead of restricting the change to the execution of the line
-breaking algorithm.
-
 \end{linenumbers*}
 
 
-\subsection{\texttt{\itshape rlineno.sty}}
+\subsection{\texttt{\itshape rlineno}}
 
 \begin{runninglinenumbers}
 It is currently not possible to put a ~\linelabel~ into math mode.
@@ -821,11 +821,14 @@ but to refer to a line in display math, you cannot label it directly.
 \end{runninglinenumbers}
 
 \begin{pagewiselinenumbers}
-The extension package \texttt{\itshape rlineno.sty} offers a solution,
-allowing to refer to a line number with an offset.  You put the
-~\linelabel~ at the end of the preceeding line, and refer to that
-number, plus 1 or, in case of multiline displays, by any other
-offset.\linelabel{rll2} 
+The extension \texttt{\itshape rlineno} offers a solution,
+allowing to refer to a line number with an offset.  
+
+This extension is now available with plain \lineno.sty v3.00.
+
+You put the ~\linelabel~ at the end of the preceeding line, and refer
+to that number, plus 1 or, in case of multiline displays, by any other
+offset.\linelabel{rll2}
 \begin{quote}
   ~...\linelabel{~<label>~}~ \\
   ~\begin{equation}~ \\
@@ -862,10 +865,10 @@ line\,\lineref[+1]{rll1}.
 \end{runninglinenumbers}
 
 
-\subsection{\texttt{\itshape numquote.sty}}
+\subsection{\texttt{\itshape numquote}}
 
-This extension to \lineno.sty defines two environments, each of them
-with a *-form or alternatively an optional argument.
+This extension defines two environments, each of them with a *-form or
+alternatively an optional argument.
 \begin{quote}\obeylines
   ~\begin{numquote}~
   ~\end{numquote}~
@@ -887,81 +890,57 @@ To customize the distance from the text or the shape of the
 numbers, you can modify the macros ~\quotelinenumbersep~ and
 ~\quotelinenumberfont~ respectively.
 
-This package accepts one option ~[*]~, which causes both environments
-to switch function with their *-forms.  All other style options are
-passed to \lineno.sty, which is automatically loaded.
+As of version 3.00, this is available directly with \lineno.sty.
 
-\subsection{\texttt{\itshape ilineno.sty}}
+\clearpage
+
+\subsection{\texttt{\itshape ilineno}}
 \label{sec:ilineno}
 
-\noindent
-\parbox\textwidth{ \
-\internallinenumbers 
-\resetlinenumber[13] 
-Sometimes you need line numbers within a |\parbox\ or figure.  This
-extension to \lineno.sty can do that, if the text is simple enough.
-It works by drawing a ladder of numbers next to the paragraph, each
-number vertically separated by |\baselineskip\ from the other.  This
-obviously dose not work nicely with anything but straight text.  Extra
-high lines (like this: $\displaystyle x=\frac AB$) will disturb the
-alignment.  The power of \lineno.sty is not necessary to achieve this,
-but you may need both in one document with a somewhat coherent
-interface, and some of the necessary infrastructure from \lineno.sty
-is actually useful.}
+\begin{center}
+\noindent\fbox{\parbox{0.8\textwidth}{
+  \internallinenumbers \resetlinenumber[13]
+  Sometimes you need line numbers within a |\parbox\ or figure.  This
+  extension can do that, if the text is simple enough.  It works by
+  drawing a ladder of numbers next to the paragraph, each number
+  vertically separated by |\baselineskip\ from the other.  This
+  obviously dose not work nicely with anything but straight text.
+  Extra high lines (like this: $\displaystyle x=\frac AB$) will
+  disturb the alignment.  The power of \lineno.sty is not necessary to
+  achieve this, but you may need both in one document with a somewhat
+  coherent interface, and some of the necessary infrastructure from
+  \lineno.sty is actually useful.
+}}\end{center}
 % Why is the v-spacing wrong here?
 
 The preceding paragraph was set like this:
 \begin{quote}
-  ~\noindent~ \\
-  ~\parbox\textwidth{~ \\
+  ~\begin{center}\fbox{\parbox{0.8\textwidth}{~ \\
     ~\internallinenumbers~ \\
     ~\resetlinenumber[13]~ \\
-    ~ ~ Sometimes you need \dots ~}~
+    ~ ~ Sometimes you need \dots \\
+  ~}}\end{center}~
 \end{quote}
 
 \subsection{\texttt{\itshape itemrule.sty}}
 
-Somebody asked me if he can get a rule next to an itemized item, form
-the bullet downwards.  This style does that.
-\begin{itemrule}
-\item The rule is vertically centered under the default item.  In a
-  description environment, it is just ~\labelsep~ left of the text.  In
-  an enumerate, it is centered under the actual item number.
-\item The syntax is
-  \begin{quote}\obeylines
-    ~\begin{itemrule}[~<environment>~]~
-    ~\end{itemrule}~
-  \end{quote}
-  It works only with lines that are no more than ~\baselineskip~
-  apart. And if you nest a list, the rule moves inwards (this is a
-  bug). 
-\end{itemrule}
-The standard list <environment>s work fine.
-\begin{itemrule}[description]
-\item[\texttt{itemize}:] This is the default.
-\item[\texttt{description}:] The rule is placed  ~\labelsep~ left of
-  the text. I repeat that here to make this item a bit longer, in
-  order to actually get a rule.
-\item[\texttt{quote}:] Even some fake lists work, and draw the rule
-  from the first line on, not just from the second, like in a real
-  list item.  This was a surprise, but a good one.
-\item[\texttt{enumerate}:] The rule is always set under the center of
-  the current number.  This is ugly, but not easy to change. 
-\end{itemrule}
+Somebody asked me if he can get a rule next to an itemized item, from
+the bullet downwards.  This style did that.  It was unstable and of
+little interest, so it is gone from the \lineno.sty distribution.
 
-\subsection{\texttt{\itshape bframe.sty}}
+\subsection{\texttt{\itshape bframe}}
 \label{sec:bframe}
 
 \setlength\bframesep{10pt}
 \begin{bframe}
-\lineno.sty can be used for unexpected purposes.  \texttt{\itshape
-  bframe.sty} defines an environment 
+\lineno.sty can be used for unexpected purposes.  The environment 
 \begin{quote}\obeylines
   ~\begin{bframe}~
   ~\end{bframe}~
 \end{quote}
-that draws boxes around some text, even across page breaks.  At a page
-break, the box is open.  There are two parameters:
+draws boxes around some text, even across page breaks.  At a page
+break, the box is open (it is difficult to fix that).  There are two
+parameters:
 \begin{description}\itemsep=0pt\parskip=0pt
 \item [|\bframesep] \leavevmode\\
   defines the separation of the box from the text.
@@ -974,18 +953,20 @@ the lines.  The total height of the rules is ~\baselineskip~ plus
 ~\bframesep~. This leaves some extra space for extra high lines.
 
 The current version is very preliminary.  In a future version there
-will be a possibility to move the vertical lines inwards for indented
-text.  The box will optionally be closed at page breaks.  It will not
+may be a possibility to move the vertical lines inwards for indented
+text.  The box may optionally be closed at page breaks.  It will not
 likely be possible to have a colored background in the box, at least
 not with a graphics driver that cannot put a background behind
-existing foreground (Postscript cannot, I've been told).
+existing foreground (Postscript cannot, I've been told).  Tell me how
+to make a gray background, like block dots on transparent, and I can
+do shaded boxes.
 
 \end{bframe}
 
 \section{How to print the documented source}
 
 \begin{bframe}
-\lineno.sty is written in three programming languages: \TeX, [c]sh,
+\lineno.sty is written in three programming languages: \TeX, sh,
 and awk.
 
 The file can be loaded as a \LaTeXe\ package as it is.  However, if
@@ -996,7 +977,7 @@ you feed it into a Unix shell, like
 it will produce the files ~lineno.tex~ and ~lineno.dvi~, which is the
 documented source of \lineno.sty.  If you want to learn how it works,
 or you need to adapt \lineno.sty for some special requirements, you
-should read this document.
+should read that document.
 \end{bframe}
 
 \end{document}

@@ -1,78 +1,16 @@
 % Make lineno.sty work with display math
 %
-% $Id: mlineno.sty,v 1.1 1998/03/10 13:51:45 stephan Exp $
-% (c) Stephan I. B"ottcher
-
-% This extension to `lineno.sty' redefines the standard LaTeX display
-% math environments to make `lineno' work.  This is currently
-% restricted to standard LaTeX, no AMSmath or anything, and to the
-% following environments:
-%   {displaymath}
-%   {equation}
-%   {eqnarray}
-%   {eqnarray*}
+% $Id: mlineno.sty,v 3.0 1999/06/11 22:40:47 stephan Exp $
 %
-% \[ \]  or $$ $$ won't make lineno work.  You can, however, stil do
-%   \begin{linenomath}
-%   $$
-%       a=b
-%   $$
-%   \end{linenomath}
+% (c) Stephan I. B"ottcher <stephan@nevis.columbia.edu>
+%
+% Obsolete, provided by [displaymath]{lineno.sty}
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{mlineno}[1998/03/10 V2.00 line numbers with display math]
+\ProvidesPackage{mlineno}[1999/06/11 OBSOLETE]
 
 \DeclareOption*{\PassOptionsToPackage{\CurrentOption}{lineno}}
+\PassOptionsToPackage{displaymath}{lineno}
 \ProcessOptions*
-\RequirePackage{lineno}[1998/03/10]
-
-% The following redefinitions are made with respect to
-%   {ltmath.dtx} [1997/01/08 v1.1d LaTeX Kernel (Math Setup)]
-
-\renewenvironment{displaymath}
-  {\linenomath\[}
-  {\]\endlinenomath}
-
-\renewenvironment{equation}
-  {\linenomath$$\refstepcounter{equation}}
-  {\eqno\hbox{\@eqnnum}$$\endlinenomath}
-
-\let\LN@eqnarray\eqnarray
-\let\LN@endeqnarray\endeqnarray
-
-\renewenvironment{eqnarray}
- {\linenomath\LN@eqnarray}
- {\LN@endeqnarray\endlinenomath}
-
-\endinput
-
-% This was the old hack, to globally set the interlinepenalties, but
-% this is too unstable to deserve further support.
-
-\def\linenumberpar{\ifvmode\@@@par\else\ifinner\@@@par\else
-%     \advance\interlinepenalty \linenopenalty       %        mlineno
-        \@@@par
-        \penalty-\linenopenaltypar
-        \kern\z@
-%     \advance\interlinepenalty -\linenopenalty      %        mlineno
-     \fi\fi
-     }
-
-\def\linenumbers{\let\@@par\linenumberpar
-     \ifx\@par\@@@par\let\@par\linenumberpar\fi
-     \ifx\par\@@@par\let\par\linenumberpar\fi
-     \advance\interlinepenalty \linenopenalty         %        mlineno
-     \advance\predisplaypenalty \linenopenalty        %        mlineno
-     \advance\postdisplaypenalty \linenopenalty       %        mlineno
-     \advance\interdisplaylinepenalty \linenopenalty  %        mlineno
-     \@ifnextchar[{\resetlinenumber}%]
-                 {\@ifstar{\resetlinenumber}{}}%
-     }
-
-\def\nolinenumbers{\let\@@par\@@@par
-  \ifx\@par\linenumberpar\let\@par\@@@par\fi
-  \ifx\par\linenumberpar\let\par\@@@par\fi
-  \advance\interlinepenalty -\linenopenalty           %        mlineno
-  \advance\predisplaypenalty -\linenopenalty          %        mlineno
-  \advance\postdisplaypenalty -\linenopenalty         %        mlineno
-  }
+\@obsoletefile{lineno.sty}{mlineno.sty}
+\RequirePackage{lineno}[1999/06/11]

@@ -1,9 +1,9 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
-%%%                For typesetting the doc,  feed this file into a unix shell!
+%%%                        To pretty-print this file, feed it to a unix shell!
 %%%
-%%% $Id: lineno.sty,v 1.10 1999/03/02 14:32:45 stephan Exp $
+%%% $Id: lineno.sty,v 3.0 1999/06/11 22:40:46 stephan Exp $
 %%%
-%%% Copyright 1995--1999 Stephan B"ottcher <stephan@nevis1.columbia.edu>
+%%% Copyright 1995--1999 Stephan I. B"ottcher <stephan@nevis1.columbia.edu>
 %%%
 %%% This program can be redistributed and/or modified under the terms
 %%% of the LaTeX Project Public License Distributed from CTAN
@@ -15,7 +15,7 @@
 %
 %                                                                      \title{
 %                                                             \texttt{\itshape
-%         lineno.sty \ v2.06 1999/03/02
+%         lineno.sty \ v3.00 1999/06/11
 %                                                                      }\\\ \\
 %        A \LaTeX\ style option to attach                  
 % \\        Line numbers on paragraphs
@@ -82,7 +82,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1994/11/04]
 \ProvidesPackage{lineno}
-  [1999/03/02 line numbers on paragraphs v2.06]
+  [1999/06/11 line numbers on paragraphs v3.00]
 
 %% v1.00 1995/03/31  SIB: first release for Petras interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -94,6 +94,7 @@
 %% v2.04 1998/03/09  SIB: add: linenomath environment
 %% v2.05 1998/04/26  SIB: add: prevgraf test
 %% v2.06 1999/03/02  SIB: LPPL added
+%% v3.00 1999/06/11  SiB: include the extension in the main file
 %
 %                                                                    \section{
 %          Put the line numbers to the lines
@@ -357,7 +358,7 @@
 \expandafter\let\csname endlinenomath*\endcsname\endlinenomath
 
 % The default is not to number the lines of a display.  But
-% the package option ~displaymath~ may be used to switch
+% the package option ~mathlines~ may be used to switch
 % that behavior.
 
 \nolinenumberdisplaymath
@@ -387,7 +388,7 @@
 \let\@LN@addmarginpar\@addmarginpar
 \def\@addmarginpar{%
    \ifnum\count\@currbox>-2\relax
-     \@LN@addmarginpar
+     \expandafter\@LN@addmarginpar
    \else
      \@cons\@freelist\@currbox
      \protected@write\@auxout{}{%
@@ -410,11 +411,11 @@
 %                       \ref{demo}.  
 %                       }%
 % If you use this command outside a ~\linenumbers~
-% paragraph, you will get references to some junky
+% paragraph, you will get references to some bogus
 % line numbers, sorry.  But we don't disable the command,
 % because only the ~\par~ at the end of a paragraph  may
 % decides whether to print line numbers on this paragraph
-% or not.  A ~\linelabel~ may appear earlier than
+% or not.  A ~\linelabel~ may legally appear earlier than
 % ~\linenumbers~.
 %
 % ~\linelabel~, via a fake float number $-2$, puts a
@@ -897,15 +898,233 @@
 
 \DeclareOption{modulo}{\modulolinenumbers\relax}
 
-% The package option ~displaymath~ switches the behavior of
+% The package option ~mathlines~ switches the behavior of
 % the ~{linenomath}~ environment with its star-form.
 % Without this option, the ~{linenomath}~ environment does
 % not number the lines of the display, while the star-form
 % does.  With this option, its just the opposite.
+%
+%%% 1999-06-10: renamed ~displaymath~ to ~mathlines~.
 
-\DeclareOption{displaymath}{\linenumberdisplaymath}
+\DeclareOption{mathlines}{\linenumberdisplaymath}
+
+% ~displaymath~ now calls for wrappers of the standard 
+% LaTeX display math environment.  This was previously 
+% done by ~mlineno.sty~.
+
+\let\do@mlineno\relax
+\DeclareOption{displaymath}{\let\do@mlineno\@empty}
 
 \ProcessOptions
+
+%                                                                 \subsection{
+%              Package Extensions
+%                                                                            }
+%
+%  The extensions in this section were previously supplied 
+%  in seperate ~.sty~ files.
+%
+%                                                              \subsubsection{
+%              $display math$
+%                                                                            }
+%
+%  The standard \LaTeX\ display math environments are
+%  wrapped in a ~{linenomath}~ environment.
+
+\ifx\do@mlineno\@empty
+
+  \renewenvironment{displaymath}
+     {\linenomath\[}
+     {\]\endlinenomath}
+
+  \renewenvironment{equation}
+     {\linenomath$$\refstepcounter{equation}}
+     {\eqno\hbox{\@eqnnum}$$\endlinenomath}
+
+  \let\LN@eqnarray\eqnarray
+  \let\LN@endeqnarray\endeqnarray
+
+  \renewenvironment{eqnarray}
+     {\linenomath\LN@eqnarray}
+     {\LN@endeqnarray\endlinenomath}
+
+\fi
+
+%                                                              \subsubsection{
+%      Line numbers in internal vertical mode
+%                                                                            }
+%
+% The command ~\internallinenumbers~ adds line numbers in 
+% internal vertical mode, but with limitations: we assume
+% fixed baseline skip.
+
+\def\internallinenumbers{\setrunninglinenumbers 
+     \let\@@par\internallinenumberpar
+     \ifx\@par\@@@par\let\@par\internallinenumberpar\fi
+     \ifx\par\@@@par\let\par\internallinenumberpar\fi
+     \ifx\@par\linenumberpar\let\@par\internallinenumberpar\fi
+     \ifx\par\linenumberpar\let\par\internallinenumberpar\fi
+     \@ifnextchar[{\resetlinenumber}%]
+                 {\@ifstar{\let\c@linenumber\c@internallinenumber
+                           \c@linenumber\@ne}{}}%
+     }
+
+\let\endinternallinenumbers\endlinenumbers
+\@namedef{internallinenumbers*}{\internallinenumbers*}
+\expandafter\let\csname endinternallinenumbers*\endcsname\endlinenumbers
+
+\newcount\c@internallinenumber
+\newcount\c@internallinenumbers
+
+\def\internallinenumberpar{\ifvmode\@@@par\else\ifinner\@@@par\else\@@@par
+     \begingroup
+        \c@internallinenumbers\prevgraf
+        \setbox\@tempboxa\hbox{\vbox{\makeinternalLinenumbers}}%
+        \dp\@tempboxa\prevdepth
+        \ht\@tempboxa\z@
+        \nobreak\vskip-\prevdepth
+        \nointerlineskip\box\@tempboxa
+     \endgroup 
+     \fi\fi
+     }
+
+\def\makeinternalLinenumbers{\ifnum\c@internallinenumbers>0\relax
+   \hbox to\z@{\makeLineNumber}\global\advance\c@linenumber\@ne
+   \advance\c@internallinenumbers\m@ne
+   \expandafter\makeinternalLinenumbers\fi
+   }
+
+%                                                              \subsubsection{
+%      Line number references with offset
+%                                                                            }
+%
+% This extension to defines macros to refer to line
+% numbers with a offset, e.g., to refer to a line
+% which cannot be labeled directly (display math).
+% This was formerly knows as ~rlineno.sty~.
+%
+% To refer to a pagewise line number with offset:
+%                                                                \begin{quote}
+%   ~\linerefp[~<OFFSET>~]{~<LABEL>~}~
+%                                                                  \end{quote}
+% To refer to a running line number with offset:
+%                                                                \begin{quote}
+%   ~\linerefr[~<OFFSET>~]{~<LABEL>~}~
+%                                                                  \end{quote}
+% To refer to a line number labeled in the same mode as currently
+% selected:
+%                                                                \begin{quote}
+%   ~\lineref[~<OFFSET>~]{~<LABEL>~}~
+%                                                                  \end{quote}
+
+\newcommand\lineref{%
+  \ifx\c@linenumner\c@runninglinenumner
+     \expandafter\linerefr
+  \else
+     \expandafter\linerefp
+  \fi
+}
+
+\newcommand\linerefp[2][\z@]{{%
+   \let\@thelinenumber\thelinenumber
+   \edef\thelinenumber{\advance\c@linenumber#1\relax\noexpand\@thelinenumber}%
+   \ref{#2}%
+}}
+
+% This goes deep into \LaTeX s internals.
+
+\newcommand\linerefr[2][\z@]{{%
+   \def\@@linerefadd{\advance\c@linenumber#1}%
+   \expandafter\@setref\csname r@#2\endcsname
+   \@linerefadd{#2}%
+}}
+
+\newcommand\@linerefadd[2]{\c@linenumber=#1\@@linerefadd\relax
+                           \thelinenumber}
+
+%                                                              \subsubsection{
+%      Numbered quotation environments
+%                                                                            }
+%
+% The ~{numquote}~ and ~{numquotation}~
+% environments are like ~{quote}~ and
+% ~{quotation}~, except there will be line
+% numbers.  
+% 
+% An optional argument gives the number to count
+% from.  A star ~*~ (inside or outside the closing
+% ~}~) prevent the reset of the line numbers.
+% Default is to count from one.
+
+\newcommand\quotelinenumbers
+   {\@ifstar\linenumbers{\@ifnextchar[\linenumbers{\linenumbers*}}}
+
+\newdimen\quotelinenumbersep
+\quotelinenumbersep=\linenumbersep
+\let\quotelinenumberfont\linenumberfont
+
+\newcommand\numquotelist
+   {\leftlinenumbers
+    \linenumbersep\quotelinenumbersep
+    \let\linenumberfont\quotelinenumberfont
+    \addtolength{\linenumbersep}{-\@totalleftmargin}%
+    \quotelinenumbers
+   }
+
+\newenvironment{numquote}     {\quote\numquotelist}{\endquote}
+\newenvironment{numquotation} {\quotation\numquotelist}{\enquotation}
+\newenvironment{numquote*}    {\quote\numquotelist*}{\endquote}
+\newenvironment{numquotation*}{\quotation\numquotelist*}{\enquotation}
+
+%                                                              \subsubsection{
+%      Frame around a paragraph
+%                                                                            }
+%
+% The ~{bframe}~ environment draws a frame around
+% some text, across page breaks, if necessary.
+%
+% This works only for plain text paragraphs,
+% without special height lines. All lines must be
+% ~\baselineskip~ apart, no display math.
+
+\newenvironment{bframe}
+  {\par
+   \@tempdima\textwidth
+   \advance\@tempdima 2\bframesep
+   \setbox\bframebox\hbox to\textwidth{%
+      \hskip-\bframesep
+      \vrule\@width\bframerule\@height\baselineskip\@depth\bframesep
+      \advance\@tempdima-2\bframerule
+      \hskip\@tempdima
+      \vrule\@width\bframerule\@height\baselineskip\@depth\bframesep
+      \hskip-\bframesep
+   }%
+   \hbox{\hskip-\bframesep
+         \vrule\@width\@tempdima\@height\bframerule\@depth\z@}%
+   \nointerlineskip
+   \copy\bframebox
+   \nobreak
+   \kern-\baselineskip
+   \runninglinenumbers
+   \def\makeLineNumber{\copy\bframebox\hss}%
+  }
+  {\par
+   \kern-\prevdepth
+   \kern\bframesep
+   \nointerlineskip
+   \@tempdima\textwidth
+   \advance\@tempdima 2\bframesep
+   \hbox{\hskip-\bframesep
+         \vrule\@width\@tempdima\@height\bframerule\@depth\z@}%
+  }
+
+\newdimen\bframerule
+\bframerule=\fboxrule
+
+\newdimen\bframesep
+\bframesep=\fboxsep
+
+\newbox\bframebox
 
 %                                                                    \section{
 %                   The final touch

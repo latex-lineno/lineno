@@ -1,43 +1,15 @@
 % quote and quotation environments with linenumbers 
-% (c) Stephan I. B"ottcher
 %
-% $Id: numquote.sty,v 1.3 1998/03/20 11:55:28 stephan Exp $
+% $Id: numquote.sty,v 3.0 1999/06/11 22:40:47 stephan Exp $
+%
+% (c) Stephan I. B"ottcher <stephan@nevis.columbia.edu>
+%
+% Obsolete, provided by {lineno.sty}
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{numquote}[1996/09/17 quote environment with line numbers]
+\ProvidesPackage{numquote}[1999/06/11 OBSOLETE]
 
-% \begin{numquote}      numbered from  1
-% \begin{numquote}[15]  numbered from 15
-% \begin{numquote*}     numbers continue
-% \begin{numquote}*     numbers continue
-
-% The same for {numquotation}
-
-% Option [*] reverses the behavior w/ or w/o *.
-
-\RequirePackage{lineno}[1996/09/17]
-
-\newcommand\quotelinenumbers
-    {\@ifstar\linenumbers{\@ifnextchar[\linenumbers{\linenumbers*}}}
-
-\DeclareOption{*}{\let\quotelinenumbers\linenumbers}
-\ProcessOptions
-
-\newdimen\quotelinenumbersep
-\quotelinenumbersep=\linenumbersep
-\let\quotelinenumberfont\linenumberfont
-
-\newcommand\numlist
-     {\leftlinenumbers
-      \linenumbersep\quotelinenumbersep
-      \let\linenumberfont\quotelinenumberfont
-      \addtolength{\linenumbersep}{-\@totalleftmargin}%
-      \quotelinenumbers
-      }
-
-\newenvironment{numquote}{\quote\numlist}{\endquote}
-\newenvironment{numquotation}{\quotation\numlist}{\enquotation}
-\newenvironment{numquote*}{\quote\numlist*}{\endquote}
-\newenvironment{numquotation*}{\quotation\numlist*}{\enquotation}
-
-\endinput
+\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{lineno}}
+\ProcessOptions*
+\@obsoletefile{lineno.sty}{numquote.sty}
+\RequirePackage{lineno}[1999/06/11]

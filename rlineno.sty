@@ -1,52 +1,16 @@
 % Make line references with offsets
 %
-% $Id: rlineno.sty,v 1.3 1999/03/02 15:31:53 stephan Exp $
-% (c) Stephan I. B"ottcher
-
-% This extension to `lineno.sty' redefines macros to refer to line
-% numbers with a offset, e.g., to refer to a line which cannot be
-% labeled directly (display math).
+% $Id: rlineno.sty,v 3.0 1999/06/11 22:40:47 stephan Exp $
 %
-% To refer to a pagewise line number with offset:
+% (c) Stephan I. B"ottcher <stephan@nevis.columbia.edu>
 %
-%   \linerefp[OFFSET]{LABEL}
-%
-% To refer to a running line number with offset:
-%
-%   \linerefr[OFFSET]{LABEL}
-%
-% To refer to a line number labeled in the same mode as currently
-% selected:
-%
-%   \lineref[OFFSET]{LABEL}
+% Obsolete, provided by {lineno.sty}
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{rlineno}[1998/04/27 V0.00 line references with offset]
+\ProvidesPackage{rlineno}[1999/06/11 OBSOLETE]
 
 \DeclareOption*{\PassOptionsToPackage{\CurrentOption}{lineno}}
 \ProcessOptions*
-\RequirePackage{lineno}
+\@obsoletefile{lineno.sty}{rlineno.sty}
+\RequirePackage{lineno}[1999/06/11]
 
-\newcommand\linerefp[2][\z@]{{%
-   \let\@thelinenumber\thelinenumber
-   \edef\thelinenumber{\advance\c@linenumber#1\relax\noexpand\@thelinenumber}%
-   \message{\meaning\thelinenumber}%
-   \ref{#2}%
-}}
-
-\newcommand\linerefr[2][\z@]{{%
-   \def\@@linerefadd{\advance\c@linenumber#1}%
-   \expandafter\@setref\csname r@#2\endcsname
-   \@linerefadd{#2}%
-}}
-
-\newcommand\@linerefadd[2]{\c@linenumber=#1\@@linerefadd\relax
-                           \thelinenumber}
-
-\newcommand\lineref{%
-  \ifx\c@linenumner\c@runninglinenumner
-     \expandafter\linerefr
-  \else
-     \expandafter\linerefp
-  \fi
-}
