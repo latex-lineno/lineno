@@ -1,5 +1,5 @@
 # Makefile for the lineno.sty website update
-# $Id: Makefile,v 1.5 1999/03/02 15:32:14 stephan Exp $
+# $Id: Makefile,v 1.6 1999/03/02 15:47:29 stephan Exp $
 
 DVIPS = dvips $(DVIPSFLAGS)
 TEX   = latex
@@ -24,7 +24,7 @@ $(MANUAL).dvi: $(MANUAL).tex $(TARGET).sty $(addsuffix .sty,$(EXTENSIONS))
 %.gz: %
 	gzip -9cf <$< >$@
 
-../lineno.tar.gz: README $(TARGET).sty $(TARGET).tex $(MANUAL).tex \
+../lineno.tar.gz: $(READMES) $(TARGET).sty $(TARGET).tex $(MANUAL).tex \
                   $(addsuffix .sty,$(EXTENSIONS))
 	tar -C .. -czf $@ $(addprefix lineno/,$^)
 
