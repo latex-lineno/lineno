@@ -1,0 +1,60 @@
+% Add \internallinenumbers to the lineno package.
+%
+% $Header: /home/blaulicht/stephan/cvs@inspjury/latex/lineno/Attic/ilineno.sty,v 1.1 1996/07/29 14:58:02 stephan Exp $
+%
+% \internallinenumbers sets linenumbers to paragraphs in internal
+% vertical mode (\vbox, \parbox, \table, etc.)
+% 
+% This works only for plain text paragraphs, without special height
+% lines. All lines must be exactly \baselineskip apart, no display
+% math. 
+
+% (c) Stephan I. B"ottcher 1996
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ilineno}[1996/06/05 line numbers in vboxes]
+
+\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{lineno}}
+\ProcessOptions*
+\RequirePackage{lineno}
+
+% fails in `pagewise' mode! (hangs in a loop reading the aux-file)
+
+\def\internallinenumbers{\setrunninglinenumbers 
+     \let\@@par\internallinenumberpar
+     \ifx\@par\@@@par\let\@par\internallinenumberpar\fi
+     \ifx\par\@@@par\let\par\internallinenumberpar\fi
+     \ifx\@par\linenumberpar\let\@par\internallinenumberpar\fi
+     \ifx\par\linenumberpar\let\par\internallinenumberpar\fi
+     \@ifnextchar[{\resetlinenumber}%]
+                 {\@ifstar{\let\c@linenumber\c@internallinenumber
+                           \c@linenumber\@ne}{}}%
+     }
+
+\let\endinternallinenumbers\endlinenumbers
+\@namedef{internallinenumbers*}{\internallinenumbers*}
+\expandafter\let\csname endinternallinenumbers*\endcsname\endlinenumbers
+
+\newcount\c@internallinenumber   % This is for the independent mode
+\newcount\c@internallinenumbers  % This counts the numbers of lines
+                                 % in the last paragraph. Dont use a
+				 % tempcnt, do avoid restrictions on 
+                                 % \LineNumber
+
+\def\internallinenumberpar{\ifvmode\@@@par\else\ifinner\@@@par\else\@@@par
+     \begingroup
+        \c@internallinenumbers\prevgraf
+        \setbox\@tempboxa\hbox{\vbox{\makeinternalLinenumbers}}%
+        \dp\@tempboxa\prevdepth
+        \ht\@tempboxa\z@
+        \nobreak\vskip-\prevdepth
+        \nointerlineskip\box\@tempboxa
+     \endgroup 
+     \fi\fi
+     }
+
+\def\makeinternalLinenumbers{\ifnum\c@internallinenumbers>0\relax
+   \hbox to\z@{\makeLineNumber}\global\advance\c@linenumber\@ne
+   \advance\c@internallinenumbers\m@ne
+   \expandafter\makeinternalLinenumbers\fi
+   }

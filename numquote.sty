@@ -1,0 +1,42 @@
+% quote and quotation environment with linenumbers 
+% (c) Stephan I. B"ottcher 1996
+%
+% $Header: /home/blaulicht/stephan/cvs@inspjury/latex/lineno/Attic/numquote.sty,v 1.1 1996/07/29 14:58:02 stephan Exp $
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{numquote}[1996/06/05 quote environment with line numbers]
+
+% \begin{numquote}      numbered from  1
+% \begin{numquote}[15]  numbered from 15
+% \begin{numquote*}     numbers continue
+% \begin{numquote}*     numbers continue
+
+% The same for {numquotation}
+
+% Option [*] reverses the behavior w/ or w/o *.
+
+\RequirePackage{lineno}
+
+\newcommand\quotelinenumbers
+    {\@ifstar\linenumbers{\@ifnextchar[\linenumbers{\linenumbers*}}}
+
+\DeclareOption{*}{\let\quotelinenumbers\linenumbers}
+\ProcessOptions
+
+\newdimen\quotelinenumbersep
+\quotelinenumbersep=\linenumbersep
+\let\quotelinenumberfont\linenumberfont
+
+\newcommand\numlist
+     {\leftlinenumbers
+      \linenumbersep\quotelinenumbersep
+      \let\linenumberfont\quotelinenumberfont
+      \addtolength{\linenumbersep}{-\@totalleftmargin}%
+      \quotelinenumbers
+      }
+
+\newenvironment{numquote}{\quote\numlist}{\endquote}
+\newenvironment{numquotation}{\quotation\numlist}{\enquotation}
+\newenvironment{numquote*}{\quote\numlist*}{\endquote}
+\newenvironment{numquotation*}{\quotation\numlist*}{\enquotation}
+\endinput
