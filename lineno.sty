@@ -1,9 +1,9 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                        To pretty-print this file, feed it to a unix shell!
 %%%
-%%% $Id: lineno.sty,v 3.8 2001/07/31 02:57:33 stephan Exp $
+%%% $Id: lineno.sty,v 3.9 2001/08/03 03:29:18 stephan Exp $
 %%%
-%%% Copyright 1995--2001 Stephan I. B"ottcher <stephan@nevis1.columbia.edu>
+%%% Copyright 1995--2001 Stephan I. B"ottcher <stephan@nevis.columbia.edu>
 %%%
 %%% This program can be redistributed and/or modified under the terms
 %%% of the LaTeX Project Public License Distributed from CTAN
@@ -15,10 +15,10 @@
 %
 %                                                                      \title{
 %                                                             \texttt{\itshape
-%         lineno.sty \ v3.07 2001/07/30
+%         lineno.sty \ v3.08 2001/08/02
 %                                                                      }\\\ \\
-%        A \LaTeX\ style option to attach                  
-% \\        Line numbers on paragraphs
+%          A \LaTeX\ package  to attach                  
+% \\        Line numbers to paragraphs
 %                                                                    }\author{
 %              Stephan I. B\"ottcher                    
 %                                                                      }\date{
@@ -91,7 +91,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1994/11/04]
 \ProvidesPackage{lineno}
-  [2001/07/30 line numbers on paragraphs v3.07]
+  [2001/08/02 line numbers on paragraphs v3.08]
 
 %% v1.00 1995/03/31  SIB: first release for Petras interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -112,9 +112,12 @@
 %% v3.05a 2001/01/04 SiB: [fleqn] detection reverted for eqnarray. 
 %% v3.06 2001/01/17  SiB: [twocolumn] mode support.
 %% v3.07 2001/07/30  SiB: [hyperref] option obsoleted.
+%% v3.08 2001/08/02  SiB: linenomath wrapping for \[ \]
 %%
 %% Acknowledgements:
 %% v3.06:  Donald Arseneau, pointed to mparhack.sty.
+%% v3.07+: Frank Mittelbach, points out inconsistencies in the
+%%         user interface.
 %
 %                                                                    \section{
 %          Put the line numbers to the lines
@@ -209,16 +212,6 @@
 % it's job globally.  We need to do it locally here.
 
 \def\LineNoTest{%
-%%%  \message{\string\output: 
-%%%           \string\deadcycles = \the\deadcycles,
-%%%           \string\outputpenalty = \the\outputpenalty,
-%%%           \string\holdinginserts = \the\holdinginserts,}
-%%%  \message{\string\insertpenalties = \the\insertpenalties,
-%%%           \string\ht\string\footins = \the\ht\footins,
-%%%           \string\insertpenalties = \the\insertpenalties,
-%%%           }%
-%%%  \showbox\@cclv  \showlists
-%%%
   \let\@@par\@@@par
   \ifnum\interlinepenalty<-\linenopenaltypar
      \advance\interlinepenalty-\linenopenalty
@@ -279,7 +272,7 @@
 % line numbering. And we need to allow pagebreaks after a
 % paragraph. 
 % 
-% New (2.05beta): the prevgraf test.  A paragraph the ends with a
+% New (2.05beta): the prevgraf test.  A paragraph that ends with a
 % displayed equation, a ~\noindent\par~ or ~wrapfig.sty~ produce empty
 % paragraphs. These should not get a spurious line number via
 % ~\linenopenaltypar~. 
@@ -342,7 +335,7 @@
 
 % Finally, it is a \LaTeX\ style, so we provide for the use
 % of environments, including the suppression of the
-% following paragraphs indentation.
+% following paragraph's indentation.
 
 %%% TO DO: add \par to \linenumbers, if called from an environment.
 %%% To DO: add an \@endpe hack if \linenumbers are turned on
@@ -1099,23 +1092,30 @@
 %
 % (New 3.05a)  for ~{eqnarray}~s we rather keep the
 % old trick.                            (/New 3.05a)
+%
+% (New 3.08) Wrap ~\[~ and ~\]~ into ~{linenomath}~, 
+% instead of ~{displaymath}~.  Also save the definition
+% of ~\equation~, instead of replicating the current 
+% \LaTeX\ definition.                    (/New 3.08)
 
 \ifx\do@mlineno\@empty
  \@ifundefined{mathindent}{
 
-  \renewenvironment{displaymath}
-     {\linenomath\[}
-     {\]\endlinenomath}
+  \let\LN@displaymath\[
+  \let\LN@enddisplaymath\]
+  \renewcommand\[{\linenomath\LN@displaymath}
+  \renewcommand\]{\LN@enddisplaymath\endlinenomath}
 
+  \let\LN@equation\equation
+  \let\LN@endequation\endequation
   \renewenvironment{equation}
-     {\linenomath$$\refstepcounter{equation}}
-     {\eqno\hbox{\@eqnnum}$$\endlinenomath}
+     {\linenomath\LN@equation}
+     {\LN@endequation\endlinenomath}
 
- }% \@ifundefined{mathindent}
+  }% \@ifundefined{mathindent}
 
   \let\LN@eqnarray\eqnarray
   \let\LN@endeqnarray\endeqnarray
-
   \renewenvironment{eqnarray}
      {\linenomath\LN@eqnarray}
      {\LN@endeqnarray\endlinenomath}

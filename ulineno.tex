@@ -5,7 +5,7 @@
 % archives in directory macros/latex/base/lppl.txt; either
 % version 1 of the License, or any later version.
 %
-% $Id: ulineno.tex,v 3.0 1999/06/11 22:40:47 stephan Exp $
+% $Id: ulineno.tex,v 3.1 2001/08/03 03:29:19 stephan Exp $
 %
 % 1999-06-11 SiB: updated for lineno.sty v3.00
 
@@ -13,8 +13,8 @@
 
                                               \date{\def\$##1: ##2 ##3${##2}%$
                                                                       Version 
-   \$Revision: 3.0 $, 
-   \$Date: 1999/06/11 22:40:47 $
+   \$Revision: 3.1 $, 
+   \$Date: 2001/08/03 03:29:19 $
                                                                              }
                                  \def\lineno.sty{\texttt{\itshape lineno.sty}}
 
@@ -785,6 +785,7 @@ The \texttt{\itshape mlineno} extension redefines the standard \LaTeX\
 display math environments to wrap themselves automatically into
 ~{linenomath}~:
 \begin{quote}\obeylines
+   ~\[~ ~\]~
    ~{displaymath}~
    ~{equation}~
    ~{eqnarray}~
