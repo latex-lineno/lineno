@@ -1,8 +1,11 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                For typesetting the doc,  feed this file into a unix shell!
 %%%
-%%% $Id: lineno.sty,v 1.2 1996/09/17 12:30:22 stephan Exp $
+%%% $Id: lineno.sty,v 1.3 1997/03/23 08:27:13 stephan Exp $
 %%% $Log: lineno.sty,v $
+%%% Revision 1.3  1997/03/23 08:27:13  stephan
+%%% \@reinserts added
+%%%
 %%% Revision 1.2  1996/09/17 12:30:22  stephan
 %%% CVS Id, Version, and date fixed
 %%%
@@ -12,7 +15,7 @@
 %
 %                                                                      \title{
 %                                                             \texttt{\itshape
-%           lineno.sty \ v2.01 1996/09/17
+%           lineno.sty \ v2.02 1997/03/17
 %                                                                      }\\\ \\
 %        A \LaTeX\ style option to attach                  
 % \\        Line numbers on paragraphs
@@ -81,7 +84,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{lineno}
-  [1996/09/17 line numbers on paragraphs (c) SIB v2.01]
+  [1997/03/17 line numbers on paragraphs (c) SIB v2.02]
 
 %% v1.00 1995/03/31  SIB: first release for Petras interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -89,6 +92,7 @@
 %% v1.03 1995/12/05  SIB: pagewise: try to reduce the hash-size requirements
 %% v2.00 1995/12/06  SIB:   .. it works, new user interface
 %% v2.01 1996/09/17  SIB: put into CVS
+%% v2.02 1997/03/17  SIB: add: \@reinserts, for footnotes
 %
 %                                                                    \section{
 %          Put the line numbers to the lines
@@ -103,13 +107,15 @@
 \newcount\linenopenalty\linenopenalty=-100000
 \mathchardef\linenopenaltypar=25000
 
-% So let's make a hook to ~\output~,  the direct way.
+% So let's make a hook to ~\output~,  the direct way. The \LaTeX\ 
+% macro ~\@reinserts~ puts the footnotes back on the page.
 
 \output=\expandafter{%
         \expandafter \LineNoTest
         \expandafter \if@tempswa
                        \the\output
                      \else
+                       \@reinserts
                        \MakeLineNo
                      \fi
                      }
@@ -126,17 +132,17 @@
 % altogether with the ~\@nobreak~ switch.
 
 \def\LineNoTest{%
-   \ifnum\interlinepenalty<-\linenopenaltypar
-      \advance\interlinepenalty-\linenopenalty
-      \@nobreaktrue
-      \fi
-   \@tempswatrue
-   \ifnum\outputpenalty>-\linenopenaltypar\else
-      \ifnum\outputpenalty>-175000\relax
-         \@tempswafalse
-      \fi
-   \fi
-   }
+  \ifnum\interlinepenalty<-\linenopenaltypar
+     \advance\interlinepenalty-\linenopenalty
+     \@nobreaktrue
+     \fi
+  \@tempswatrue
+  \ifnum\outputpenalty>-\linenopenaltypar\else
+     \ifnum\outputpenalty>-175000\relax
+       \@tempswafalse
+       \fi
+     \fi
+  }
 
 % We have to return all the page to the current page, and
 % add a box with the line number, without adding
