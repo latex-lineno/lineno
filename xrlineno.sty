@@ -1,0 +1,15 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{xrlineno}
+         [2001/06/25 v1.00 eXternal References with lineno.]
+\RequirePackage{lineno}
+\RequirePackage{xr}
+\long\def\XR@test#1#2#3#4\XR@{%
+  \ifx#1\newlabel
+    \newlabel{\XR@prefix#2}{#3}%
+  \else\ifx#1\@input
+     \edef\XR@list{\XR@list#2\relax}%
+  \else\ifx#1\@LN
+     #1{#2}{#3}%
+  \fi\fi\fi
+  \ifeof\@inputcheck\expandafter\XR@aux
+  \else\expandafter\XR@read\fi}
