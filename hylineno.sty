@@ -1,0 +1,26 @@
+% Make lineno.sty work with hyperref
+%
+% $Id: hylineno.sty,v 1.1 2000/07/01 16:00:50 stephan Exp $
+%
+% (c) Stephan I. B"ottcher <stephan@nevis.columbia.edu>
+%
+% This is a temporary hack.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{hylineno}[2000/07/01 hyperref patch for lineno]
+
+\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{lineno}}
+\ProcessOptions*
+\RequirePackage{hyperref}
+\RequirePackage{lineno}
+
+\def\@addmarginpar{%
+   \ifnum\count\@currbox>-2\relax
+     \expandafter\@LN@addmarginpar
+   \else
+     \@cons\@freelist\@currbox
+     \protected@write\@auxout{}{%
+         \string\newlabel
+            {\csname @LNL@\the\@currbox\endcsname}%
+            {{\theLineNumber}{\thepage}{}{}{}}}%
+   \fi}
