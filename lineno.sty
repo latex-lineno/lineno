@@ -1,7 +1,7 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                        To pretty-print this file, feed it to a unix shell!
 %%%
-%%% $Id: lineno.sty,v 3.3 2000/07/02 02:35:47 stephan Exp $
+%%% $Id: lineno.sty,v 3.4 2000/12/17 16:53:55 stephan Exp $
 %%%
 %%% Copyright 1995--1999 Stephan I. B"ottcher <stephan@nevis1.columbia.edu>
 %%%
@@ -15,7 +15,7 @@
 %
 %                                                                      \title{
 %                                                             \texttt{\itshape
-%         lineno.sty \ v3.03 2000/03/10
+%         lineno.sty \ v3.04 2000/12/15
 %                                                                      }\\\ \\
 %        A \LaTeX\ style option to attach                  
 % \\        Line numbers on paragraphs
@@ -91,7 +91,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1994/11/04]
 \ProvidesPackage{lineno}
-  [2000/03/10 line numbers on paragraphs v3.03]
+  [2000/12/17 line numbers on paragraphs v3.04]
 
 %% v1.00 1995/03/31  SIB: first release for Petras interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -107,6 +107,8 @@
 %% v3.01 1999/08/28  SiB: \@reinserts -> \holdinginserts
 %% v3.02 2000/03/10  SiB: \@LN@output
 %% v3.03 2000/07/01  SiB: \@LN@ExtraLabelItems, hyperref
+%% v3.04 2000/12/17  SiB: longtable compatibility.
+%
 %
 %                                                                    \section{
 %          Put the line numbers to the lines
@@ -117,9 +119,13 @@
 % paragraph,  except the last,  where we trigger by ~\par~.
 % The ~\linenopenalty~ is small enough to compensate a bunch of
 % penalties (e.g., with ~\samepage~).
+%
+% (New v3.04)            Longtable uses 
+% ~\penaly~-30000.  The lineno penalty range was 
+% shrunk to $-188000 \dots -32000$.  (/New v3.04)
 
 \newcount\linenopenalty\linenopenalty=-100000
-\mathchardef\linenopenaltypar=25000
+\mathchardef\linenopenaltypar=32000
 
 % So let's make a hook to ~\output~,  the direct way. The \LaTeX\ 
 % macro ~\@reinserts~ puts the footnotes back on the page.
@@ -213,7 +219,7 @@
      \fi
   \@tempswatrue
   \ifnum\outputpenalty>-\linenopenaltypar\else
-     \ifnum\outputpenalty>-175000\relax
+     \ifnum\outputpenalty>-188000\relax
        \@tempswafalse
        \fi
      \fi
