@@ -2,40 +2,55 @@ README
                           lineno.sty
                    (c) Stephan I. B"ottcher
                      stephan@alzt.tau.ac.il
-$Id: README,v 1.1 1996/09/17 12:30:19 stephan Exp $
-$Log: README,v $
-Revision 1.1  1996/09/17 12:30:19  stephan
-CVS Id, Version, and date fixed
+
+$Id: README,v 1.2 1998/03/20 11:57:19 stephan Exp $
 
 
-This LaTeX2e package provides line numbers on paragraphs.  After
-TeX has broken a paragraph into lines there will be line numbers
-attached to them, with the possibility to make references through the
-LaTeX \ref, \pageref cross reference mechanism.
+This package provides line numbers on paragraphs.  After TeX has
+broken a paragraph into lines there will be line numbers attached to
+them, with the possibility to make references through the LaTeX \ref,
+\pageref cross reference mechanism.
 
-Take the style-file `lineno.sty', and feed it to a unix shell, this will
-produce the documentation.  If you have neither UNIX nor AWK, you may need
-to download the extracted documentation source as well `lineno.tex'
+Take the style-file `lineno.sty', and feed it to a unix shell, this
+will produce the source documentation.  If you have neither UNIX nor
+AWK, you may need to download the extracted documentation source as
+well `lineno.tex'
 
     csh> source ./lineo.sty
+    sh>  . ./lineno.sty
 
-please ignore the error message at the beginning about the iffalse.
+Please ignore the error message at the beginning about the iffalse.
 After LaTeX run the document four times,  print the resulting
 `lineno.dvi'.  You will need LaTeX2e.  
 
-The new version v2.00 supports numbering only one in five lines and
-switching the linenumbers from left to right side of the page in twoside
-mode.
 
-There are two new additions to lineno.sty:
+Since version v2.00, numbering only one in five lines and switching
+the linenumbers from left to right side of the page in twoside mode is
+supported.
+
+Since version 2.04, lineno.sty defines a wrapper environment for
+display math.
+
+   \begin{linenomath}
+      $$ any kind of display math $$
+   \end{linenomath}
+
+which should solve the problem to get linenumbers before displays.
+Line numbers on he display itself are optional.
+
+There are some additions to lineno.sty:
    
-  ilineno.sty:   linenumbers in internal vertical mode, like in \parbox
+  ilineno.sty:   Linenumbers in internal vertical mode, like in \parbox
                  or \table.   
 
-  numquote.sty:  defines quote and quotation environments with
+  mlineno.sty:   Redefine display math environments, to make lineno
+                 work before displays.
+
+  numquote.sty:  Defines quote and quotation environments with
                  linenumbers, with the numbers indented together with
                  the quoted text. 
 
+
 Please have a look at a similar work of Michal Jaegermann and James
 Fortune:
-  CTAN: /tex-archive/macros/latex/contrib/supported/numline/
+         CTAN:macros/latex/contrib/supported/numline/
