@@ -1,14 +1,14 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                For typesetting the doc,  feed this file into a unix shell!
 %%%
-%%% $Id: lineno.sty,v 1.5 1998/03/09 16:13:39 stephan Exp $
+%%% $Id: lineno.sty,v 1.6 1998/03/10 09:44:36 stephan Exp $
 %%%
 %                                      \documentclass[a4paper,12pt]{article}%D
 %                                                        \usepackage{lineno}%D
 %
 %                                                                      \title{
 %                                                             \texttt{\itshape
-%           lineno.sty \ v2.04beta 1998/03/09
+%        lineno.sty \ v2.04beta 1998/03/10
 %                                                                      }\\\ \\
 %        A \LaTeX\ style option to attach                  
 % \\        Line numbers on paragraphs
@@ -16,11 +16,8 @@
 %              Stephan I. B\"ottcher                    
 %                                                                      }\date{
 %              stephan@alzt.tau.ac.il                   
-% \\              boettcher@desy.de                     
-%%                                                                     \\[5ex]
-%%       Use this file, distribute it, improve it!        
-%% \\         Please send me your comments
-%% \\  and any changed versions that you distribute!     
+%% \\            boettcher@desy.de                     
+%% \\        Stephan.Boettcher@cern.ch                     
 %                                                                          \\}
 %
 %
@@ -73,11 +70,12 @@
 % precisely refer to passages in the text.  It works well
 % together with ~\marginpar~s, but not with displaymath. 
 %
-% This style option is written for \LaTeXe.
+% This style option is written for \LaTeXe, later than November 1994,
+% since we need the ~\protected@write~ macro.
 
-\NeedsTeXFormat{LaTeX2e}
+\NeedsTeXFormat{LaTeX2e}[1994/11/04]
 \ProvidesPackage{lineno}
-  [1998/03/09 line numbers on paragraphs (c) SIB v2.04beta]
+  [1998/03/10 line numbers on paragraphs (c) SIB v2.04beta]
 
 %% v1.00 1995/03/31  SIB: first release for Petras interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -213,11 +211,11 @@
   \ifx\par\linenumberpar\let\par\@@@par\fi
   }
 
-% What happens with a display?  Since ~\par~ is not executed,
+% What happens with a display math?  Since ~\par~ is not executed,
 % when breaking the lines before a display, they will not get
 % line numbers.  Sorry, but I do not dare to change
 % ~\interlinepenalty~ globally, nor do I want to redefine
-% the display math environments.  Do that, if you really need it.
+% the display math environments here.
 % $$
 %    display \ math
 % $$
@@ -239,6 +237,9 @@
 % following paragraphs indentation.
 
 %%% TO DO: add \par to \linenumbers, if called from an environment.
+%%% To DO: add an \@endpe hack if \linenumbers are turned on
+%%%        in horizontal mode. {\par\parskip\z@\noindent} or
+%%%        something.
 
 \@namedef{linenumbers*}{\par\linenumbers*}
 \@namedef{runninglinenumbers*}{\par\runninglinenumbers*}
@@ -288,7 +289,7 @@
 % including multline displays.
 % 
 % First, here are two macros to turn
-% on linenumbering on paragpaphs preceeding displays, with
+% on linenumbering on paragraphs preceeding displays, with
 % numbering the lines of the display itself, or without.
 % The ~\ifx..~ tests if line numbering is turned on.  It
 % does not harm to add these wrappers in sections that are
@@ -378,11 +379,12 @@
 % ~\pageref{~<foo>~}~ you place a ~\linelabel{~<foo>~}~ at
 % that place.
 %
-%                   \linelabel{demo}%
+%                   \linelabel{demo}
 %                   \marginpar{\tiny\raggedright
-%                       It works: This paragraph starts on page
-%                       \pageref{demo}, line \ref{demo}. 
-%                       }
+%                       See if it works: This paragraph
+%                       starts on page \pageref{demo}, line
+%                       \ref{demo}.  
+%                       }%
 % If you use this command outside a ~\linenumbers~
 % paragraph, you will get references to some junky
 % line numbers, sorry.  But we don't disable the command,
@@ -399,8 +401,9 @@
 % ~\thelinenumber~ and ~\thepage~ at the time of the
 % ~\shipout~.
 %
-% A ~\linelabel~ is allowed only in outer horizontal or
-% vertical modes.
+% A ~\linelabel~ is allowed only in outer horizontal mode.
+% In outer vertical mode we start a paragraph, and ignore
+% trailing spaces (by fooling ~\@esphack~).
 %
 % The argument of ~\linelabel~ is put into a macro with a
 % name derived from the number of the allocated float box.
@@ -408,13 +411,17 @@
 
 \def\linelabel#1{%
    \ifvmode
-       \ifinner \else \leavevmode \fi
-     \fi
+       \ifinner \else 
+          \leavevmode \@bsphack \@savsk\p@
+       \fi
+   \else
+       \@bsphack
+   \fi
    \ifhmode
      \ifinner
        \@parmoderr
      \else
-       \@bsphack\@floatpenalty -\@Mii
+       \@floatpenalty -\@Mii
        \@next\@currbox\@freelist
            {\global\count\@currbox-2%
             \expandafter\gdef\csname @LNL@\the\@currbox\endcsname{#1}}%
@@ -422,20 +429,19 @@
        \begingroup
            \setbox\@currbox \color@vbox \vbox \bgroup \end@float
        \endgroup
-       \global \@ignorefalse \@esphack
+       \@ignorefalse \@esphack
      \fi
    \else
      \@parmoderr
    \fi
    }
 
-
 %                                                        \modulolinenumbers[3]
 %                                                                    \section{
 %               The appearance of the line numbers
 %                                                          }\label{appearance}
 % The line numbers are set as ~\tiny\sffamily\arabic{linenumber}~,
-% $10pt$ left of the text.  You may add options to place it
+% $10pt$ left of the text.  With options to place it
 % right of the text, or . . .
 %
 %      . . . here are the hooks:
@@ -453,10 +459,9 @@
 \linenumberwidth=10pt
 \linenumbersep=10pt
 
-% Oh well, some of the suggested `customization' has been
-% done,  particularly the placement of the numbers.  Margin
-% switching requires ~pagewise~ numbering mode, but choosing
-% the left or right margin for the numbers always works.
+% Margin switching requires ~pagewise~ numbering mode, but
+% choosing the left or right margin for the numbers always
+% works. 
 
 \def\switchlinenumbers{\@ifstar
     {\let\makeLineNumberOdd\makeLineNumberRight
@@ -711,7 +716,7 @@
 %                                 line \ref{demo}, and back here
 %                                 on page \pageref{demo2}, line
 %                                 \ref{demo2}. 
-%                                 }
+%                                 }%
 % To separate the official hooks from the internals there is
 % this equivalence, to hook in later for whatever purpose:
 
@@ -869,12 +874,12 @@
 \DeclareOption{modulo}{\modulolinenumbers\relax}
 
 % The package option ~displaymath~ switches the behavior of
-% the ~{linenomath}~ environment with its start form.
+% the ~{linenomath}~ environment with its star-form.
 % Without this option, the ~{linenomath}~ environment does
 % not number the lines of the display, while the star-form
 % does.  With this option, its just the opposite.
 
-\DeclareOption{displaymath}{\linenumberdisplays}
+\DeclareOption{displaymath}{\linenumberdisplaymath}
 
 \ProcessOptions
 
@@ -932,7 +937,7 @@
 %                                                                        \item
 % [|\switchlinenumbers*]                                                \ \par
 %     Causes margin switching in pagewise modes. With the
-%     star,  put the line numbers on the inner margim.
+%     star,  put the line numbers on the inner margin.
 %                                                                        \item
 % [|\leftlinenumbers*]                                                  \ \par
 %                                                                        \item
