@@ -1,7 +1,7 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                        To pretty-print this file, feed it to a unix shell!
 %%%
-%%% $Id: lineno.sty,v 3.4 2000/12/17 16:53:55 stephan Exp $
+%%% $Id: lineno.sty,v 3.5 2001/01/03 04:29:14 stephan Exp $
 %%%
 %%% Copyright 1995--1999 Stephan I. B"ottcher <stephan@nevis1.columbia.edu>
 %%%
@@ -15,7 +15,7 @@
 %
 %                                                                      \title{
 %                                                             \texttt{\itshape
-%         lineno.sty \ v3.04 2000/12/15
+%         lineno.sty \ v3.05 2001/01/02
 %                                                                      }\\\ \\
 %        A \LaTeX\ style option to attach                  
 % \\        Line numbers on paragraphs
@@ -91,7 +91,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1994/11/04]
 \ProvidesPackage{lineno}
-  [2000/12/17 line numbers on paragraphs v3.04]
+  [2001/01/02 line numbers on paragraphs v3.05]
 
 %% v1.00 1995/03/31  SIB: first release for Petras interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -108,6 +108,7 @@
 %% v3.02 2000/03/10  SiB: \@LN@output
 %% v3.03 2000/07/01  SiB: \@LN@ExtraLabelItems, hyperref
 %% v3.04 2000/12/17  SiB: longtable compatibility.
+%% v3.05 2001/01/02  SiB: [fleqn] detection. 
 %
 %
 %                                                                    \section{
@@ -1030,8 +1031,16 @@
 %
 %  The standard \LaTeX\ display math environments are
 %  wrapped in a ~{linenomath}~ environment.
+%
+% (New 3.05)  The ~[fleqn]~ option of the standard
+% \LaTeX\ classes defines the display math
+% environments such that line numbers appear just
+% fine.  Thus, we need not do any tricks when
+% ~[fleqn]~ is loaded, as indicated by presents of
+% the ~\mathindent~ register.           (/New 3.05)
 
 \ifx\do@mlineno\@empty
+ \@ifundefined{mathindent}{
 
   \renewenvironment{displaymath}
      {\linenomath\[}
@@ -1047,7 +1056,8 @@
   \renewenvironment{eqnarray}
      {\linenomath\LN@eqnarray}
      {\LN@endeqnarray\endlinenomath}
-
+  
+ }% \@ifundefined{mathindent}
 \fi
 
 %                                                              \subsubsection{
@@ -1098,8 +1108,8 @@
 %      Line number references with offset
 %                                                                            }
 %
-% This extension to defines macros to refer to line
-% numbers with a offset, e.g., to refer to a line
+% This extension defines macros to refer to line
+% numbers with an offset, e.g., to refer to a line
 % which cannot be labeled directly (display math).
 % This was formerly knows as ~rlineno.sty~.
 %
@@ -1311,7 +1321,7 @@
 %     Number the lines of a display math in a ~{linenomath}~
 %     environment, but do not in a ~{linenomath*}~
 %     environment.  This is used by the package option
-%     ~[displaymath]~. 
+%     ~[mathlines]~. 
 %                                                                        \item
 % [|\nolinenumberdisplaymath]                                           \ \par
 %     Do not Number the lines of a display math in a
