@@ -1,7 +1,7 @@
 README
-                      lineno.sty  v3.02
+                      lineno.sty  v3.03
 
-     $Id: README,v 3.2 2000/03/10 07:11:27 stephan Exp $
+     $Id: README,v 3.3 2000/07/02 02:35:47 stephan Exp $
 
 The LaTeX package lineno.sty provides line numbers on paragraphs.
 After TeX has broken a paragraph into lines there will be line numbers
@@ -22,10 +22,12 @@ Todo:
 
 Changes:
 
-   1999-03-02 SIB: Added LPPL License
-   1999-06-11 SiB: included the extensions into lineno.sty
-   1999-08-28 SiB: fixed the footnote problem using \holdinginserts
+   2000-07-01 SiB: extra \newlabel items, [hyperref] option
    2000-03-10 SiB: indirect call of \output, to work with multicol.
+   1999-08-28 SiB: fixed the footnote problem using \holdinginserts
+   1999-06-11 SiB: included the extensions into lineno.sty
+   1999-03-02 SIB: Added LPPL License
+
 
 Files:
 
@@ -65,6 +67,9 @@ Compatibility with other packages:
    multicol.sty  works partly since 3.02.  
                  Do NOT use \linelabel.  Do NOT put a multicol in
                  internal vertical mode {table}, {figure}, etc.
+
+   hyperref.sty  \ref to a \linelabel works since v3.03, with
+                 [hyperref] option.
 
 
 To print the documented source:

@@ -1,7 +1,7 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                        To pretty-print this file, feed it to a unix shell!
 %%%
-%%% $Id: lineno.sty,v 3.2 2000/03/10 07:11:27 stephan Exp $
+%%% $Id: lineno.sty,v 3.3 2000/07/02 02:35:47 stephan Exp $
 %%%
 %%% Copyright 1995--1999 Stephan I. B"ottcher <stephan@nevis1.columbia.edu>
 %%%
@@ -15,7 +15,7 @@
 %
 %                                                                      \title{
 %                                                             \texttt{\itshape
-%         lineno.sty \ v3.02 2000/03/10
+%         lineno.sty \ v3.03 2000/03/10
 %                                                                      }\\\ \\
 %        A \LaTeX\ style option to attach                  
 % \\        Line numbers on paragraphs
@@ -91,7 +91,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1994/11/04]
 \ProvidesPackage{lineno}
-  [2000/03/10 line numbers on paragraphs v3.02]
+  [2000/03/10 line numbers on paragraphs v3.03]
 
 %% v1.00 1995/03/31  SIB: first release for Petras interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -106,6 +106,7 @@
 %% v3.00 1999/06/11  SiB: include the extension in the main file
 %% v3.01 1999/08/28  SiB: \@reinserts -> \holdinginserts
 %% v3.02 2000/03/10  SiB: \@LN@output
+%% v3.03 2000/07/01  SiB: \@LN@ExtraLabelItems, hyperref
 %
 %                                                                    \section{
 %          Put the line numbers to the lines
@@ -466,6 +467,8 @@
 % This allows to hook in, as done below for pagewise line
 % numbering. 
 %
+% (New v3.03) The ~\@LN@ExtraLabelItems~ are added for a hook
+% to keep packages like ~{hyperref}~ happy.      (/New v3.03)
 
 \let\@LN@addmarginpar\@addmarginpar
 \def\@addmarginpar{%
@@ -476,8 +479,10 @@
      \protected@write\@auxout{}{%
          \string\newlabel
             {\csname @LNL@\the\@currbox\endcsname}%
-            {{\theLineNumber}{\thepage}}}%
+            {{\theLineNumber}{\thepage}\@LN@ExtraLabelItems}}%
    \fi}
+
+\let\@LN@ExtraLabelItems\@empty
 
 %                                                                 \subsection{
 %       The linelabel command
@@ -996,6 +1001,13 @@
 
 \let\do@mlineno\relax
 \DeclareOption{displaymath}{\let\do@mlineno\@empty}
+
+% The ~hyperref~ package, via ~nameref~, requires three more 
+% groups in the second argment of a ~\newlabel~.  Well, why 
+% shouldn't it get them?  TODO: This should be automagically 
+% detected ~\AtBeginDocument~. 
+
+\DeclareOption{hyperref}{\def\@LN@ExtraLabelItems{{}{}{}}}
 
 \ProcessOptions
 
