@@ -1,7 +1,7 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                        To pretty-print this file, feed it to a unix shell!
 %%%
-%%% $Id: lineno.sty,v 3.13 2003/04/15 18:09:35 stephan Exp $
+%%% $Id: lineno.sty,v 3.14 2003/11/12 18:48:52 stephan Exp $
 %%%
 %%% Copyright 1995--2003 Stephan I. B"ottcher <boettcher@physik.uni-kiel.de>
 %%%
@@ -15,7 +15,7 @@
 %
 %                                                                      \title{
 %                                                             \texttt{\itshape
-%         lineno.sty \ v3.10 2003/04/15
+%         lineno.sty \ v3.10a 2003/11/12
 %                                                                      }\\\ \\
 %          A \LaTeX\ package  to attach                  
 % \\        Line numbers to paragraphs
@@ -91,7 +91,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1994/11/04]
 \ProvidesPackage{lineno}
-  [2003/04/15 line numbers on paragraphs v3.10]
+  [2003/11/12 line numbers on paragraphs v3.10a]
 
 %% v1.00 1995/03/31  SIB: first release for Petras interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -117,6 +117,7 @@
 %% v3.08b 2002/01/27  SiB: enquotation typo fix
 %% v3.09 2003/01/14  SIB: hyperref detection fix
 %% v3.10 2003/04/15  FMi: \MakeLineNo fix for deep boxes
+%% v3.10a 2003/11/12  Uwe Lück: \lineref typo fix
 %%
 %% Acknowledgements:
 %% v3.06:  Donald Arseneau, pointed to mparhack.sty.
@@ -1205,7 +1206,7 @@
 %                                                                  \end{quote}
 
 \newcommand\lineref{%
-  \ifx\c@linenumner\c@runninglinenumner
+  \ifx\c@linenumber\c@runninglinenumber
      \expandafter\linerefr
   \else
      \expandafter\linerefp
