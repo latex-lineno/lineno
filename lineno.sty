@@ -1,22 +1,29 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                For typesetting the doc,  feed this file into a unix shell!
 %%%
-%%% $Id: lineno.sty,v 1.9 1998/04/26 11:23:43 stephan Exp $
+%%% $Id: lineno.sty,v 1.10 1999/03/02 14:32:45 stephan Exp $
+%%%
+%%% Copyright 1995--1999 Stephan B"ottcher <stephan@nevis1.columbia.edu>
+%%%
+%%% This program can be redistributed and/or modified under the terms
+%%% of the LaTeX Project Public License Distributed from CTAN
+%%% archives in directory macros/latex/base/lppl.txt; either
+%%% version 1 of the License, or any later version.
 %%%
 %                                      \documentclass[a4paper,12pt]{article}%D
 %                                                        \usepackage{lineno}%D
 %
 %                                                                      \title{
 %                                                             \texttt{\itshape
-%        lineno.sty \ v2.05beta 1998/04/26
+%         lineno.sty \ v2.06 1999/03/02
 %                                                                      }\\\ \\
 %        A \LaTeX\ style option to attach                  
 % \\        Line numbers on paragraphs
 %                                                                    }\author{
 %              Stephan I. B\"ottcher                    
 %                                                                      }\date{
-%              stephan@alzt.tau.ac.il                   
-%% \\            boettcher@desy.de                     
+%           stephan@nevis1.columbia.edu                   
+%% \\        Stephan.Boettcher@desy.de                     
 %% \\        Stephan.Boettcher@cern.ch                     
 %                                                                          \\}
 %
@@ -75,7 +82,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1994/11/04]
 \ProvidesPackage{lineno}
-  [1998/04/26 line numbers on paragraphs (c) SIB v2.05beta]
+  [1999/03/02 line numbers on paragraphs v2.06]
 
 %% v1.00 1995/03/31  SIB: first release for Petras interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -86,6 +93,7 @@
 %% v2.02 1997/03/17  SIB: add: \@reinserts, for footnotes
 %% v2.04 1998/03/09  SIB: add: linenomath environment
 %% v2.05 1998/04/26  SIB: add: prevgraf test
+%% v2.06 1999/03/02  SIB: LPPL added
 %
 %                                                                    \section{
 %          Put the line numbers to the lines

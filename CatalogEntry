@@ -1,0 +1,33 @@
+;; $Id: CatalogEntry,v 1.1 1999/03/02 14:32:42 stephan Exp $
+
+  <entry id="lineno"
+         datestamp="02 Mar 1999" 
+         modifier="Graham.Williams@cmis.csiro.au">
+    <about>
+      <name>lineno</name>
+      <title>Line numbers on paragraphs.</title>
+      <author>
+        <name>Stephan I. Boettcher</name>
+        <email>stephan@nevis1.columbia.edu</email>
+      </author>
+      <home>
+        http://www.nevis.columbia.edu/~stephan/tex/
+      </home>
+      <license type="LPPL"/>
+      <version>
+        <number>2.06</number>
+      </version>
+      <xref refid="numline"/>
+    </about>
+    <description>
+      <abstract>
+        Adds line numbers to selected paragraphs with reference
+        possible through the LaTeX \ref and \pageref cross reference
+        mechanism.
+      </abstract>
+    </description>
+    <distribution>
+      <ctan>macros/latex/contrib/supported/lineno</ctan>
+      <texlive>latex3</texlive>
+    </distribution>
+  </entry>
