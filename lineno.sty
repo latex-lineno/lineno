@@ -1,7 +1,7 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                        To pretty-print this file, feed it to a unix shell!
 %%%
-%%% $Id: lineno.sty,v 3.0 1999/06/11 22:40:46 stephan Exp $
+%%% $Id: lineno.sty,v 3.1 1999/08/29 05:41:51 stephan Exp $
 %%%
 %%% Copyright 1995--1999 Stephan I. B"ottcher <stephan@nevis1.columbia.edu>
 %%%
@@ -15,7 +15,7 @@
 %
 %                                                                      \title{
 %                                                             \texttt{\itshape
-%         lineno.sty \ v3.00 1999/06/11
+%         lineno.sty \ v3.01 1999/08/28
 %                                                                      }\\\ \\
 %        A \LaTeX\ style option to attach                  
 % \\        Line numbers on paragraphs
@@ -75,14 +75,23 @@
 % I wrote this package for my wife Petra, who needs it for
 % transcriptions of interviews.  This allows her to
 % precisely refer to passages in the text.  It works well
-% together with ~\marginpar~s, but not with displaymath. 
+% together with ~\marginpar~s, but not to well with displaymath. 
+% ~\footnote~s are a problem, especially when they
+% are split, but we may get there. 
+
+% lineno.sty works
+% surprisingly well with other packages, for
+% example, ~wrapfig.sty~.  So please try if it
+% works with whatever you need, and if it does,
+% please tell me, and if it does not, tell me as
+% well, so I can try to fix it.
 %
 % This style option is written for \LaTeXe, later than November 1994,
 % since we need the ~\protected@write~ macro.
 
 \NeedsTeXFormat{LaTeX2e}[1994/11/04]
 \ProvidesPackage{lineno}
-  [1999/06/11 line numbers on paragraphs v3.00]
+  [1999/08/28 line numbers on paragraphs v3.01]
 
 %% v1.00 1995/03/31  SIB: first release for Petras interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -95,6 +104,7 @@
 %% v2.05 1998/04/26  SIB: add: prevgraf test
 %% v2.06 1999/03/02  SIB: LPPL added
 %% v3.00 1999/06/11  SiB: include the extension in the main file
+%% v3.01 1999/08/28  SiB: \@reinserts -> \holdinginserts
 %
 %                                                                    \section{
 %          Put the line numbers to the lines
@@ -111,13 +121,51 @@
 
 % So let's make a hook to ~\output~,  the direct way. The \LaTeX\ 
 % macro ~\@reinserts~ puts the footnotes back on the page.
+%
+% (New v3.01)                ~\@reinserts~ badly
+% screws up split footnotes.  The bottom part is
+% still on the recent contributions list, and the
+% top part will be put back there after the bottom
+% part. Thus, since lineno.sty does not play well
+% with ~\inserts~ anyway, we can safely experiment
+% with ~\holdinginserts~, without making things
+% much worse.    
+%
+% Or that's what I thought, but:  Just activating
+% ~\holdinginserts~ while doing the ~\par~ will
+% not do the trick:  The ~\output~ routine may be
+% called for a real page break before all line
+% numbers are done, and how can we get control
+% over ~\holdinginserts~ at that point?
+%
+% Let's try this:  When the ~\output~ routine is
+% run with ~\holdinginserts=3~ for a real page
+% break, then we reset ~\holdinginserts~ and
+% restart ~\output~.
+%
+% Then, again, how do we keep the remaining
+% ~\inserts~ while doing further line numbers? 
+%
+% If we find ~\holdinginserts~=-3 we activate it again 
+% after doing ~\output~.             (/New v3.01)
 
 \output=\expandafter{%
         \expandafter \LineNoTest
         \expandafter \if@tempswa
-                       \the\output
-                     \else
-                       \@reinserts
+        \expandafter   \LineNoHoldInsertsTest
+        \expandafter   \if@tempswa
+                          \the\output
+                          \ifnum\holdinginserts=-3
+                            \global\holdinginserts 3
+                          \fi
+                       \else
+                          \global\holdinginserts-3
+                          \unvbox\@cclv
+                          \ifnum\outputpenalty=10000\else
+                            \penalty\outputpenalty
+                          \fi
+                       \fi
+                     \else  
                        \MakeLineNo
                      \fi
                      }
@@ -137,6 +185,16 @@
 % it's job globally.  We need to do it locally here.
 
 \def\LineNoTest{%
+%%%  \message{\string\output: 
+%%%           \string\deadcycles = \the\deadcycles,
+%%%           \string\outputpenalty = \the\outputpenalty,
+%%%           \string\holdinginserts = \the\holdinginserts,}
+%%%  \message{\string\insertpenalties = \the\insertpenalties,
+%%%           \string\ht\string\footins = \the\ht\footins,
+%%%           \string\insertpenalties = \the\insertpenalties,
+%%%           }%
+%%%  \showbox\@cclv  \showlists
+%%%
   \ifnum\interlinepenalty<-\linenopenaltypar
      \advance\interlinepenalty-\linenopenalty
      \my@nobreaktrue
@@ -151,6 +209,12 @@
 
 \def\my@nobreaktrue{\let\if@nobreak\iftrue}
 
+\def\LineNoHoldInsertsTest{%
+  \ifnum\holdinginserts=3\relax
+    \@tempswafalse
+  \fi
+  }
+     
 % We have to return all the page to the current page, and
 % add a box with the line number, without adding
 % breakpoints, glue or space.  The depth of our line number
@@ -201,11 +265,13 @@
 \def\linenumberpar{\ifvmode\@@@par\else\ifinner\@@@par\else
      \advance\interlinepenalty \linenopenalty
         \linenoprevgraf\prevgraf
+        \global\holdinginserts3%
         \@@@par
         \ifnum\prevgraf>\linenoprevgraf
            \penalty-\linenopenaltypar
            \fi
         \kern\z@
+        \global\holdinginserts0%
      \advance\interlinepenalty -\linenopenalty
      \fi\fi
      }
@@ -320,6 +386,7 @@
 \newcommand\linenomathNonumbers{%
   \ifx\@@par\@@@par\else  
     \ifnum\interlinepenalty>-\linenopenaltypar
+      \global\holdinginserts3%
       \advance\interlinepenalty \linenopenalty
       \advance\predisplaypenalty \linenopenalty
     \fi
@@ -330,6 +397,7 @@
 \newcommand\linenomathWithnumbers{%
   \ifx\@@par\@@@par\else
     \ifnum\interlinepenalty>-\linenopenaltypar
+      \global\holdinginserts3%
       \advance\interlinepenalty \linenopenalty
       \advance\predisplaypenalty \linenopenalty
       \advance\postdisplaypenalty \linenopenalty
@@ -354,7 +422,10 @@
   \@namedef{linenomath*}{\linenomathWithnumbers}%
   }
 
-\let\endlinenomath\@ignoretrue
+\def\endlinenomath{%
+   \global\holdinginserts0
+   \@ignoretrue
+}
 \expandafter\let\csname endlinenomath*\endcsname\endlinenomath
 
 % The default is not to number the lines of a display.  But

@@ -1,7 +1,7 @@
 README
                       lineno.sty  v3.00
 
-     $Id: README,v 3.0 1999/06/11 22:40:46 stephan Exp $
+     $Id: README,v 3.1 1999/08/29 05:41:51 stephan Exp $
 
 The LaTeX package lineno.sty provides line numbers on paragraphs.
 After TeX has broken a paragraph into lines there will be line numbers
@@ -23,6 +23,7 @@ Todo:
 Changes:
    1999-03-02 SIB: Added LPPL License
    1999-06-11 SiB: included the extensions into lineno.sty
+   1999-08-28 SiB: fixed the footnote problem using \holdinginserts
 
 
 Files:
@@ -51,10 +52,10 @@ Author:
      <stephan@alzt.tau.ac.il>
 
 
-To print the documented soure:
+To print the documented source:
 
    Take the style-file `lineno.sty', and feed it to a Un*x shell.  (Or
-   download the extracted documentation source `lineno.tex'.)
+   download the extracted source documentation `lineno.tex'.)
 
       csh> source ./lineno.sty
       sh>  . ./lineno.sty
