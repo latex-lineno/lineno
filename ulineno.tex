@@ -1,11 +1,12 @@
 \documentclass[12pt,a4paper,titlepage]{article}
-% \$Id: ulineno.tex,v 1.3 1998/03/23 12:30:34 stephan Exp $
-\date{\def\$##1:##2 ${##2}%$
-Version 
-   \$Revision: 1.3 $, 
-   \$Date: 1998/03/23 12:30:34 $
+
+% \$Id: ulineno.tex,v 1.4 1999/01/18 18:38:39 stephan Exp $
+                                               \date{\def\$##1:##2 ##3${##2}%$
+                                                                      Version 
+   \$Revision: 1.4 $, 
+   \$Date: 1999/01/18 18:38:39 $
 }
-\def\lineno.sty{\texttt{\itshape lineno.sty}}
+                                 \def\lineno.sty{\texttt{\itshape lineno.sty}}
 
 
 \title{                      \lineno.sty
@@ -17,6 +18,7 @@ Version
 \usepackage{lineno}
 \usepackage{numquote}
 \usepackage{ilineno}
+\usepackage{rlineno}
 \usepackage{itemrule}
 \usepackage{bframe}
 \usepackage{url}
@@ -92,8 +94,8 @@ There may be cases, where other packages do a better job, e.g.,
   Network} (CTAN), e.g, \url{ftp:// ftp.tex.ac.uk/ tex-archive/
   macros/ latex/ contrib/ supported/ lineno/ lineno.sty}.
 
-The home of \lineno.sty is \url{http:// zufo.tau.ac.il/ ~stephan/ tex/
-  LaTeX-styles.html #lineno}.  Here you can get the latest version.
+The home of \lineno.sty is \url{http:// www.nevis.columbia.edu/ ~stephan/ tex/
+   #lineno}.  Here you can get the latest version.
 
 \end{runninglinenumbers}
 
@@ -703,6 +705,18 @@ This is the end of this section.%
 
 \begin{linenumbers*}
 
+
+\section{Known incompatibilities}
+
+This section will expand whenever somebody discovers problems when
+using \lineno.sty together with other \LaTeX\ packages.
+
+\subsection{\texttt{wrapfig.sty}}
+
+\lineno.sty used to have problems with \texttt{wrapfig.sty}, but this
+is solved but \lineno.sty, version 2.05.
+
+
 \section{Extension packages}
 
 \subsection{Display math, \texttt{\itshape mlineno.sty}}
@@ -785,6 +799,61 @@ instead of restricting the change to the execution of the line
 breaking algorithm.
 
 \end{linenumbers*}
+
+
+\subsection{\texttt{\itshape rlineno.sty}}
+
+\begin{runninglinenumbers}
+It is currently not possible to put a ~\linelabel~ into math mode.
+This should not impose problems with inline math, since you can attach
+the label just outside the math shift, like\linelabel{rll1} 
+\begin{quote}
+  ~... \linelabel{~<label>~}$x=f(y)$ ...~
+\end{quote}
+but to refer to a line in display math, you cannot label it directly. 
+\end{runninglinenumbers}
+
+\begin{pagewiselinenumbers}
+The extension package \texttt{\itshape rlineno.sty} offers a solution,
+allowing to refer to a line number with an offset.  You put the
+~\linelabel~ at the end of the preceeding line, and refer to that
+number, plus 1 or, in case of multiline displays, by any other
+offset.\linelabel{rll2} 
+\begin{quote}
+  ~...\linelabel{~<label>~}~ \\
+  ~\begin{equation}~ \\
+  ~     y=f'(x)~ \\
+  ~\end{equation}~ \\
+  ~... the formula in line \lineref[+1]{~<label>~}~ 
+\end{quote}
+The offset calculation is different for pagewise or running line
+numbers, and you will have to make sure the right method is used. 
+\end{pagewiselinenumbers}
+
+The macro ~\lineref[~<offset>~]{~<label>~}~ uses the method of the
+currently selected mode (line numbering need not be activated).  To
+specify the mode explicitly, use ~\linerefr~ or ~\linerefp~ for
+running or pagewise mode respectively.
+
+For example, the manual sets a ~\linelabel{rll1}~ at the end of the
+line preceeding the single line quote environment at
+line\,\linerefr[+1]{rll1} in the first paragraph of this chapter, and
+refered to it via
+\begin{quote}
+  ~\linerefr[+1]{rll1}~
+\end{quote}
+and another one preceeding the quote environment in the second
+paragraph of this chapter, with the central line
+numbered\,\linerefp[+3]{rll2}, which I just refered to via
+\begin{quote}
+  ~\linerefp[+3]{rll2}~
+\end{quote}
+\begin{runninglinenumbers}
+If the correct mode is selected (e.g., ~\setrunninglinenumbers~),
+you can use ~\lineref[+1]{rll1}~ to refer to
+line\,\lineref[+1]{rll1}.
+\end{runninglinenumbers}
+
 
 \subsection{\texttt{\itshape numquote.sty}}
 
