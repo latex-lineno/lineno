@@ -1,7 +1,7 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                        To pretty-print this file, feed it to a unix shell!
 %%%
-%%% $Id: lineno.sty,v 3.6 2001/01/04 15:52:32 stephan Exp $
+%%% $Id: lineno.sty,v 3.7 2001/01/17 20:42:12 stephan Exp $
 %%%
 %%% Copyright 1995--2001 Stephan I. B"ottcher <stephan@nevis1.columbia.edu>
 %%%
@@ -15,7 +15,7 @@
 %
 %                                                                      \title{
 %                                                             \texttt{\itshape
-%         lineno.sty \ v3.05a 2001/01/04
+%         lineno.sty \ v3.06 2001/01/17
 %                                                                      }\\\ \\
 %        A \LaTeX\ style option to attach                  
 % \\        Line numbers on paragraphs
@@ -78,7 +78,7 @@
 % together with ~\marginpar~s, but not to well with displaymath. 
 % ~\footnote~s are a problem, especially when they
 % are split, but we may get there. 
-
+%
 % lineno.sty works
 % surprisingly well with other packages, for
 % example, ~wrapfig.sty~.  So please try if it
@@ -91,7 +91,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1994/11/04]
 \ProvidesPackage{lineno}
-  [2001/01/04 line numbers on paragraphs v3.05a]
+  [2001/01/17 line numbers on paragraphs v3.06]
 
 %% v1.00 1995/03/31  SIB: first release for Petras interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -110,7 +110,10 @@
 %% v3.04 2000/12/17  SiB: longtable compatibility.
 %% v3.05 2001/01/02  SiB: [fleqn] detection. 
 %% v3.05a 2001/01/04 SiB: [fleqn] detection reverted for eqnarray. 
-%
+%% v3.06 2001/01/17  SiB: [twocolumn] mode support.
+%%
+%% Acknowledgements:
+%% v3.06:  Donald Arseneau, pointed to mparhack.sty.
 %
 %                                                                    \section{
 %          Put the line numbers to the lines
@@ -173,6 +176,7 @@
             \if@tempswa
               \LineNoHoldInsertsTest
               \if@tempswa
+                 \if@twocolumn\let\@makecol\@LN@makecol\fi
                  \the\output
                  \ifnum\holdinginserts=-3
                    \global\holdinginserts 3
@@ -246,7 +250,7 @@
 % ~\linelabel~,  so we increment the line number \emph{after}
 % printing it. The macro ~\makeLineNumber~ produces the
 % text of the line number, see section \ref{appearance}.
-
+%
 % Finally we put in the natural ~\interlinepenalty~, except
 % after the last line. 
 
@@ -568,7 +572,7 @@
 
 \def\makeLineNumberLeft{\hss\linenumberfont\LineNumber\hskip\linenumbersep}
 
-\def\makeLineNumberRight{\linenumberfont\hskip\linenumbersep\hskip\textwidth
+\def\makeLineNumberRight{\linenumberfont\hskip\linenumbersep\hskip\columnwidth
                          \hbox to\linenumberwidth{\hss\LineNumber}\hss}
 
 \def\linenumberfont{\normalfont\tiny\sffamily}
@@ -741,32 +745,33 @@
 % Finally, save the current page number, to get the pointer to the
 % following page later.
 
-\def\@LN#1#2{{\expandafter\@@LN\csname LN@P#2\endcsname{#1}{#2}}}
-\def\@@LN#1#2#3{\ifx#1\relax
+\def\@LN#1#2{{\expandafter\@@LN
+                 \csname LN@P#2C\@LN@column\expandafter\endcsname
+                 \csname LN@PO#2\endcsname
+                 {#1}{#2}}}
+
+\def\@@LN#1#2#3#4{\ifx#1\relax
+    \ifx#2\relax\gdef#2{#3}\fi
     \expandafter\@@@LN\csname LN@P\LastNumberedPage\endcsname#1
-    \xdef#1{\lastLN{#2}\firstLN{#2}\pageLN{#3}\nextLN\relax}%
+    \xdef#1{\lastLN{#3}\firstLN{#3}\pageLN{#4}{\@LN@column}{#2}\nextLN\relax}%
   \else
-    \def\lastLN##1{\noexpand\lastLN{#2}}%
+    \def\lastLN##1{\noexpand\lastLN{#3}}%
     \xdef#1{#1}%
   \fi
-  \gdef\LastNumberedPage{#3}}
+  \xdef\LastNumberedPage{#4C\@LN@column}}
 
 % The previous page macro gets its pointer to the
 % current one, replacing the ~\relax~ with the cs-token
-% ~\LN@P~<page>.  In case of page number mismatch, \TeX\
-% will trip here, because the argument string for ~\nextLN~
-% is not ~\relax~.  I think it's difficult to do a
-% reasonable intercept here, because this is running in an
-% ~\xdef~.  Does ~\PackageError{}~ work in there?
+% ~\LN@P~<page>.  
 
-\def\@@@LN#1#2{{\def\nextLN\relax{\noexpand\nextLN\noexpand#2}%
+\def\@@@LN#1#2{{\def\nextLN##1{\noexpand\nextLN\noexpand#2}%
                 \xdef#1{#1}}}
 
 % Now, to print a line number, we need to find the page,
-% where it resides.  This will most probably be the one where
-% the last one came from or maybe the next.  However, it can
+% where it resides.  This will most probably be the page where
+% the last one came from, or maybe the next page.  However, it can
 % be a completely different one.  We maintain a cache,
-% which is let to the last accessed pages macro.  But for now
+% which is ~\let~ to the last page's macro.  But for now
 % it is initialized to expand ~\LN@first~, where the poiner
 % to the first numbered page has been stored in. 
 
@@ -786,8 +791,9 @@
 % Else, if ~\firstLN~ finds out that we need an earlier
 % page,  we start over from the beginning. Else, ~\nextLN~
 % will be disabled, and ~\pageLN~ will run
-% ~\gotNumberedPage~ with two arguments: the first line
-% number on this page, and the page number.
+% ~\gotNumberedPage~ with four arguments: the first line
+% number on this column, the page number, the column 
+% number, and the first line on the page.
 
 \def\testFirstNumberedPage#1{\ifnum#1>\c@linenumber
      \def\nextLN##1{\testNextNumberedPage\LN@Pfirst}%
@@ -799,10 +805,12 @@
 % We start with ~\pageLN~ disabled and ~\nextLN~ defined to
 % continue the search with the next page.
 
+\long\def \@gobblethree #1#2#3{}
+
 \def\testNumberedPage{%
   \let\lastLN\testLastNumberedPage
   \let\firstLN\testFirstNumberedPage
-  \let\pageLN\@gobble
+  \let\pageLN\@gobblethree
   \let\nextLN\testNextNumberedPage
   \NumberedPageCache
   }
@@ -810,7 +818,7 @@
 % When we switch to another page, we first have to make
 % sure that it is there.  If we are done with the last 
 % page, we probably need to run \TeX\ again, but for the
-% rest of this run, the cache macro will just return two
+% rest of this run, the cache macro will just return four
 % zeros. This saves a lot of time, for example if you have
 % half of an aux-file from an aborted run,  in the next run
 % the whole page-list would be searched in vain again and
@@ -819,7 +827,7 @@
 % If there is another page, we iterate the search. 
 
 \def\testNextNumberedPage#1{\ifx#1\relax
-     \global\def\NumberedPageCache{\gotNumberedPage00}%
+     \global\def\NumberedPageCache{\gotNumberedPage0000}%
      \PackageWarningNoLine{lineno}%
                     {Linenumber reference failed,
       \MessageBreak  rerun to get it right}%
@@ -847,11 +855,17 @@
 % the final line number to be printed.
 
 \newif\ifoddNumberedPage
+\newif\ifcolumnwiselinenumbers
+\columnwiselinenumbersfalse
 
-\def\gotNumberedPage#1#2{\oddNumberedPagefalse
-  \ifodd#2\relax\oddNumberedPagetrue\fi
+\def\gotNumberedPage#1#2#3#4{\oddNumberedPagefalse
+  \ifodd \if@twocolumn #3\else #2\fi\relax\oddNumberedPagetrue\fi
   \advance\c@linenumber 1\relax
-  \subtractlinenumberoffset{#1}%
+  \ifcolumnwiselinenumbers
+     \subtractlinenumberoffset{#1}%
+  \else
+     \subtractlinenumberoffset{#4}%
+  \fi
   }
 
 % You might want to run the pagewise mode with running line
@@ -896,6 +910,32 @@
 %         addition.  It blew the hash table after some five
 %         thousand lines. 
 %                                                            \end{description}
+%
+%
+%
+%                                                                 \subsection{
+%                  Twocolumn mode (New v3.06)
+%                                                                            }
+%
+% Twocolumn mode requires another patch to the ~\output~ 
+% routine, in order to print a column tag to the .aux 
+% file.
+
+\let\@LN@orig@makecol\@makecol
+\def\@LN@makecol{%
+   \@LN@orig@makecol
+   \setbox\@outputbox \vbox{%
+      \boxmaxdepth \@maxdepth
+      \protected@write\@auxout{}{%
+          \string\@LN@col{\if@firstcolumn1\else2\fi}%
+      }%
+      \box\@outputbox
+   }% \vbox
+}
+
+\def\@LN@col#1{\def\@LN@column{#1}}
+\@LN@col{1}
+
 %
 %
 %
@@ -960,6 +1000,15 @@
 \DeclareOption{switch*}{\setpagewiselinenumbers
                         \switchlinenumbers*%
                         \runningpagewiselinenumbers}
+
+% In twocolumn mode, we can switch the line numbers to 
+% the outer margin, and/or start with number 1 in each
+% column.  Margin switching is covered by the ~switch~ 
+% options.
+
+\DeclareOption{columnwise}{\setpagewiselinenumbers
+                           \columnwiselinenumberstrue
+                           \realpagewiselinenumbers}
 
 % The options ~pagewise~ and ~running~ select the major
 % linenumber mechanism.  ~running~ line numbers refer to a real
