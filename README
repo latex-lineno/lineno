@@ -1,7 +1,7 @@
 README
-                      lineno.sty  v3.03
+                      lineno.sty  v3.04
 
-     $Id: README,v 3.3 2000/07/02 02:35:47 stephan Exp $
+     $Id: README,v 3.4 2000/12/19 01:20:14 stephan Exp $
 
 The LaTeX package lineno.sty provides line numbers on paragraphs.
 After TeX has broken a paragraph into lines there will be line numbers
@@ -22,6 +22,7 @@ Todo:
 
 Changes:
 
+   2000-12-18 SiB: longtable compatibility
    2000-07-01 SiB: extra \newlabel items, [hyperref] option
    2000-03-10 SiB: indirect call of \output, to work with multicol.
    1999-08-28 SiB: fixed the footnote problem using \holdinginserts
@@ -71,6 +72,8 @@ Compatibility with other packages:
    hyperref.sty  \ref to a \linelabel works since v3.03, with
                  [hyperref] option.
 
+   longtable.sty broke with lineno.sty loaded, but notenabled.  
+                 This is fixed in v3.04.
 
 To print the documented source:
 
