@@ -1,9 +1,9 @@
 README
                           lineno.sty
                    (c) Stephan I. B"ottcher
-                     stephan@alzt.tau.ac.il
+                  stephan@nevis1.columbia.edu
 
-$Id: README,v 1.3 1998/03/23 12:30:33 stephan Exp $
+$Id: README,v 1.4 1999/01/18 19:24:18 stephan Exp $
 
 
 The LaTeX package lineno.sty provides line numbers on paragraphs.
@@ -11,23 +11,9 @@ After TeX has broken a paragraph into lines there will be line numbers
 attached to them, with the possibility to make references through the
 LaTeX \ref, \pageref cross reference mechanism.
 
-NEW: I wrote a users manual `ulineno.tex'.
+The users manual is ulineno.tex.
 
-Since version v2.00, numbering only one in five lines and switching
-the linenumbers from left to right side of the page in twoside mode is
-supported.
-
-Since version 2.04, lineno.sty defines a wrapper environment for
-display math.
-
-   \begin{linenomath}
-      $$ any kind of display math $$
-   \end{linenomath}
-
-which should solve the problem to get linenumbers before displays.
-Line numbers on he display itself are optional.
-
-There are some additions to lineno.sty:
+There are some extensions to lineno.sty:
    
   ilineno.sty:   Line numbers in internal vertical mode, like in a \parbox
                  or \table.   
@@ -36,6 +22,12 @@ There are some additions to lineno.sty:
                  display math environments, to automatically wrap
                  the standard display math environments into
                  {linenomath}.
+
+  rlineno.sty:   Refer to a line number with an offset, e.g., 
+                   \lineref[1]{foo}
+                 referes to the line after the one labeled foo.  This is
+                 useful if the line that you want to refer to cannot be
+                 labeled, like in a display math.
 
   numquote.sty:  Defines quote and quotation environments with
                  linenumbers, with the numbers indented together with
@@ -50,17 +42,17 @@ There are some additions to lineno.sty:
 
 To print the documented soure:
 
-Take the style-file `lineno.sty', and feed it to a unix shell, this
+Take the style-file `lineno.sty', and feed it to a unix shell.  This
 will produce the source documentation.  (If you have neither UNIX nor
 AWK, you may need to download the extracted documentation source
-`lineno.tex' instead.)
+`lineno.tex'.)
 
-    csh> source ./lineo.sty
+    csh> source ./lineno.sty
     sh>  . ./lineno.sty
 
 Please ignore the error message at the beginning about the iffalse.
 After LaTeX run the document four times,  print the resulting
-`lineno.dvi'.  You will need LaTeX2e.  
+`lineno.dvi'.
 
 
 Please have a look at a similar work of Michal Jaegermann and James
