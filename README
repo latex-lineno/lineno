@@ -1,14 +1,14 @@
 README
-                      lineno.sty  v3.07
+                      lineno.sty  v3.10
 
-     $Id: README,v 3.5 2001/07/31 02:57:33 stephan Exp $
+     $Id: README,v 3.6 2004/02/29 21:13:19 stephan Exp $
 
 The LaTeX package lineno.sty provides line numbers on paragraphs.
 After TeX has broken a paragraph into lines there will be line numbers
 attached to them, with the possibility to make references through the
 LaTeX \ref, \pageref cross reference mechanism.
 
-% Copyright 1995--1999 Stephan I. B"ottcher <stephan@nevis1.columbia.edu>
+% Copyright 1995--2003 Stephan I. B"ottcher <boettcher@physik.uni-kiel.de>
 %
 % This program can be redistributed and/or modified under the terms
 % of the LaTeX Project Public License Distributed from CTAN
@@ -18,10 +18,12 @@ LaTeX \ref, \pageref cross reference mechanism.
 
 Todo:
 
-   ???
+   merge ledmac patches
 
 Changes:
 
+   2002 .. 2003 FMi, UL, SiB: bug fixes
+   2001-08-04 SiB: linenomath wrapping for \[ \]
    2001-07-30 SiB: [hyperref] option obsolete.
    2001-01-17 SiB: LaTeX class option [twocolumn] support
    2001-01-04 SiB: LaTeX class option [fleqn] support
@@ -53,7 +55,7 @@ Home:
 
 Author:
 
-   Stephan I. B"ottcher <Stephan.Boettcher@desy.de>
+   Stephan I. B"ottcher <boettcher@physik.uni-kiel.de>
 
 Compatibility with other packages:
 
