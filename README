@@ -1,7 +1,7 @@
 README
-                      lineno.sty  v3.04
+                      lineno.sty  v3.07
 
-     $Id: README,v 3.4 2000/12/19 01:20:14 stephan Exp $
+     $Id: README,v 3.5 2001/07/31 02:57:33 stephan Exp $
 
 The LaTeX package lineno.sty provides line numbers on paragraphs.
 After TeX has broken a paragraph into lines there will be line numbers
@@ -18,10 +18,13 @@ LaTeX \ref, \pageref cross reference mechanism.
 
 Todo:
 
-   Find and Fix that \footnote bug.  
+   ???
 
 Changes:
 
+   2001-07-30 SiB: [hyperref] option obsolete.
+   2001-01-17 SiB: LaTeX class option [twocolumn] support
+   2001-01-04 SiB: LaTeX class option [fleqn] support
    2000-12-18 SiB: longtable compatibility
    2000-07-01 SiB: extra \newlabel items, [hyperref] option
    2000-03-10 SiB: indirect call of \output, to work with multicol.
@@ -37,12 +40,10 @@ Files:
    lineno.sty    The package itself, ready to use.
    lineno.tex    The source documentation.
    ulineno.tex   The pathetic attempt of a users manual.
-   *.sty         Obsoleted extension packages.
 
      As of version v3.00, the extension packages for lineno have all been
      incorporated into lineno.sty itself.  Except for itemrule.sty,
      which was removed.
-
 
 Home:
 
@@ -52,14 +53,7 @@ Home:
 
 Author:
 
-   Stephan I. B"ottcher 
-   Please try, in this order:
-     <stephan@nevis.columbia.edu>
-     <Stephan.Boettcher@cern.ch>
-     <Stephan.Boettcher@desy.de>
-     <Stephan.I.Boettcher@gmx.de>
-     <stephan@alzt.tau.ac.il>
-
+   Stephan I. B"ottcher <Stephan.Boettcher@desy.de>
 
 Compatibility with other packages:
 
@@ -69,10 +63,9 @@ Compatibility with other packages:
                  Do NOT use \linelabel.  Do NOT put a multicol in
                  internal vertical mode {table}, {figure}, etc.
 
-   hyperref.sty  \ref to a \linelabel works since v3.03, with
-                 [hyperref] option.
+   hyperref.sty  \ref to a \linelabel works since v3.03.
 
-   longtable.sty broke with lineno.sty loaded, but notenabled.  
+   longtable.sty broke with lineno.sty loaded, but not enabled.  
                  This is fixed in v3.04.
 
 To print the documented source:

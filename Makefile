@@ -1,12 +1,11 @@
 # Makefile for the lineno.sty website update
-# $Id: Makefile,v 3.0 1999/06/11 22:40:46 stephan Exp $
+# $Id: Makefile,v 3.1 2001/07/31 02:57:33 stephan Exp $
 
 DVIPS = dvips $(DVIPSFLAGS)
 TEX   = latex
 
 TARGET=lineno
 MANUAL=ulineno
-EXTENSIONS = bframe ilineno mlineno numquote rlineno 
 READMES= README COPYING
 
 all: $(TARGET).ps.gz $(MANUAL).ps.gz ../lineno.tar.gz
@@ -24,8 +23,7 @@ $(MANUAL).dvi: $(MANUAL).tex $(TARGET).sty
 %.gz: %
 	gzip -9cf <$< >$@
 
-../lineno.tar.gz: $(READMES) $(TARGET).sty $(TARGET).tex $(MANUAL).tex \
-                  $(addsuffix .sty,$(EXTENSIONS))
+../lineno.tar.gz: $(READMES) $(TARGET).sty $(TARGET).tex $(MANUAL).tex 
 	tar -C .. -czf $@ $(addprefix lineno/,$^)
 
 clean:
