@@ -1,6 +1,10 @@
 % Add \internallinenumbers to the lineno package.
 %
-% $Header: /home/blaulicht/stephan/cvs@inspjury/latex/lineno/Attic/ilineno.sty,v 1.1 1996/07/29 14:58:02 stephan Exp $
+% $Id: ilineno.sty,v 1.2 1996/09/17 12:30:20 stephan Exp $
+% $Log: ilineno.sty,v $
+% Revision 1.2  1996/09/17 12:30:20  stephan
+% CVS Id, Version, and date fixed
+%
 %
 % \internallinenumbers sets linenumbers to paragraphs in internal
 % vertical mode (\vbox, \parbox, \table, etc.)
@@ -12,11 +16,11 @@
 % (c) Stephan I. B"ottcher 1996
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{ilineno}[1996/06/05 line numbers in vboxes]
+\ProvidesPackage{ilineno}[1996/09/17 line numbers in vboxes]
 
 \DeclareOption*{\PassOptionsToPackage{\CurrentOption}{lineno}}
 \ProcessOptions*
-\RequirePackage{lineno}
+\RequirePackage{lineno}[1996/09/17]
 
 % fails in `pagewise' mode! (hangs in a loop reading the aux-file)
 
@@ -37,7 +41,7 @@
 
 \newcount\c@internallinenumber   % This is for the independent mode
 \newcount\c@internallinenumbers  % This counts the numbers of lines
-                                 % in the last paragraph. Dont use a
+                                 % in the last paragraph. Don't use a
 				 % tempcnt, do avoid restrictions on 
                                  % \LineNumber
 
