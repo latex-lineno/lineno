@@ -1,14 +1,14 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                For typesetting the doc,  feed this file into a unix shell!
 %%%
-%%% $Id: lineno.sty,v 1.8 1998/03/22 15:50:50 stephan Exp $
+%%% $Id: lineno.sty,v 1.9 1998/04/26 11:23:43 stephan Exp $
 %%%
 %                                      \documentclass[a4paper,12pt]{article}%D
 %                                                        \usepackage{lineno}%D
 %
 %                                                                      \title{
 %                                                             \texttt{\itshape
-%        lineno.sty \ v2.04beta 1998/03/10
+%        lineno.sty \ v2.05beta 1998/04/26
 %                                                                      }\\\ \\
 %        A \LaTeX\ style option to attach                  
 % \\        Line numbers on paragraphs
@@ -75,7 +75,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1994/11/04]
 \ProvidesPackage{lineno}
-  [1998/03/10 line numbers on paragraphs (c) SIB v2.04beta]
+  [1998/04/26 line numbers on paragraphs (c) SIB v2.05beta]
 
 %% v1.00 1995/03/31  SIB: first release for Petras interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -85,6 +85,7 @@
 %% v2.01 1996/09/17  SIB: put into CVS
 %% v2.02 1997/03/17  SIB: add: \@reinserts, for footnotes
 %% v2.04 1998/03/09  SIB: add: linenomath environment
+%% v2.05 1998/04/26  SIB: add: prevgraf test
 %
 %                                                                    \section{
 %          Put the line numbers to the lines
@@ -179,14 +180,22 @@
 % the ~\interlinepenalty~ needed to trigger the
 % line numbering. And we need to allow pagebreaks after a
 % paragraph. 
-
+% 
+% New (2.05beta): the prevgraf test.  A paragraph the ends with a
+% displayed equation, a ~\noindent\par~ or ~wrapfig.sty~ produce empty
+% paragraphs. These should not get a spurious line number via
+% ~\linenopenaltypar~. 
 
 \let\@@@par\@@par
+\newcount\linenoprevgraf
 
 \def\linenumberpar{\ifvmode\@@@par\else\ifinner\@@@par\else
      \advance\interlinepenalty \linenopenalty
+        \linenoprevgraf\prevgraf
         \@@@par
-        \penalty-\linenopenaltypar
+        \ifnum\prevgraf>\linenoprevgraf
+           \penalty-\linenopenaltypar
+           \fi
         \kern\z@
      \advance\interlinepenalty -\linenopenalty
      \fi\fi
