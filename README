@@ -3,26 +3,15 @@ README
                    (c) Stephan I. B"ottcher
                      stephan@alzt.tau.ac.il
 
-$Id: README,v 1.2 1998/03/20 11:57:19 stephan Exp $
+$Id: README,v 1.3 1998/03/23 12:30:33 stephan Exp $
 
 
-This package provides line numbers on paragraphs.  After TeX has
-broken a paragraph into lines there will be line numbers attached to
-them, with the possibility to make references through the LaTeX \ref,
-\pageref cross reference mechanism.
+The LaTeX package lineno.sty provides line numbers on paragraphs.
+After TeX has broken a paragraph into lines there will be line numbers
+attached to them, with the possibility to make references through the
+LaTeX \ref, \pageref cross reference mechanism.
 
-Take the style-file `lineno.sty', and feed it to a unix shell, this
-will produce the source documentation.  If you have neither UNIX nor
-AWK, you may need to download the extracted documentation source as
-well `lineno.tex'
-
-    csh> source ./lineo.sty
-    sh>  . ./lineno.sty
-
-Please ignore the error message at the beginning about the iffalse.
-After LaTeX run the document four times,  print the resulting
-`lineno.dvi'.  You will need LaTeX2e.  
-
+NEW: I wrote a users manual `ulineno.tex'.
 
 Since version v2.00, numbering only one in five lines and switching
 the linenumbers from left to right side of the page in twoside mode is
@@ -40,15 +29,38 @@ Line numbers on he display itself are optional.
 
 There are some additions to lineno.sty:
    
-  ilineno.sty:   Linenumbers in internal vertical mode, like in \parbox
+  ilineno.sty:   Line numbers in internal vertical mode, like in a \parbox
                  or \table.   
 
-  mlineno.sty:   Redefine display math environments, to make lineno
-                 work before displays.
+  mlineno.sty:   Line numbers with display math: Redefine
+                 display math environments, to automatically wrap
+                 the standard display math environments into
+                 {linenomath}.
 
   numquote.sty:  Defines quote and quotation environments with
                  linenumbers, with the numbers indented together with
                  the quoted text. 
+
+  bframe.sty:    Draw a frame around some text, even across page
+                 breaks. Does not close the frame at page breaks, yet.
+
+  itemrule.sty:  Draw a rule down from the bullet next to an itemized
+                 item. 
+
+
+To print the documented soure:
+
+Take the style-file `lineno.sty', and feed it to a unix shell, this
+will produce the source documentation.  (If you have neither UNIX nor
+AWK, you may need to download the extracted documentation source
+`lineno.tex' instead.)
+
+    csh> source ./lineo.sty
+    sh>  . ./lineno.sty
+
+Please ignore the error message at the beginning about the iffalse.
+After LaTeX run the document four times,  print the resulting
+`lineno.dvi'.  You will need LaTeX2e.  
 
 
 Please have a look at a similar work of Michal Jaegermann and James

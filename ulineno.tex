@@ -1,9 +1,9 @@
 \documentclass[12pt,a4paper,titlepage]{article}
-% \$Id: ulineno.tex,v 1.2 1998/03/22 15:51:26 stephan Exp $
+% \$Id: ulineno.tex,v 1.3 1998/03/23 12:30:34 stephan Exp $
 \date{\def\$##1:##2 ${##2}%$
 Version 
-   \$Revision: 1.2 $, 
-   \$Date: 1998/03/22 15:51:26 $
+   \$Revision: 1.3 $, 
+   \$Date: 1998/03/23 12:30:34 $
 }
 \def\lineno.sty{\texttt{\itshape lineno.sty}}
 
@@ -51,7 +51,7 @@ The primary use of \lineno.sty is to get line numbers in your LaTeX
 document.  \lineno.sty directly supports line numbers in various
 modes, and if you have any wishes that are not directly supported,
 chances are good that \lineno.sty can be adapted to do it.  And if it
-turns out to be difficult with \lineno.sty, then is will be even more
+turns out to be difficult with \lineno.sty, then it will be even more
 difficult without.
 
 There is one class of cases however, where \lineno.sty is not the most
@@ -77,7 +77,7 @@ There are other applications, not directly related to line numbering.
 Whenever you want to attach something to your text, after a paragraph
 was broken into lines, across pagebreaks, lineno may do the job.
 
-E.g., you need a frame around some text, but the text should be able
+Say, you need a frame around some text, but the text should be able
 to break across pages, \lineno.sty can be used to draw rules on both
 margins, which can be completed at the top and bottom by some special
 environment, see section\,\,\ref{sec:bframe}.
@@ -119,13 +119,12 @@ The available <options> are:
 
 \item[\texttt{[switch*]}:]  Put the line numbers into the inner
   margin.
-
-\item[\texttt{[pagewise]}:]  Number the lines starting with one at the
-  top of each page.
+  
+\item[\texttt{[pagewise]}:] Number the lines from 1 on each page.
 
 \item[\texttt{[running]}:]  Continuously number the lines (default).
-
-\item[\texttt{[modulo]}:]  Print line numbers only on lines which are
+  
+\item[\texttt{[modulo]}:] Print line numbers only if they are
   multiples of five.
 
 \item[\texttt{[displaymath]}:]  When using the ~{linenomath}~
@@ -147,7 +146,7 @@ This will turn on line numbers within the current group, according to
 the currently selected mode.  If you do it right at the beginning, the
 whole document will be numbered.
 
-~\linenumbers~ is in effect only when a paragraph is finished.  This
+~\linenumbers~ takes effect only when a paragraph is finished.  This
 is important if you use ~\linenumbers~ for a single paragraph only.
 This will \emph{not} work:
 \begin{quote}\obeylines
@@ -160,20 +159,20 @@ because the ~\endgroup~ terminates the effect of ~\linenumbers~ before
 the paragraph is finished.  The solution is to insert an empty line,
 or an explicit ~\par~ before the ~\endgroup~.
 
-However, the prefered solution is to use an enviroment:
+The prefered solution is to use an enviroment:
 \begin{quote}\obeylines
    ~\begin{linenumbers}~ 
      Text of your paragraph. 
    ~\end{linenumbers}~
 \end{quote}
-The ~\end{linenumbers}~ terminates the paragraph for you.  It will
-also make sure that the next paragraph is not indented, if there is no
-empty line in between.  
+~\end{linenumbers}~ terminates the paragraph for you.  It will also
+make sure that the next paragraph is not indented, if there is no
+empty line in between.
 
 This form will not finish any preceeding paragraph.  If you do not
-leave an empty line before the ~\begin{linenumbers}~, the previous
-paragraph may also get line numbers (this is not true after a list
-environment).
+leave an empty line before ~\begin{linenumbers}~, the previous
+  paragraph may also get line numbers (this is not true after a list
+  environment).
 
 A quite esoteric form to number a single paragraph is:
 \begin{quote}\obeylines
@@ -202,9 +201,9 @@ apply as for ~\linenumbers~.
 
 Attaching line numbers after \TeX\ has broken the paragraph into lines
 is already quite a difficult job for \TeX.  Why?  Because \TeX\ does
-not normally give you any control afterwards.  \lineno.sty does it by
-pretending the page ends after each and every line.  This keeps \TeX\ 
-quite busy, but works.
+not normally give you any control after line breaking.  \lineno.sty
+does it by pretending that the current page ends after each and every
+line.  This keeps \TeX\ quite busy, but works.
 
 Often, you want the line numbers to depend on the page they finally end
 up.  E.g., you want the numbers to start with~ ~1 one each new page,
@@ -219,17 +218,17 @@ the line was in the last \LaTeX\ run.
 Thus, there are two basic numbering modes
 \begin{enumerate}
   
-\item \emph{running} line numbers.  The numbers run continuously along
+\item \emph{Running} line numbers.  The numbers run continuously along
   the document, without considering page breaks.  
   
   The line numbers can be reset, or preset at any point in the
   document (except within a paragraph).  Margin switching (or any
   other dependence on the page breaks) is not possible.
   
-\item \emph{pagewise} line numbers.  The lines on each page are
+\item \emph{Pagewise} line numbers.  The lines on each page are
   numbered from one.  Automatic margin switching is possible.
 
-  \emph{running} mode can be simulated in pagewise mode, to get
+  \emph{Running} mode can be simulated in pagewise mode, to get
   automatic margin switching with continuous line numbers, but without
   the ability to reset/preset the line numbers anywhere in the
   document.  
@@ -277,7 +276,7 @@ any command that turns on the line numbering in this mode:
   ~\begin{linenumbers}[~<number>~]~
   ~\begin{runninglinenumbers}[~<number>~]~
 \end{quote}
-or reset the line number to one with any of the following:
+or reset the line number to 1 with any of the following:
 \begin{quote}\obeylines
   ~\linenumbers*~ 
   ~\runninglinenumbers*~ 
@@ -296,23 +295,23 @@ This section of the manual is enclosed in
 
 \begin{pagewiselinenumbers}
 
-\subsection{\emph{pagewise} line numbers}
+\subsection{\emph{Pagewise} line numbers}
 
-Basically, this mode prints line numbers starting with one on top of
+Basically, this mode prints line numbers starting with 1 on top of
 each page, counting only lines where this mode is active.  If you
-turn on this mode in the middle of a page, the numbers start with one
+turn on this mode in the middle of a page, the numbers start with 1
 at that point.
 
 The \emph{pagewise} mode of operation is quite a bit more work for
-\TeX, and your computer.  When the line numbers are printed, \TeX\
-does not know on which page the current line will go.  To get
-\emph{pagewise} mode working, \LaTeX\ has to remember on which page the
-line went in a previous run.  This information is written into the
-~.aux~ file, and like a table of contents, you will not see the
-numbers until you run \LaTeX\ at least twice on the document.
-Sometimes the information in the ~.aux~ file becomes invalid in a way
-that causes \lineno.sty to hang.  In such a case you'll have to delete
-all ~.aux~ files of the document to get it going again.
+\TeX.  When the line numbers are printed, \TeX\ does not know on which
+page the current line will go.  To get \emph{pagewise} mode working,
+\LaTeX\ has to remember on which page the line went in a previous run.
+This information is written into the ~.aux~ file, and like a table of
+contents, you will not see the numbers until you run \LaTeX\ at least
+twice on the document.  Sometimes the information in the ~.aux~ file
+becomes invalid in a way that causes \lineno.sty to hang.  In such a
+case you'll have to delete all ~.aux~ files of the document to get it
+going again.
 
 You get this mode by
 \begin{itemize}\raggedright
@@ -348,7 +347,7 @@ option ~[switch]~ or ~[switch*]~ together with ~[pagewise]~.
 Margin switching is independent of any ~[twoside]~ option of the
 document class.
 
-\subsubsection{\emph{running} mode with margin switching}
+\subsubsection{\emph{Running} mode with margin switching}
 
 Margin switching is not possible in \emph{running} mode, but you can
 abuse the pagewise mode to produce continuous line numbers.  This mode
@@ -375,12 +374,12 @@ Finally, if you give these options together with ~[running]~, like
   ~\usepackage[switch,pagewise,running]{lineno}~
 \end{quote}
 the mode is set to plain \emph{running} line numbers, but later in
-your document, if you say ~\pagewiselinenumbers~, the mode setings of
-the ~[switch]~ and ~[pagewise]~ options will take effect.
+your document, if you say ~\pagewiselinenumbers~, the setings of the
+~[switch]~ and ~[pagewise]~ options will take effect.
 
 \subsubsection{Page numbers}
 
-Any pages that contain \emph{pagewise} numbered lines must get a
+Any pages that contain \emph{pagewise} numbered lines must have a
 different page number.  This may cause trouble with titlepages or
 simmilar fudging with the page number counter in the document.  (I am
 talking about ~\c@page~ or ~\count 0~ here, not ~\thepage~).
@@ -422,8 +421,7 @@ The default is ~\leftlinenumbers*~.
 
 \subsection{Summary of mode selection commands}
 
-The following commands change the selection of the major line
-numbering mode.
+The following commands change the major line numbering mode.
 \begin{description}\itemsep=0pt\parskip=0pt
 \item [|\setrunninglinenumbers]
 \item [|\setpagewiselinenumbers] \leavevmode\\
@@ -482,8 +480,9 @@ option ~[modulo]~.
 If you set <n> to 1, the modulo value is not changed, but modulo
 numbering is turned off.  
 
-Only changing the counter ~linenumbermodulo~ does not turn on modulo
-numbering, it just changes the modulo, if it is turned on.
+Changing the counter ~linenumbermodulo~ does not turn on modulo
+numbering, it just changes the modulo, if it is turned on without the
+optional argument.
 
 This section of the manual is enclosed in
 \begin{quote}
@@ -533,7 +532,7 @@ The distance on the left margin can be changed with
 The distance on the right margin is ~\linenumbersep~ plus
 ~\linenumberwidth~, both are set to 10\,pt by default.
 Let's do right here
-\setlength\linenumbersep{1cm}
+\setlength\linenumberwidth{1cm}
 \begin{quote}
   ~\setlength\linenumbersep{1cm}~
 \end{quote}
@@ -546,8 +545,8 @@ macro
 \begin{quote}
   ~\thelinenumber~
 \end{quote}
-for the \LaTeX\ counter ~{linenumber}~.  You can redefine that as
-with any other \LaTeX\ counter.  E.g.,
+for the \LaTeX\ counter ~{linenumber}~.  You can redefine that, as
+for any other \LaTeX\ counter.  E.g.,
 \renewcommand\thelinenumber{\roman{linenumber}}
 \begin{quote}
   ~\renewcommand\thelinenumber{\roman{linenumber}}~
@@ -666,7 +665,7 @@ the table of contents.  (It should be disabled during \emph{toc}
 processing.)  Instead, I typed
 \begin{quote}
   ~\section[Line number references]~\\
-  ~        {Line number references\linelabel{l1}}~
+  ~        {Line number references\linelabel{ll1}}~
 \end{quote}
 This works fine, with the standard \LaTeX\ ~{article}~ document
 style.  If more generic markup is required, you should avoid things
@@ -717,7 +716,7 @@ Let me demonstrate the effect.  This paragraph contains a
 ~{displaymath}~ environment.  The part before the Formula does not get
 line numbers.  Here comes the Formula
 \begin{displaymath}
-    \mathrm{6\,H_2O + 6\,CO_2 \rightarrow C_6H_{12}O_6 + 6\,O_2}
+    \mathrm{6\,H_2O + 6\,CO_2 \ \rightarrow\  C_6H_{12}O_6 + 6\,O_2}
 \end{displaymath}
 which makes the line numbers disappear.  The trailing part of the
 paragraph does get line numbers.  
@@ -771,7 +770,7 @@ wrappers without harm.
 
 Other solutions to make \lineno.sty work with display math are either
 ugly or less stable.  The ugly possibility is to precede every display
-math with an empty line, or with
+math with an empty line, or better with
 \begin{quote}
   ~{\par\nobreak\noindent}~
 \end{quote}
@@ -850,14 +849,14 @@ Somebody asked me if he can get a rule next to an itemized item, form
 the bullet downwards.  This style does that.
 \begin{itemrule}
 \item The rule is vertically centered under the default item.  In a
-  description environment, its just ~\labelsep~ left of the text.  In
-  an enumerate, it is centered under the actual number label.
+  description environment, it is just ~\labelsep~ left of the text.  In
+  an enumerate, it is centered under the actual item number.
 \item The syntax is
   \begin{quote}\obeylines
     ~\begin{itemrule}[~<environment>~]~
     ~\end{itemrule}~
   \end{quote}
-  It works only for lines that are no more than ~\baselineskip~
+  It works only with lines that are no more than ~\baselineskip~
   apart. And if you nest a list, the rule moves inwards (this is a
   bug). 
 \end{itemrule}
@@ -867,7 +866,7 @@ The standard list <environment>s work fine.
 \item[\texttt{description}:] The rule is placed  ~\labelsep~ left of
   the text. I repeat that here to make this item a bit longer, in
   order to actually get a rule.
-\item[\texttt{quote}:] Even some face lists work, and draw the rule
+\item[\texttt{quote}:] Even some fake lists work, and draw the rule
   from the first line on, not just from the second, like in a real
   list item.  This was a surprise, but a good one.
 \item[\texttt{enumerate}:] The rule is always set under the center of
@@ -895,7 +894,7 @@ break, the box is open.  There are two parameters:
 \end{description}
 
 It works by asking \lineno.sty to draw small rules left and right to
-the lines.  The height of the rules is ~\baselineskip~ plus
+the lines.  The total height of the rules is ~\baselineskip~ plus
 ~\bframesep~. This leaves some extra space for extra high lines.
 
 The current version is very preliminary.  In a future version there
