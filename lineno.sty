@@ -1,7 +1,7 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                        To pretty-print this file, feed it to a unix shell!
 %%%
-%%% $Id: lineno.sty,v 3.10 2001/08/05 06:28:45 stephan Exp $
+%%% $Id: lineno.sty,v 3.11 2002/01/26 23:40:55 stephan Exp $
 %%%
 %%% Copyright 1995--2001 Stephan I. B"ottcher <stephan@nevis.columbia.edu>
 %%%
@@ -15,7 +15,7 @@
 %
 %                                                                      \title{
 %                                                             \texttt{\itshape
-%         lineno.sty \ v3.08a 2001/08/02
+%         lineno.sty \ v3.08b 2002/02/27
 %                                                                      }\\\ \\
 %          A \LaTeX\ package  to attach                  
 % \\        Line numbers to paragraphs
@@ -91,7 +91,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1994/11/04]
 \ProvidesPackage{lineno}
-  [2001/08/02 line numbers on paragraphs v3.08a]
+  [2002/01/27 line numbers on paragraphs v3.08b]
 
 %% v1.00 1995/03/31  SIB: first release for Petras interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -114,6 +114,7 @@
 %% v3.07 2001/07/30  SiB: [hyperref] option obsoleted.
 %% v3.08 2001/08/02  SiB: linenomath wrapping for \[ \]
 %% v3.08a 2001/08/04  SiB: linenomath wrapping for \[ \] fixed
+%% v3.08b 2002/01/27  SiB: enquotation typo fix
 %%
 %% Acknowledgements:
 %% v3.06:  Donald Arseneau, pointed to mparhack.sty.
@@ -1245,9 +1246,9 @@
    }
 
 \newenvironment{numquote}     {\quote\numquotelist}{\endquote}
-\newenvironment{numquotation} {\quotation\numquotelist}{\enquotation}
+\newenvironment{numquotation} {\quotation\numquotelist}{\endquotation}
 \newenvironment{numquote*}    {\quote\numquotelist*}{\endquote}
-\newenvironment{numquotation*}{\quotation\numquotelist*}{\enquotation}
+\newenvironment{numquotation*}{\quotation\numquotelist*}{\endquotation}
 
 %                                                              \subsubsection{
 %      Frame around a paragraph
