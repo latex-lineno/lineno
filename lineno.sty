@@ -1,8 +1,11 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                For typesetting the doc,  feed this file into a unix shell!
 %%%
-%%% $Id: lineno.sty,v 1.3 1997/03/23 08:27:13 stephan Exp $
+%%% $Id: lineno.sty,v 1.4 1997/10/08 19:37:37 stephan Exp $
 %%% $Log: lineno.sty,v $
+%%% Revision 1.4  1997/10/08 19:37:37  stephan
+%%% Fixed: endlinenumbers*, fixed global @nobreak
+%%%
 %%% Revision 1.3  1997/03/23 08:27:13  stephan
 %%% \@reinserts added
 %%%
@@ -130,11 +133,14 @@
 % could go to the next page. Nor should any other
 % float.  So let us suppress the ~\interlinepenalty~ 
 % altogether with the ~\@nobreak~ switch.
+%
+% Since (ltspace.dtx, v1.2p)[1996/07/26], the ~\@nobreaktrue~ does
+% it's job globally.  We need to do it locally here.
 
 \def\LineNoTest{%
   \ifnum\interlinepenalty<-\linenopenaltypar
      \advance\interlinepenalty-\linenopenalty
-     \@nobreaktrue
+     \my@nobreaktrue
      \fi
   \@tempswatrue
   \ifnum\outputpenalty>-\linenopenaltypar\else
@@ -143,6 +149,8 @@
        \fi
      \fi
   }
+
+\def\my@nobreaktrue{\let\if@nobreak\iftrue}
 
 % We have to return all the page to the current page, and
 % add a box with the line number, without adding
@@ -235,14 +243,16 @@
 % of environments, including the suppression of the
 % following paragraphs indentation.
 
-\@namedef{linenumbers*}{\linenumbers*}
-\@namedef{runninglinenumbers*}{\runninglinenumbers*}
+%%% TO DO: add \par to \linenumbers, if called from an environment.
+
+\@namedef{linenumbers*}{\par\linenumbers*}
+\@namedef{runninglinenumbers*}{\par\runninglinenumbers*}
 
 \def\endlinenumbers{\par\@endpetrue}
 \let\endrunninglinenumbers\endlinenumbers
 \let\endpagewiselinenumbers\endlinenumbers
-\expandafter\let\csname linenumbers*\endcsname\endlinenumbers
-\expandafter\let\csname runninglinenumbers*\endcsname\endlinenumbers
+\expandafter\let\csname endlinenumbers*\endcsname\endlinenumbers
+\expandafter\let\csname endrunninglinenumbers*\endcsname\endlinenumbers
 
 %
 %
