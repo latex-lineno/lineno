@@ -1,7 +1,7 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                For typesetting the doc,  feed this file into a unix shell!
 %%%
-%%% $Id: lineno.sty,v 1.6 1998/03/10 09:44:36 stephan Exp $
+%%% $Id: lineno.sty,v 1.7 1998/03/20 11:54:32 stephan Exp $
 %%%
 %                                      \documentclass[a4paper,12pt]{article}%D
 %                                                        \usepackage{lineno}%D
@@ -170,7 +170,6 @@
 
 %
 %
-%
 %                                                                    \section{
 %               Control line numbering
 %                                                                            }
@@ -216,9 +215,9 @@
 % line numbers.  Sorry, but I do not dare to change
 % ~\interlinepenalty~ globally, nor do I want to redefine
 % the display math environments here.
-% $$
-%    display \ math
-% $$
+%   \begin{displaymath}
+%                       display \ math
+%   \end{displaymath}
 % See the subsection below, for a wrapper enviroment to make
 % it work.  But that requires to wrap each and every display
 % in your LaTeX source.
@@ -249,7 +248,9 @@
 \let\endpagewiselinenumbers\endlinenumbers
 \expandafter\let\csname endlinenumbers*\endcsname\endlinenumbers
 \expandafter\let\csname endrunninglinenumbers*\endcsname\endlinenumbers
+\let\endnolinenumbers\endlinenumbers
 
+%
 %                                                                 \subsection{
 %                  Display math
 %                                                                            }
@@ -293,25 +294,32 @@
 % numbering the lines of the display itself, or without.
 % The ~\ifx..~ tests if line numbering is turned on.  It
 % does not harm to add these wrappers in sections that are
-% not numbered.
+% not numbered.  Nor does it harm to wrap a display
+% twice, e.q, in case you have some ~{equation}~s wrapped
+% explicitely, and later you redefine ~\equation~ to do it
+% automatically. 
 
 \newcommand\linenomathNonumbers{%
-   \ifx\@@par\@@@par\else
-     \advance\interlinepenalty \linenopenalty
-     \advance\predisplaypenalty \linenopenalty
-   \fi
-   \ignorespaces
- }
+  \ifx\@@par\@@@par\else  
+    \ifnum\interlinepenalty>-\linenopenaltypar
+      \advance\interlinepenalty \linenopenalty
+      \advance\predisplaypenalty \linenopenalty
+    \fi
+  \fi
+  \ignorespaces
+  }
 
 \newcommand\linenomathWithnumbers{%
-   \ifx\@@par\@@@par\else
-     \advance\interlinepenalty \linenopenalty
-     \advance\predisplaypenalty \linenopenalty
-     \advance\postdisplaypenalty \linenopenalty
-     \advance\interdisplaylinepenalty \linenopenalty
-   \fi
-   \ignorespaces
- }
+  \ifx\@@par\@@@par\else
+    \ifnum\interlinepenalty>-\linenopenaltypar
+      \advance\interlinepenalty \linenopenalty
+      \advance\predisplaypenalty \linenopenalty
+      \advance\postdisplaypenalty \linenopenalty
+      \advance\interdisplaylinepenalty \linenopenalty
+    \fi
+  \fi
+  \ignorespaces
+  }
 
 % The ~{linenomath}~ environment has two forms, with and
 % without a star.  The following two macros define the
@@ -328,7 +336,7 @@
   \@namedef{linenomath*}{\linenomathWithnumbers}%
   }
 
-\def\endlinenomath{\@ignoretrue}
+\let\endlinenomath\@ignoretrue
 \expandafter\let\csname linenomath*\endcsname\endlinenomath
 
 % The default is not to number the lines of a display.  But
@@ -337,7 +345,6 @@
 
 \nolinenumberdisplaymath
 
-%
 %
 %
 %                                                                    \section{
