@@ -1,7 +1,7 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                        To pretty-print this file, feed it to a unix shell!
 %%%
-%%% $Id: lineno.sty,v 3.11 2002/01/26 23:40:55 stephan Exp $
+%%% $Id: lineno.sty,v 3.12 2003/01/14 21:11:53 stephan Exp $
 %%%
 %%% Copyright 1995--2001 Stephan I. B"ottcher <stephan@nevis.columbia.edu>
 %%%
@@ -15,15 +15,15 @@
 %
 %                                                                      \title{
 %                                                             \texttt{\itshape
-%         lineno.sty \ v3.08b 2002/02/27
+%         lineno.sty \ v3.09 2003/01/14
 %                                                                      }\\\ \\
 %          A \LaTeX\ package  to attach                  
 % \\        Line numbers to paragraphs
 %                                                                    }\author{
 %              Stephan I. B\"ottcher                    
 %                                                                      }\date{
-%            stephan@nevis.columbia.edu                   
-%% \\        Stephan.Boettcher@desy.de                     
+%            boettcher@physik.uni-kiel.de
+%% \\        stephan@nevis.columbia.edu
 %% \\        Stephan.Boettcher@cern.ch                     
 %                                                                          \\}
 %
@@ -91,7 +91,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1994/11/04]
 \ProvidesPackage{lineno}
-  [2002/01/27 line numbers on paragraphs v3.08b]
+  [2003/01/14 line numbers on paragraphs v3.09]
 
 %% v1.00 1995/03/31  SIB: first release for Petras interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -115,6 +115,7 @@
 %% v3.08 2001/08/02  SiB: linenomath wrapping for \[ \]
 %% v3.08a 2001/08/04  SiB: linenomath wrapping for \[ \] fixed
 %% v3.08b 2002/01/27  SiB: enquotation typo fix
+%% v3.09 2003/01/14  SIB: hyperref detection fix
 %%
 %% Acknowledgements:
 %% v3.06:  Donald Arseneau, pointed to mparhack.sty.
@@ -1059,7 +1060,10 @@
 % groups in the second argment of a ~\newlabel~.  Well, why 
 % shouldn't it get them?  (New v3.07) The presencs of the
 % ~nameref~ package is now detected automatically
-% ~\AtBeginDocument~. (/New v3.07)
+% ~\AtBeginDocument~. (/New v3.07) (Fixed in v3.09)  We try
+% to be smart, and test ~\AtBeginDocument~ if the ~nameref~
+% package is loaded, but ~hyperref~ postpones the loading of
+% ~nameref~ too, so this is all in vain.
 
 \DeclareOption{hyperref}{\PackageWarningNoLine{lineno}{%
                 Option [hyperref] is obsolete. 
@@ -1067,7 +1071,7 @@
 
 \AtBeginDocument{%
   \@ifpackageloaded{nameref}{%
-    \def\@LN@ExtraLabelItems{{}{}{}}}}
+    \def\@LN@ExtraLabelItems{{}{}{}}}{}}
 
 \ProcessOptions
 
