@@ -1,9 +1,9 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                        To pretty-print this file, feed it to a unix shell!
 %%%
-%%% $Id: lineno.sty,v 3.5 2001/01/03 04:29:14 stephan Exp $
+%%% $Id: lineno.sty,v 3.6 2001/01/04 15:52:32 stephan Exp $
 %%%
-%%% Copyright 1995--1999 Stephan I. B"ottcher <stephan@nevis1.columbia.edu>
+%%% Copyright 1995--2001 Stephan I. B"ottcher <stephan@nevis1.columbia.edu>
 %%%
 %%% This program can be redistributed and/or modified under the terms
 %%% of the LaTeX Project Public License Distributed from CTAN
@@ -15,7 +15,7 @@
 %
 %                                                                      \title{
 %                                                             \texttt{\itshape
-%         lineno.sty \ v3.05 2001/01/02
+%         lineno.sty \ v3.05a 2001/01/04
 %                                                                      }\\\ \\
 %        A \LaTeX\ style option to attach                  
 % \\        Line numbers on paragraphs
@@ -91,7 +91,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1994/11/04]
 \ProvidesPackage{lineno}
-  [2001/01/02 line numbers on paragraphs v3.05]
+  [2001/01/04 line numbers on paragraphs v3.05a]
 
 %% v1.00 1995/03/31  SIB: first release for Petras interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -109,6 +109,7 @@
 %% v3.03 2000/07/01  SiB: \@LN@ExtraLabelItems, hyperref
 %% v3.04 2000/12/17  SiB: longtable compatibility.
 %% v3.05 2001/01/02  SiB: [fleqn] detection. 
+%% v3.05a 2001/01/04 SiB: [fleqn] detection reverted for eqnarray. 
 %
 %
 %                                                                    \section{
@@ -1038,6 +1039,9 @@
 % fine.  Thus, we need not do any tricks when
 % ~[fleqn]~ is loaded, as indicated by presents of
 % the ~\mathindent~ register.           (/New 3.05)
+%
+% (New 3.05a)  for ~{eqnarray}~s we rather keep the
+% old trick.                            (/New 3.05a)
 
 \ifx\do@mlineno\@empty
  \@ifundefined{mathindent}{
@@ -1050,6 +1054,8 @@
      {\linenomath$$\refstepcounter{equation}}
      {\eqno\hbox{\@eqnnum}$$\endlinenomath}
 
+ }% \@ifundefined{mathindent}
+
   \let\LN@eqnarray\eqnarray
   \let\LN@endeqnarray\endeqnarray
 
@@ -1057,7 +1063,6 @@
      {\linenomath\LN@eqnarray}
      {\LN@endeqnarray\endlinenomath}
   
- }% \@ifundefined{mathindent}
 \fi
 
 %                                                              \subsubsection{
