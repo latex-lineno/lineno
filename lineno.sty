@@ -1,7 +1,7 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                For typesetting the doc,  feed this file into a unix shell!
 %%%
-%%% $Id: lineno.sty,v 1.7 1998/03/20 11:54:32 stephan Exp $
+%%% $Id: lineno.sty,v 1.8 1998/03/22 15:50:50 stephan Exp $
 %%%
 %                                      \documentclass[a4paper,12pt]{article}%D
 %                                                        \usepackage{lineno}%D
@@ -337,7 +337,7 @@
   }
 
 \let\endlinenomath\@ignoretrue
-\expandafter\let\csname linenomath*\endcsname\endlinenomath
+\expandafter\let\csname endlinenomath*\endcsname\endlinenomath
 
 % The default is not to number the lines of a display.  But
 % the package option ~displaymath~ may be used to switch
