@@ -1,7 +1,7 @@
 README
-                      lineno.sty  v3.00
+                      lineno.sty  v3.02
 
-     $Id: README,v 3.1 1999/08/29 05:41:51 stephan Exp $
+     $Id: README,v 3.2 2000/03/10 07:11:27 stephan Exp $
 
 The LaTeX package lineno.sty provides line numbers on paragraphs.
 After TeX has broken a paragraph into lines there will be line numbers
@@ -17,16 +17,18 @@ LaTeX \ref, \pageref cross reference mechanism.
 
 
 Todo:
-   Find and Fix that \footnote bug.
 
+   Find and Fix that \footnote bug.  
 
 Changes:
+
    1999-03-02 SIB: Added LPPL License
    1999-06-11 SiB: included the extensions into lineno.sty
    1999-08-28 SiB: fixed the footnote problem using \holdinginserts
-
+   2000-03-10 SiB: indirect call of \output, to work with multicol.
 
 Files:
+
    README        This file.
    COPYING       The LPPL header.
    lineno.sty    The package itself, ready to use.
@@ -40,16 +42,29 @@ Files:
 
 
 Home:
+
    http://www.nevis.columbia.edu/~stephan/tex
    CTAN:macros/latex/contrib/supported/lineno
 
 
 Author:
+
    Stephan I. B"ottcher 
+   Please try, in this order:
      <stephan@nevis.columbia.edu>
      <Stephan.Boettcher@cern.ch>
      <Stephan.Boettcher@desy.de>
+     <Stephan.I.Boettcher@gmx.de>
      <stephan@alzt.tau.ac.il>
+
+
+Compatibility with other packages:
+
+   wrapfig.sty   works since v2.05
+
+   multicol.sty  works partly since 3.02.  
+                 Do NOT use \linelabel.  Do NOT put a multicol in
+                 internal vertical mode {table}, {figure}, etc.
 
 
 To print the documented source:

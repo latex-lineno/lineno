@@ -1,7 +1,7 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                        To pretty-print this file, feed it to a unix shell!
 %%%
-%%% $Id: lineno.sty,v 3.1 1999/08/29 05:41:51 stephan Exp $
+%%% $Id: lineno.sty,v 3.2 2000/03/10 07:11:27 stephan Exp $
 %%%
 %%% Copyright 1995--1999 Stephan I. B"ottcher <stephan@nevis1.columbia.edu>
 %%%
@@ -15,14 +15,14 @@
 %
 %                                                                      \title{
 %                                                             \texttt{\itshape
-%         lineno.sty \ v3.01 1999/08/28
+%         lineno.sty \ v3.02 2000/03/10
 %                                                                      }\\\ \\
 %        A \LaTeX\ style option to attach                  
 % \\        Line numbers on paragraphs
 %                                                                    }\author{
 %              Stephan I. B\"ottcher                    
 %                                                                      }\date{
-%           stephan@nevis1.columbia.edu                   
+%            stephan@nevis.columbia.edu                   
 %% \\        Stephan.Boettcher@desy.de                     
 %% \\        Stephan.Boettcher@cern.ch                     
 %                                                                          \\}
@@ -91,7 +91,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1994/11/04]
 \ProvidesPackage{lineno}
-  [1999/08/28 line numbers on paragraphs v3.01]
+  [2000/03/10 line numbers on paragraphs v3.02]
 
 %% v1.00 1995/03/31  SIB: first release for Petras interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -105,6 +105,7 @@
 %% v2.06 1999/03/02  SIB: LPPL added
 %% v3.00 1999/06/11  SiB: include the extension in the main file
 %% v3.01 1999/08/28  SiB: \@reinserts -> \holdinginserts
+%% v3.02 2000/03/10  SiB: \@LN@output
 %
 %                                                                    \section{
 %          Put the line numbers to the lines
@@ -148,27 +149,36 @@
 %
 % If we find ~\holdinginserts~=-3 we activate it again 
 % after doing ~\output~.             (/New v3.01)
+%
+% (New v3.02)                    To work with
+% multicol.sty, the original output routine is now
+% called indirectly, instead of being replaced.
+% When multicol.sty changes ~\output~, it is a
+% toks register, not the real thing. (/New v3.02)
 
-\output=\expandafter{%
-        \expandafter \LineNoTest
-        \expandafter \if@tempswa
-        \expandafter   \LineNoHoldInsertsTest
-        \expandafter   \if@tempswa
-                          \the\output
-                          \ifnum\holdinginserts=-3
-                            \global\holdinginserts 3
-                          \fi
-                       \else
-                          \global\holdinginserts-3
-                          \unvbox\@cclv
-                          \ifnum\outputpenalty=10000\else
-                            \penalty\outputpenalty
-                          \fi
-                       \fi
-                     \else  
-                       \MakeLineNo
-                     \fi
-                     }
+\let\@LN@output\output
+\newtoks\output
+\output=\expandafter{\the\@LN@output}
+\@LN@output={%
+            \LineNoTest
+            \if@tempswa
+              \LineNoHoldInsertsTest
+              \if@tempswa
+                 \the\output
+                 \ifnum\holdinginserts=-3
+                   \global\holdinginserts 3
+                 \fi
+              \else
+                 \global\holdinginserts-3
+                 \unvbox\@cclv
+                 \ifnum\outputpenalty=10000\else
+                   \penalty\outputpenalty
+                 \fi
+              \fi
+            \else  
+              \MakeLineNo
+            \fi
+            }
 
 % The float mechanism inserts ~\interlinepenalty~s during
 % ~\output~.  So carefully reset it before going on.  Else
@@ -195,6 +205,7 @@
 %%%           }%
 %%%  \showbox\@cclv  \showlists
 %%%
+  \let\@@par\@@@par
   \ifnum\interlinepenalty<-\linenopenaltypar
      \advance\interlinepenalty-\linenopenalty
      \my@nobreaktrue
