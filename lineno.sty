@@ -1,9 +1,9 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                        To pretty-print this file, feed it to a unix shell!
 %%%
-%%% $Id: lineno.sty,v 3.12 2003/01/14 21:11:53 stephan Exp $
+%%% $Id: lineno.sty,v 3.13 2003/04/15 18:09:35 stephan Exp $
 %%%
-%%% Copyright 1995--2001 Stephan I. B"ottcher <stephan@nevis.columbia.edu>
+%%% Copyright 1995--2003 Stephan I. B"ottcher <boettcher@physik.uni-kiel.de>
 %%%
 %%% This program can be redistributed and/or modified under the terms
 %%% of the LaTeX Project Public License Distributed from CTAN
@@ -15,7 +15,7 @@
 %
 %                                                                      \title{
 %                                                             \texttt{\itshape
-%         lineno.sty \ v3.09 2003/01/14
+%         lineno.sty \ v3.10 2003/04/15
 %                                                                      }\\\ \\
 %          A \LaTeX\ package  to attach                  
 % \\        Line numbers to paragraphs
@@ -91,7 +91,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1994/11/04]
 \ProvidesPackage{lineno}
-  [2003/01/14 line numbers on paragraphs v3.09]
+  [2003/04/15 line numbers on paragraphs v3.10]
 
 %% v1.00 1995/03/31  SIB: first release for Petras interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -116,11 +116,13 @@
 %% v3.08a 2001/08/04  SiB: linenomath wrapping for \[ \] fixed
 %% v3.08b 2002/01/27  SiB: enquotation typo fix
 %% v3.09 2003/01/14  SIB: hyperref detection fix
+%% v3.10 2003/04/15  FMi: \MakeLineNo fix for deep boxes
 %%
 %% Acknowledgements:
 %% v3.06:  Donald Arseneau, pointed to mparhack.sty.
 %% v3.07+: Frank Mittelbach, points out inconsistencies in the
 %%         user interface.
+%% v3.10: Frank Mittelbach \MakeLineNo fix for deep boxes
 %
 %                                                                    \section{
 %          Put the line numbers to the lines
@@ -250,8 +252,15 @@
 %
 % Finally we put in the natural ~\interlinepenalty~, except
 % after the last line. 
+%
+% (New v3.10) Frank Mittelbach points out that box255 may be 
+% less deep than the last box inside, so he proposes to 
+% measure the page depth with ~\boxmaxdepth=\maxdimen~.
+% (/New v3.10)
 
-\def\MakeLineNo{\@tempdima\dp\@cclv \unvbox\@cclv
+\def\MakeLineNo{%
+   \boxmaxdepth\maxdimen\setbox\z@\vbox{\unvbox\@cclv}%
+   \@tempdima\dp\z@ \unvbox\z@
    \sbox\@tempboxa{\hbox to\z@{\makeLineNumber}}%
    \stepcounter{linenumber}%
    \dp\@tempboxa=\@tempdima\ht\@tempboxa=\z@
