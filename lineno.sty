@@ -1,7 +1,7 @@
 \iffalse;                               awk '/S[H]ELL/' lineno.sty|sh;exit;\fi
 %%%                        To pretty-print this file, feed it to a unix shell!
 %%%
-%%% $Id: lineno.sty,v 3.9 2001/08/03 03:29:18 stephan Exp $
+%%% $Id: lineno.sty,v 3.10 2001/08/05 06:28:45 stephan Exp $
 %%%
 %%% Copyright 1995--2001 Stephan I. B"ottcher <stephan@nevis.columbia.edu>
 %%%
@@ -15,7 +15,7 @@
 %
 %                                                                      \title{
 %                                                             \texttt{\itshape
-%         lineno.sty \ v3.08 2001/08/02
+%         lineno.sty \ v3.08a 2001/08/02
 %                                                                      }\\\ \\
 %          A \LaTeX\ package  to attach                  
 % \\        Line numbers to paragraphs
@@ -91,7 +91,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1994/11/04]
 \ProvidesPackage{lineno}
-  [2001/08/02 line numbers on paragraphs v3.08]
+  [2001/08/02 line numbers on paragraphs v3.08a]
 
 %% v1.00 1995/03/31  SIB: first release for Petras interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -113,6 +113,7 @@
 %% v3.06 2001/01/17  SiB: [twocolumn] mode support.
 %% v3.07 2001/07/30  SiB: [hyperref] option obsoleted.
 %% v3.08 2001/08/02  SiB: linenomath wrapping for \[ \]
+%% v3.08a 2001/08/04  SiB: linenomath wrapping for \[ \] fixed
 %%
 %% Acknowledgements:
 %% v3.06:  Donald Arseneau, pointed to mparhack.sty.
@@ -1103,8 +1104,8 @@
 
   \let\LN@displaymath\[
   \let\LN@enddisplaymath\]
-  \renewcommand\[{\linenomath\LN@displaymath}
-  \renewcommand\]{\LN@enddisplaymath\endlinenomath}
+  \renewcommand\[{\begin{linenomath}\LN@displaymath}
+  \renewcommand\]{\LN@enddisplaymath\end{linenomath}}
 
   \let\LN@equation\equation
   \let\LN@endequation\endequation
