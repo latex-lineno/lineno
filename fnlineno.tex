@@ -1,0 +1,90 @@
+\ProvidesFile{fnlineno.tex}[2011/02/14 documenting fnlineno.sty (UL)]
+\title{\textsf{fnlineno.sty}\\---\\Numbering Footnote Lines\thanks{This 
+       document %%% manual %% 2010/12/28
+       describes version 
+       \textcolor{blue}{\UseVersionOf{fnlineno.sty}} 
+       of \textsf{fnlineno.sty} as of \UseDateOf{fnlineno.sty}.}}
+% \listfiles                                          %% 2010/12/22
+{ \RequirePackage{makedoc}[2010/12/20] \ProcessLineMessage{} 
+  \MakeJobDoc{19}{\SectionLevelThreeParseInput}     %% 2010/12/16
+}
+\documentclass{article}%% TODO paper dimensions!?
+\input{makedoc.cfg} %% shared formatting settings
+\newcommand*{\lt}{<} \newcommand*{\gt}{>}           %% 2010/12/22
+\providecommand*{\strong}{\textbf}                  %% 2010/12/15
+\ReadPackageInfos{fnlineno}
+\usepackage{color}
+% \hypersetup{bookmarksopen}    %% rm. 2010/12/21, cf. .cfg
+%% 2010/12/21: %% 2010/12/26 not sure, splits code
+% \makeatletter \@beginparpenalty\@highpenalty \makeatother
+%% 2010/12/27:
+\makeatletter \@beginparpenalty\@lowpenalty \makeatother
+\sloppy
+\begin{document}
+\maketitle
+\begin{abstract}\noindent
+'fnlineno.sty' extends 
+% Stephan~I. B\"ottcher's 
+\CtanPkgRef{lineno}{lineno.sty}\urlpkgfoot{lineno}
+(created by Stephan~I. B\"ottcher) 
+such that even 
+`\footnote'                                 %% `\' 2010/12/09
+lines are numbered and can be referred to 
+using `\linelabel', `\ref', etc. 
+%% rm. 2011/02/09:
+% Version v0.5 aims at working as a user expects 
+% (just cf.~``Limitations"), otherwise please complain!
+
+Making the package was motivated as support for 
+\emph{critical editions}
+% of scientific work from an age when footnotes 
+% were a standard in publishing in print, 
+%% <- 2011/02/09 ->
+of \emph{printed works with footnotes} 
+as opposed to scholarly critical editions of \emph{manuscripts.} 
+For this purpose, an extension 'edfnotes' of the \ctanpkgref{ednotes}
+package for critical editions, building on 'fnlineno', is provided 
+by the \textit{ednotes} bundle.\urlfoot{CtanPkgRef}{ednotes}
+
+'lineno.sty' has also been used for the revision process 
+of \emph{submissions.} 
+With 'fnlineno.sty', reference to footnotes 
+in the submitted work may become possible. 
+
+%% rm. 2011/02/09:
+% Another standalone package 'finstrut' is described. 
+As to \emph{implementation:}    %% 2011/02/14
+1.~Some included tools for 
+\emph{storing and restoring global settings} 
+may be ``exported" as standalone packages later. 
+2.~The method of typesetting footnotes on the main vertical list 
+may later lead to applying the line numbering method to 
+several \emph{parallel} texts (with footnotes) and to 
+`inner' material such as table cells.
+%% <- 2011/02/14 ->
+% \dots
+
+%% new 2011/02/09:
+  \smallskip\noindent
+\strong{Keywords:}\quad line numbers; footnotes, pagewise, 
+critical editions, revision
+\end{abstract}
+\tableofcontents
+
+%   \newpage                    %% rm. 2011/02/09
+\section{Usage and Features}
+\subsection{Package File Header (Legalize)}
+\input{fnlineno.doc}
+\end{document}
+
+VERSION HISTORY
+
+2010/12/08  for v0.1    very first
+2010/12/09  for v0.2    moved much to .sty
+2010/12/15  for v0.4    \strong
+2010/12/16              \SectionLevelThree... 
+2010/12/22ff.           beginparpenalty varied
+2010/12/28  for v0.5    abstract extended
+2011/02/09              removing `finstrut'; mention `edfnotes'
+2011/02/10              using \urlpkgfoot etc.
+2011/02/14              abstract modified

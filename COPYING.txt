@@ -1,0 +1,27 @@
+% lineno.sty
+%
+% The files in this directory are
+%
+% Copyright 1995--2003 Stephan I. B"ottcher <boettcher@physik.uni-kiel.de>; 
+% Copyright 2002--2005 Uwe L"uck, http://contact-ednotes.sty.de.vu, 
+%                      for versions 4.x and code from former Ednotes 
+%                      bundle--author-maintained. 
+% Copyright 2011       Uwe L"uck, http://contact-ednotes.sty.de.vu, 
+%                      for fnlineno.sty/tex/pdf 
+% 
+% The files can be redistributed and/or modified under 
+% the terms of the LaTeX Project Public License; either 
+% version 1.3a of the License, or any later version.
+% The latest version of this license is in
+%     http://www.latex-project.org/lppl.txt
+% We did our best to help you, but there is NO WARRANTY. 
+%
+% ============================================================================
+<- (UL) End of official declaration. 
+
+History: 
+add. fnlineno          2011/02/16 ul
+This file -> The files 2004/10/12 ul 
+$Id: COPYING,v 3.0.2.1 2004/09/13 20:15:47 stephan Exp $
+LPPL v1.3a 2004/10/26 
+

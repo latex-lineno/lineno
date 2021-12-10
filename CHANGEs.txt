@@ -1,0 +1,165 @@
+
+CHANGES  for lineno bundle 2011/02/16:
+
+1. new fnlineno.sty for numbering footnote lines + \linelabel, 
+described in fnlineno.pdf
+
+2. new overview SRCFILEs.txt
+
+
+CHANGES  for lineno.sty v4.41  2005/11/02: 
+
+1. Loadable after amsmath. 
+
+2. Removed some nonsense from documentation. 
+
+
+CHANGES  for lineno.sty v4.4  2005/10/27 
+[failed to be uploaded to CTAN, but distributed by mail]: 
+
+1. Proper effective line depth at end of paragraphs. 
+   The spacing bug was quite obvious in two-column mode 
+   when a paragraph end was at a column bottom. 
+
+2. Another bug concerning two-column mode that had been 
+   introduced in v4.22 has been removed again. 
+
+3. Support for \addvspace introduced more and more bugs 
+   in versions of v4.32 and v4.33. The reasons seem to 
+   be clear now, and v4.4 should be stable. 
+
+
+CHANGES  for lineno.sty v4.32  2005/10/17: 
+
+1. Support for \addvspace 
+   (a math display or a list meets a heading -- or a sub-heading 
+   follows a heading -- or the like) 
+
+2. Clearly explained former option `displaymath' and its change 
+   to a default. 
+
+
+CHANGES  for lineno.sty v4.31  2005/10/01: 
+
+1. \modulolinenumbers* and a package option `modulo*' for 
+   printing first line number after interrupting editor's 
+   text, regardless of the modulo. 
+
+2. Improved explanation of \firstlinenumber and package 
+   options. 
+
+
+CHANGES  for lineno.sty v4.3  2005/05/16: 
+
+1. Option `displaymath' (proper numbering at paragraphs 
+   containing math displays) becomes default. 
+
+2. Compatibility with hyperref now indeed (at least much more). 
+
+3. Tidied up documentation: terrible confusion of \newcounter 
+   vs. \stepcounter; sections on the same matter written at 
+   different times; ... 
+
+4. Additional internal improvements that perhaps hardly are 
+   observable (no more spurious linenumbers in math displays 
+   from vertical mode; some compatibity with packages that use 
+   \holdinginserts; \linelabel in headings etc.). 
+
+
+CHANGES  for lineno.sty v4.22 2005/05/09: 
+
+1. Restored "global" version of numbering lines of a \parbox or 
+   minipage or ... (I had missed and disabled this in taking 
+   over lineno.sty), explained in documentation (lineno.pdf/dvi 
+   subsec. 7.2). 
+
+2. Enabled \flushbottom in two-column pagewise or switching 
+   mode. 
+
+3. Re-implemented modulo mode -- disabling certain users' tricks 
+   see lineno.pdf sec. 5.5, also for a still supported 
+   substituting trick. 
+
+4. Tidied up setting the next line number globally vs. locally 
+   (TeXbook p. 301). 
+
+5. Tidied up discussions (in documentation) of possible changes 
+   in implementation. 
+
+
+CHANGES  for lineno.sty v4.21 2005/04/28: 
+
+Removed serious flaws with math display, + something ... 
+
+
+CHANGES  for lineno.sty v4.2 2005/04/26: 
+
+1. Re-enabled package option `displaymath' (needed rearrangement 
+   after sec. 5). 
+
+2. New package option `addpageno' for adding page numbers to 
+   line number references -- see sec. 6.1 of lineno.pdf. 
+
+3. Improved support for \includeonly (and improved sec. 5.3, 
+   p. 27). 
+
+4. Improved compatibility with other packages that change \output 
+   (tameflts.sty, e.g., for saving footnotes against \marginpar 
+   and floats), added advice on this matter -- sec. 2.3, 
+   pp. 7, 14f.
+
+
+CHANGES  for lineno.sty v4.11 2005/03/08: 
+
+1. The `edtable' option now supports math environments like 
+`array'. This requires updating edtable.sty to v1.3. (The claim 
+in previous versions of edtable on this support simply was 
+wrong, sorry.) For how to make use of this support, we urge you 
+to read the usage instructions in edtable.sty (v1.3). These have 
+been extended very much, structured more clearly, and supplied 
+with examples. 
+
+2. \linelabel now complains when appearing outside line 
+numbering mode. This counters Stephan Boettcher's original 
+intention, but I generalize from my own experience that it is 
+helpful to be told when you have forgotten to switch into line 
+numbering mode and (e.g.) wonder why all the line number 
+references are 1 ... ednotes.sty users profit as well (at least 
+I expect and hope that anybody profits, which, to be sure, does 
+not mean that I hope that anybody forgets to switch ...). 
+
+3. The subsection on `edtable' in lineno.sty/tex/pdf was not 
+quite correct or complete -- corrected, improved. 
+
+4. The final list of user commands in lineno.sty/tex/pdf has not 
+been complete. This has not changed, but it is briefly explained 
+what is missing and where it can be found. 
+
+
+CHANGE  2005/01/20: 
+
+We have devised macros for indexing with line numbers, 
+yet we don't take the time to release them officially. 
+If you are interested, please ask via 
+
+    http://contact-ednotes.sty.de.vu 
+
+
+CHANGES  for lineno.sty v4.1 2004/10/19: 
+
+Extension packages from the Ednotes bundle for enabling 
+\linelabel in math mode and tabular environments are now 
+handled through new package options `mathrefs', `edtable', 
+`longtable', and `nolongtablepatch'. Two of these extension 
+packages moved from the ednotes folder to the lineno folder. 
+lineno.tex/pdf has been updated accordingly. 
+
+
+CHANGES  for lineno.sty v4.00 2004/09/03: 
+
+o incorporated earlier extension packages linenox0.sty, 
+  linenox1.sty, lnopatch.sty (which belonged to the 
+  Ednotes bundle before); 
+
+o adopted LaTeX Project Public License v1.3. 
+

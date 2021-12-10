@@ -1,0 +1,127 @@
+%% LNoSuppl.tex -- U.L. 
+\ProvidesFile{lnosuppl.tex}
+             [2011/02/16 documenting supplementary files]
+\title{\LARGE \bf Supplementary files belonging \\ 
+       to the \textit{lineno.sty} distribution \\[1ex]
+       \normalfont \Large
+       Lazy \texttt{ASCII}\,$\to$\,\texttt{PDF} listings}
+\author{Uwe L\"uck}
+\documentclass[10pt]{article}
+\usepackage{verbatim}
+%% hyperref settings from makedoc.cfg 2011/02/14:
+\RequirePackage{ifpdf}
+\usepackage[%
+  \ifpdf
+%     bookmarks=false,          %% 2010/12/22
+%     bookmarksnumbered,
+    bookmarksopen,              %% 2011/01/24!?
+    bookmarksopenlevel=2,       %% 2011/01/23
+%     pdfpagemode=UseNone,
+%     pdfstartpage=10,
+%     pdfstartview=FitH,
+    citebordercolor={ .6 1    .6},
+    filebordercolor={1    .6 1},
+    linkbordercolor={1    .9  .7},
+     urlbordercolor={ .7 1   1},   %% playing 2011/01/24
+  \else
+    draft
+  \fi
+]{hyperref}
+\usepackage{hypertoc}
+\pagestyle{headings}
+\newcommand*{\cs}[1]{\texttt{\char"5C#1}}
+\newcommand*{\lcurl}[2][]{%% `mirror', \url #2 2011/02/14
+  \texttt{#2}\footnote{%
+    \url{http://mirror.ctan.org/macros/latex/contrib/#1#2}}}
+\newcommand*{\Verbatiminput}[1]{%% 2011/02/14
+    \small\verbatiminput{#1}\normalsize}
+\makeatletter
+\newcommand*{\notinaux}[1]{% 
+  \ifx\protect\@typeset@protect #1% 
+  \else 
+    \ifdim\lastskip>\z@\ignorespaces\fi 
+  \fi}
+\makeatother 
+\begin{document}
+\maketitle
+\section*{Preface}
+
+\texttt{lineno.sty} is a macro package made by 
+Stephan~I.~B\"ottcher for attaching line numbers to 
+\LaTeX\ documents. Some people have used it for revising 
+submittings in collaboration with referees or co-authors. 
+Documentations are nowadays preferred to be in 
+Adobe's \texttt{PDF}---so \texttt{lineno.sty}'s 
+documentation is \lcurl[lineno/]{lineno.pdf}.
+
+\texttt{ednotes.sty} uses \texttt{lineno.sty} for critical 
+editions, combining it with Alexander~I.~Rozhenko's 
+\texttt{manyfoot.sty}---this was Christian Tapp's idea, 
+who then hired me for adding the \TeX nical details. 
+In doing this, I had to change some internals of 
+\texttt{lineno.sty}, so Stephan transferred maintenance 
+to me; then some of my macro files that I originally had 
+made for \texttt{ednotes.sty} wandered into the 
+\texttt{lineno} directory of CTAN---because they turned 
+out not to need \texttt{ednotes.sty}, 
+just to work as extensions of \texttt{lineno.sty}\,. 
+
+Now, I haven't had the time for making \texttt{.dtx} versions 
+of the \texttt{.sty} files for \texttt{ednotes}. 
+Therefore, ordinary \texttt{.pdf} documentation for 
+the remaining \texttt{.sty} files of \texttt{lineno}
+is missing. 
+What you see here is nothing but a somewhat structured listing 
+of the additional \texttt{.txt} and \texttt{.sty} files in 
+\texttt{PDF}, deriving from the \texttt{verbatim} package and 
+its \cs{verbatiminput} command. I hope the high quality 
+(scalable) output is worth it. 
+
+By contrast, the new package \texttt{fnlineno.sty} added in 2011 for 
+footnote line numbers is documented in \lcurl[lineno/]{fnlineno.pdf}
+in high quality, using the \lcurl{nicetext} bundle.
+
+\leavevmode\hfill \textit{U.\,L.}
+
+\newpage 
+\tableofcontents
+ 
+\section{The \texttt{.txt} files}
+\subsection{Summary: \texttt{README.txt}}
+\verbatiminput{README.txt}
+\subsection{Licenses/Copyright: \texttt{COPYING.txt}}
+\verbatiminput{COPYING.txt}
+\subsection{Update summaries: \texttt{CHANGEs.txt}}
+\verbatiminput{CHANGEs.txt}
+%% rm. 2011/02/16:
+% \subsection{Files and subdirectories: \texttt{FILEs.txt}}
+% \verbatiminput{FILEs.txt}
+\subsection{Source file infos: \texttt{SRCFILEs.txt}}
+\verbatiminput{SRCFILEs.txt}
+
+\section{Tabular and array environments}
+\texttt{lineno.sty}'s package options \texttt{edtable}, 
+\texttt{longtable}, and \texttt{nolongtablepatch} 
+redefine \LaTeX\ tabular and array environments 
+such that \texttt{lineno} and \texttt{ednotes} commands 
+can be used inside. The code for these options resides 
+in separate files at present. We are listing them here. 
+\subsection{\texttt{edtable.sty}}
+\verbatiminput{edtable.sty}
+\subsection{\texttt{ltabptch.sty}}
+\verbatiminput{ltabptch.sty}
+
+\section{\cs{linelabel} and notes from \textit{math} mode: 
+         \notinaux{\\} \texttt{ednmath0.sty}}
+\verbatiminput{ednmath0.sty}
+
+\section{Extended line number references: \texttt{vplref.sty}} 
+\texttt{vplref.sty} is input through the \texttt{lineno} 
+package option \texttt{addpageno}. This adds page numbers 
+to line number references to distant sides---using the 
+\texttt{varioref} package from the \LaTeX\ distribution. 
+\verbatiminput{vplref.sty} 
+
+\end{document}
+
+end of LNoSuppl.tex 
