@@ -3403,7 +3403,6 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 
 echo "Don't bother about unknown 'iffalse'."                  # SHELL1 
 nawk '/A[W]K/' lineno.sty | nawk -f - lineno.sty >lineno.tex; # SHELL1
-latex lineno; latex lineno; latex lineno; latex lineno;       # SHELL1
 
 BEGIN{DOC=-1;                                     # AWK DOC A W K
  BEGINCODE = "\\begin{code}\\begin{verbatim}";    # AWK

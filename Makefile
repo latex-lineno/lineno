@@ -13,6 +13,9 @@ TARDIRS = 's|^|latex/lineno/|;s|^\(.*\.pdf\)|doc/\1|;s|^\(.*\.sty\)|tex/\1|;s|^\
 
 all: $(TARBALL)
 
+lineno.tex: lineno.sty
+	sh $^
+
 $(PDFS): %.pdf: %.tex Makefile
 	$(LATEX) $*
 	$(DVIPDF) $*
