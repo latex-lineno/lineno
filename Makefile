@@ -18,6 +18,8 @@ lineno.tex: lineno.sty
 
 $(PDFS): %.pdf: %.tex Makefile
 	$(LATEX) $*
+	$(LATEX) $*
+	$(LATEX) $*
 	$(DVIPDF) $*
 
 $(TARBALL): $(PDFS) $(PDFS:.pdf=.tex) $(PKGS) $(TXTS)
