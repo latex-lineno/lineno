@@ -1,33 +1,27 @@
-# Makefile for the lineno.sty website update
-# $Id: Makefile,v 3.1 2001/07/31 02:57:33 stephan Exp $
+LATEX = latex -interaction=nonstopmode
+DVIPDF = dvipdf
+TAR = tar
 
-DVIPS = dvips $(DVIPSFLAGS)
-TEX   = latex
+PDFS = fnlineno.pdf lineno.pdf lnosuppl.pdf ulineno.pdf
+PKGS = ednmath0.sty edtable.sty fnlineno.sty lineno.sty vplref.sty
+TXTS = CHANGEs.txt COPYING.txt README.txt SRCFILEs.txt
 
-TARGET=lineno
-MANUAL=ulineno
-READMES= README COPYING
+TARBALL = lineno.tds.tar.gz
+TARDIRS = 's|^|latex/lineno/|;s|^\(.*\.pdf\)|doc/\1|;s|^\(.*\.sty\)|tex/\1|;s|^\(.*\.tex\)|source/\1|;s|^\(.*\.txt\)|doc/\1|'
 
-all: $(TARGET).ps.gz $(MANUAL).ps.gz ../lineno.tar.gz
+.PHONY: all
 
-$(TARGET).tex $(TARGET).dvi: $(TARGET).sty
-	. $<
+all: $(TARBALL)
 
-$(MANUAL).dvi: $(MANUAL).tex $(TARGET).sty
-	latex $<
-	latex $<
+$(PDFS): %.pdf: %.tex Makefile
+	$(LATEX) $*
+	$(DVIPDF) $*
 
-%.ps: %.dvi
-	$(DVIPS) $< -o $@
-
-%.gz: %
-	gzip -9cf <$< >$@
-
-../lineno.tar.gz: $(READMES) $(TARGET).sty $(TARGET).tex $(MANUAL).tex 
-	tar -C .. -czf $@ $(addprefix lineno/,$^)
+$(TARBALL): $(PDFS) $(PKGS) Makefile
+	$(TAR) --create --gzip --transform=$(TARDIRS) --file $@ $(PDFS) $(PDFS:.pdf=.tex) $(PKGS) $(TXTS)
 
 clean:
-	rm -f *.aux *.dvi *.log *.ps *.toc *.snc *~
+	-rm -f *.aux *.doc *.dvi *.log *.pdf *.toc
 
-veryclean: clean
-	rm -f ../lineno.tar.gz $(TARGET).tex $(TARGET).ps.gz $(MANUAL).ps.gz
+distclean: clean
+	-rm -f $(TARBALL)

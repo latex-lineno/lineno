@@ -1,0 +1,8 @@
+*.aux
+*.doc
+*.dvi
+*.log
+*.pdf
+*.tar.gz
+*.toc
+auto/
