@@ -1,4 +1,3 @@
-
  *File List*
  edtable.sty    2005/10/03 v1.3c arrays with lineno + ednotes (ul)
 ednmath0.sty    2005/01/10 v0.2b math support for lineno/ednotes (ul)
@@ -12,4 +11,3 @@ lnosuppl.tex    2011/02/16 documenting supplementary files
 
  List made at 2011/02/16, 12:41
  from script file srcfiles.tex
-

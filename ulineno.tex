@@ -8,14 +8,14 @@
 % $Id: ulineno.tex,v 3.1 2001/08/03 03:29:19 stephan Exp $
 %
 % 1999-06-11 SiB: updated for lineno.sty v3.00
-\ProvidesFile{ulineno.tex}[2001/08/03 lineno.sty users manual] 
+\ProvidesFile{ulineno.tex}[2001/08/03 lineno.sty users manual]
     %% <- UL 2011/02/13 for readprov.sty
 
 \documentclass[12pt,a4paper,titlepage]{article}
 
                                               \date{\def\$##1: ##2 ##3${##2}%$
-                                                                      Version 
-   \$Revision: 3.1 $, 
+                                                                      Version
+   \$Revision: 3.1 $,
    \$Date: 2001/08/03 03:29:19 $
                                                                              }
                                  \def\lineno.sty{\texttt{\itshape lineno.sty}}
@@ -116,7 +116,7 @@ The available <options> are:
 \begin{description}
 
 \item[\texttt{[left]}:]  Put the line numbers into the left margin
-  (default). 
+  (default).
 
 \item[\texttt{[right]}:]  Put the line numbers into the right margin.
 
@@ -125,11 +125,11 @@ The available <options> are:
 
 \item[\texttt{[switch*]}:]  Put the line numbers into the inner
   margin.
-  
+
 \item[\texttt{[pagewise]}:] Number the lines from 1 on each page.
 
 \item[\texttt{[running]}:]  Continuously number the lines (default).
-  
+
 \item[\texttt{[modulo]}:] Print line numbers only if they are
   multiples of five.
 
@@ -144,7 +144,7 @@ The available <options> are:
     Change from v2 to v3:  ~[mathlines]~ was called ~[displaymath]~
     before, and ~[displaymath]~ was ~\usepacke{mlineno}~.
   \end{itshape}
-  
+
 \end{description}
 All effects of these option can also be obtained by calling certain
 macros later in the document, except for ~[displaymath]~.
@@ -175,8 +175,8 @@ or an explicit ~\par~ before the ~\endgroup~.
 
 The prefered solution is to use an enviroment:
 \begin{quote}\obeylines
-   ~\begin{linenumbers}~ 
-     Text of your paragraph. 
+   ~\begin{linenumbers}~
+     Text of your paragraph.
    ~\end{linenumbers}~
 \end{quote}
 ~\end{linenumbers}~ terminates the paragraph for you.  It will also
@@ -231,22 +231,22 @@ the line was in the last \LaTeX\ run.
 
 Thus, there are two basic numbering modes
 \begin{enumerate}
-  
+
 \item \emph{Running} line numbers.  The numbers run continuously along
-  the document, without considering page breaks.  
-  
+  the document, without considering page breaks.
+
   The line numbers can be reset, or preset at any point in the
   document (except within a paragraph).  Margin switching (or any
   other dependence on the page breaks) is not possible.
-  
+
 \item \emph{Pagewise} line numbers.  The lines on each page are
   numbered from one.  Automatic margin switching is possible.
 
   \emph{Running} mode can be simulated in pagewise mode, to get
   automatic margin switching with continuous line numbers, but without
   the ability to reset/preset the line numbers anywhere in the
-  document.  
-  
+  document.
+
   Any feature that depends on the page breaks must use this mode.
 
 \end{enumerate}
@@ -256,7 +256,7 @@ Thus, there are two basic numbering modes
 \subsection{\emph{Running} line numbers}
 
 This is the default mode of operation.  The lines of your text are
-numbered continuously across page breaks.  
+numbered continuously across page breaks.
 
 You cannot get automatic margin switching in this mode, because at the
 time when the line numbers are attached, it is not yet decided on
@@ -271,7 +271,7 @@ You get this mode by
 \item specifying the package option ~[running]~,
 \item give the command ~\setrunninglinenumbers~ in the document, or
 \item turn on line numbering with ~\runninglinenumbers~ or
-  ~\begin{runninglinenumbers}~. 
+  ~\begin{runninglinenumbers}~.
 \end{itemize}
 
 \subsubsection{Reseting or setting the line number}
@@ -285,15 +285,15 @@ where the default is to reset the line number to one.
 Alternatively, you can give the line number in an optional argument to
 any command that turns on the line numbering in this mode:
 \begin{quote}\obeylines
-  ~\linenumbers[~<number>~]~ 
-  ~\runninglinenumbers[~<number>~]~ 
+  ~\linenumbers[~<number>~]~
+  ~\runninglinenumbers[~<number>~]~
   ~\begin{linenumbers}[~<number>~]~
   ~\begin{runninglinenumbers}[~<number>~]~
 \end{quote}
 or reset the line number to 1 with any of the following:
 \begin{quote}\obeylines
-  ~\linenumbers*~ 
-  ~\runninglinenumbers*~ 
+  ~\linenumbers*~
+  ~\runninglinenumbers*~
   ~\begin{linenumbers*}~
   ~\begin{linenumbers}*~
   ~\begin{runninglinenumbers*}~
@@ -333,7 +333,7 @@ You get this mode by
   ~[pagewise]~, but not ~[running]~,
 \item give the command ~\setpagewiselinenumbers~ in the document, or
 \item turn on line numbering with ~\pagewiselinenumbers~ or
-  ~\begin{pagewiselinenumbers}~. 
+  ~\begin{pagewiselinenumbers}~.
 \end{itemize}
 
 You cannot reset or preset the line numbers in \emph{pagewise} mode.
@@ -356,7 +356,7 @@ pages.  If you add a star, the numbers go on the inner margins
   ~\switchlinenumbers*~
 \end{quote}
 You can achieve the same effect by specifying the package
-option ~[switch]~ or ~[switch*]~ together with ~[pagewise]~. 
+option ~[switch]~ or ~[switch*]~ together with ~[pagewise]~.
 
 Margin switching is independent of any ~[twoside]~ option of the
 document class.
@@ -440,11 +440,11 @@ The following commands change the major line numbering mode.
 \item [|\setrunninglinenumbers]
 \item [|\setpagewiselinenumbers] \leavevmode\\
   set the current mode, without activating or deactivating line
-  numbering. 
+  numbering.
 \item [|\runninglinenumbers\texttt{*[\NL}]
 \item [|\pagewiselinenumbers] \leavevmode\\
   set the current mode and activate line numbering, optionally reset
-  (~*~), or set the line number for \emph{running} mode. 
+  (~*~), or set the line number for \emph{running} mode.
 \end{description}
 The following commands do not change the major mode, but modify the
 the behaviour of \emph{pagewise} mode
@@ -459,7 +459,7 @@ the behaviour of \emph{pagewise} mode
 \subsection{Summary of margin selection commands}
 
 The following command select into which margin the numbers should be
-printed 
+printed
 \begin{description}\itemsep=0pt\parskip=0pt
 \item [|\leftlinenumbers\texttt*]
 \item [|\rightlinenumbers\texttt*] \leavevmode\\
@@ -492,7 +492,7 @@ whatever you used last (the current value of the counter
 option ~[modulo]~.
 
 If you set <n> to 1, the modulo value is not changed, but modulo
-numbering is turned off.  
+numbering is turned off.
 
 Changing the counter ~linenumbermodulo~ does not turn on modulo
 numbering, it just changes the modulo, if it is turned on without the
@@ -500,7 +500,7 @@ optional argument.
 
 This section of the manual is enclosed in
 \begin{quote}
-  ~\begin{linenumbers*}~ \\ 
+  ~\begin{linenumbers*}~ \\
   ~\modulolinenumbers[2]~
 
   ~\end{linenumbers*}~
@@ -611,7 +611,7 @@ The first is used in \emph{running} mode, the other two in
 \emph{pagewise} mode.  If you modify those, you cut into the
 margin selection mechanism as advertised above.  You will have to call
 a mode selection command after changing these macros, to make them take
-effect (at least for ~\makeLineNumberRunning~).  
+effect (at least for ~\makeLineNumberRunning~).
 
 You can go up one more step.  The margin selection commands redefine
 the above macros by making them equivalent (~\let~) to one of the
@@ -691,7 +691,7 @@ equation numbers?)
 The ~\linelabel~ command starts a new paragraph if it is issued after
 an empty line.  It will properly ignore further whitespace before the
 first word of text. Thus you can easily get a label to the first line
-of a paragraph.  
+of a paragraph.
 
 Furthermore, ~\linelabel~ uses \LaTeX s standart tricks to avoid
 unnecessary spaces if you place is between two words with spaces
@@ -705,7 +705,7 @@ trailing space).
 
 Special care should be taken at the end of a paragraph.  You better
 put the line label without intervening spaces behind the period, like
-this 
+this
 \begin{quote}
   ~This is the end of this section.%~\\
   ~\linelabel{ll2}~
@@ -749,7 +749,7 @@ line numbers.  Here comes the Formula
     \mathrm{6\,H_2O + 6\,CO_2 \ \rightarrow\  C_6H_{12}O_6 + 6\,O_2}
 \end{displaymath}
 which makes the line numbers disappear.  The trailing part of the
-paragraph does get line numbers.  
+paragraph does get line numbers.
 
 There are several means to solve the problem, but none of them is
 fully satisfactory.  \lineno.sty defines a ~{linenomath}~ environment,
@@ -761,7 +761,7 @@ comes an example use of ~{linenomath*}~
 \begin{linenomath*}
 \begin{eqnarray*}
   b_1 &=& a_{11}x_1 + a_{12}x_2 \\
-  b_2 &=& a_{21}x_1 + a_{22}x_2   
+  b_2 &=& a_{21}x_1 + a_{22}x_2
 \end{eqnarray*}
 \end{linenomath*}
 wrapping an ~{egnarray*}~ like this
@@ -769,7 +769,7 @@ wrapping an ~{egnarray*}~ like this
   ~\begin{linenomath*}~\\
   ~  \begin{eqnarray*}~\\
   ~    b_1 &=& a_{11}x_1 + a_{12}x_2 \\~\\
-  ~    b_2 &=& a_{21}x_1 + a_{22}x_2~\\   
+  ~    b_2 &=& a_{21}x_1 + a_{22}x_2~\\
   ~  \end{eqnarray*}~\\
   ~\end{linenomath*}~
 \end{quote}
@@ -783,7 +783,7 @@ The ~{linenomath}~ wrapper does nothing if line numbering is not
 activated.  You do not need to remove them if you decide to omit the
 line numbering later (although you still have to load \lineno.sty).
 
-The \texttt{\itshape mlineno} extension redefines the standard \LaTeX\ 
+The \texttt{\itshape mlineno} extension redefines the standard \LaTeX\
 display math environments to wrap themselves automatically into
 ~{linenomath}~:
 \begin{quote}\obeylines
@@ -795,7 +795,7 @@ display math environments to wrap themselves automatically into
 \end{quote}
 As of version 3.00 you can activate this by the package option
 ~[displaymath]~.  You can keep existing explicit ~{linenomath}~
-wrappers without harm.  
+wrappers without harm.
 
 This will probably not work with AMSmath.
 
@@ -816,16 +816,16 @@ environment, since you still have to modify your document.
 \begin{runninglinenumbers}
 It is currently not possible to put a ~\linelabel~ into math mode.
 This should not impose problems with inline math, since you can attach
-the label just outside the math shift, like\linelabel{rll1} 
+the label just outside the math shift, like\linelabel{rll1}
 \begin{quote}
   ~... \linelabel{~<label>~}$x=f(y)$ ...~
 \end{quote}
-but to refer to a line in display math, you cannot label it directly. 
+but to refer to a line in display math, you cannot label it directly.
 \end{runninglinenumbers}
 
 \begin{pagewiselinenumbers}
 The extension \texttt{\itshape rlineno} offers a solution,
-allowing to refer to a line number with an offset.  
+allowing to refer to a line number with an offset.
 
 This extension is now available with plain \lineno.sty v3.00.
 
@@ -837,10 +837,10 @@ offset.\linelabel{rll2}
   ~\begin{equation}~ \\
   ~     y=f'(x)~ \\
   ~\end{equation}~ \\
-  ~... the formula in line \lineref[+1]{~<label>~}~ 
+  ~... the formula in line \lineref[+1]{~<label>~}~
 \end{quote}
 The offset calculation is different for pagewise or running line
-numbers, and you will have to make sure the right method is used. 
+numbers, and you will have to make sure the right method is used.
 \end{pagewiselinenumbers}
 
 The macro ~\lineref[~<offset>~]{~<label>~}~ uses the method of the
@@ -887,7 +887,7 @@ specify the line number to start with in an optional argument.
 \begin{numquote}
 The line numbers set to the left of the text, indented by the same
 amount as the quote or quotation.  This works as expected even if the
-quote appears in a nested list. 
+quote appears in a nested list.
 \end{numquote}
 To customize the distance from the text or the shape of the
 numbers, you can modify the macros ~\quotelinenumbersep~ and
@@ -936,7 +936,7 @@ little interest, so it is gone from the \lineno.sty distribution.
 
 \setlength\bframesep{10pt}
 \begin{bframe}
-\lineno.sty can be used for unexpected purposes.  The environment 
+\lineno.sty can be used for unexpected purposes.  The environment
 \begin{quote}\obeylines
   ~\begin{bframe}~
   ~\end{bframe}~
