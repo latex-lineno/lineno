@@ -17,8 +17,8 @@ $(PDFS): %.pdf: %.tex Makefile
 	$(LATEX) $*
 	$(DVIPDF) $*
 
-$(TARBALL): $(PDFS) $(PKGS) Makefile
-	$(TAR) --create --gzip --transform=$(TARDIRS) --file $@ $(PDFS) $(PDFS:.pdf=.tex) $(PKGS) $(TXTS)
+$(TARBALL): $(PDFS) $(PDFS:.pdf=.tex) $(PKGS) $(TXTS)
+	$(TAR) --create --gzip --transform=$(TARDIRS) --file $@ $^
 
 clean:
 	-rm -f *.aux *.doc *.dvi *.log *.pdf *.toc
