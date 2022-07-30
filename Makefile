@@ -1,17 +1,16 @@
 LATEX = latex -interaction=nonstopmode
 DVIPDF = dvipdf
-TAR = tar
+ZIP = zip
 
 PDFS = fnlineno.pdf lineno.pdf lnosuppl.pdf ulineno.pdf linenoamsmathdemo.pdf
 PKGS = ednmath0.sty edtable.sty fnlineno.sty lineno.sty vplref.sty
 TXTS = CHANGEs.txt COPYING.txt README.txt SRCFILEs.txt
 
-TARBALL = lineno.tds.tar.gz
-TARDIRS = 's|^|latex/lineno/|;s|^\(.*\.pdf\)|doc/\1|;s|^\(.*\.sty\)|tex/\1|;s|^\(.*\.tex\)|source/\1|;s|^\(.*\.txt\)|doc/\1|'
+ZIPBALL = lineno.tds.zip
 
 .PHONY: all
 
-all: $(TARBALL)
+all: $(ZIPBALL)
 
 lineno.tex: lineno.sty
 	sh $^
@@ -22,11 +21,16 @@ $(PDFS): %.pdf: %.tex Makefile
 	$(LATEX) $*
 	$(DVIPDF) $*
 
-$(TARBALL): $(PDFS) $(PDFS:.pdf=.tex) $(PKGS) $(TXTS)
-	$(TAR) --create --gzip --transform=$(TARDIRS) --file $@ $^
+$(ZIPBALL): $(PDFS) $(PDFS:.pdf=.tex) $(PKGS) $(TXTS)
+	rm -rf zipball/
+	mkdir -p zipball/doc/latex/lineno/ zipball/tex/latex/lineno/ zipball/source/latex/lineno/
+	cp $(PDFS) $(TXTS) zipball/doc/latex/lineno/
+	cp $(PKGS) zipball/tex/latex/lineno/
+	cp $(PDFS:.pdf=.tex) zipball/source/latex/lineno/
+	cd zipball/ && $(ZIP) -r ../$(ZIPBALL) *
 
 clean:
 	-rm -f *.aux *.doc *.dvi *.log *.out *.pdf *.toc
 
 distclean: clean
-	-rm -f $(TARBALL)
+	-rm -f $(ZIPBALL)
