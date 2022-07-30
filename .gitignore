@@ -2,6 +2,7 @@
 *.doc
 *.dvi
 *.log
+*.out
 *.pdf
 *.tar.gz
 *.toc

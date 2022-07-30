@@ -2,7 +2,7 @@ LATEX = latex -interaction=nonstopmode
 DVIPDF = dvipdf
 TAR = tar
 
-PDFS = fnlineno.pdf lineno.pdf lnosuppl.pdf ulineno.pdf
+PDFS = fnlineno.pdf lineno.pdf lnosuppl.pdf ulineno.pdf linenoamsmathdemo.pdf
 PKGS = ednmath0.sty edtable.sty fnlineno.sty lineno.sty vplref.sty
 TXTS = CHANGEs.txt COPYING.txt README.txt SRCFILEs.txt
 
@@ -26,7 +26,7 @@ $(TARBALL): $(PDFS) $(PDFS:.pdf=.tex) $(PKGS) $(TXTS)
 	$(TAR) --create --gzip --transform=$(TARDIRS) --file $@ $^
 
 clean:
-	-rm -f *.aux *.doc *.dvi *.log *.pdf *.toc
+	-rm -f *.aux *.doc *.dvi *.log *.out *.pdf *.toc
 
 distclean: clean
 	-rm -f $(TARBALL)
