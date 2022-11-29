@@ -10,6 +10,9 @@ described in fnlineno.pdf
 
 2. new overview SRCFILEs.txt
 
+(From README.txt -- KW) numline obsolete, mirror.ctan.org, fnlineno,
+amsmath compatibility, CHANGEs.txt, lineno.tds.zip
+
 
 CHANGES  for lineno.sty v4.41  2005/11/02:
 
@@ -157,7 +160,8 @@ handled through new package options `mathrefs', `edtable',
 `longtable', and `nolongtablepatch'. Two of these extension
 packages moved from the ednotes folder to the lineno folder.
 lineno.tex/pdf has been updated accordingly.
-
+(From README.txt -- KW) minor fixes (removed `supported/', e.g.);
+bracketed text; lines with `(UL)'; redistribution with README only.
 
 CHANGES  for lineno.sty v4.00  2004/09/03:
 
@@ -166,3 +170,20 @@ o incorporated earlier extension packages linenox0.sty,
   Ednotes bundle before);
 
 o adopted LaTeX Project Public License v1.3.
+
+
+EARLIER CHANGES (From README.txt -- KW)
+
+-  2004-10-19  UL: package options for tabular and math
+-  2004-09-03  UL: merge Ednotes changes, taking over lineno.sty
+-  2002 .. 2003 FMi, UL, SiB: bug fixes
+-  2001-08-04 SiB: linenomath wrapping for \[ \]
+-  2001-07-30 SiB: [hyperref] option obsolete.
+-  2001-01-17 SiB: LaTeX class option [twocolumn] support
+-  2001-01-04 SiB: LaTeX class option [fleqn] support
+-  2000-12-18 SiB: longtable compatibility
+-  2000-07-01 SiB: extra \newlabel items, [hyperref] option
+-  2000-03-10 SiB: indirect call of \output, to work with multicol.
+-  1999-08-28 SiB: fixed the footnote problem using \holdinginserts
+-  1999-06-11 SiB: included the extensions into lineno.sty
+-  1999-03-02 SIB: Added LPPL License

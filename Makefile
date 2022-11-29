@@ -4,7 +4,7 @@ ZIP = zip
 
 PDFS = fnlineno.pdf lineno.pdf lnosuppl.pdf ulineno.pdf linenoamsmathdemo.pdf
 PKGS = ednmath0.sty edtable.sty fnlineno.sty lineno.sty vplref.sty
-TXTS = CHANGEs.txt COPYING.txt README.txt SRCFILEs.txt
+TXTS = CHANGEs.txt COPYING.txt README.md SRCFILEs.txt
 
 ZIPBALL = lineno.zip
 
@@ -32,7 +32,7 @@ $(ZIPBALL): $(PDFS) $(PDFS:.pdf=.tex) $(PKGS) $(TXTS)
 	cp $(PDFS) $(TXTS) lineno/doc/
 	cp $(PKGS) lineno/tex/
 	cp $(PDFS:.pdf=.tex) lineno/source/
-	mv lineno/doc/README.txt lineno/
+	mv lineno/doc/README.md lineno/
 	$(ZIP) -r $(ZIPBALL) lineno/
 
 clean:
