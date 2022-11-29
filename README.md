@@ -71,7 +71,7 @@ a Un*x shell.  (Or download the extracted source documentation `lineno.tex'.)
 csh> source ./lineno.sty
 sh>  . ./lineno.sty
 ```
-[ i.e., type `sh lineno.sty' (e.g.) as a UNIX command line.  Problems with awk
+[ i.e., type `sh lineno.sty` (e.g.) as a UNIX command line.  Problems with awk
 may arise. I therefore switched to nawk in lineno.sty v4.00, but this may
 trouble you as well.  (UL) ] (Please ignore the error message at the beginning
 about the iffalse.)
