@@ -15,6 +15,11 @@ all: $(ZIPBALL)
 lineno.tex: lineno.sty
 	sh $^
 
+SRCFILEs.txt: $(PKGS) $(PDFS:.pdf=.tex)
+	tex=`awk -f srcfiles.awk $(PKGS) $(PDFS:.pdf=.tex) | sed 's/%.*//' | tr -d '\n'`; \
+	tex "$${tex}"; \
+	cat $@.tmp | column -s ':' -t > $@
+
 $(PDFS): %.pdf: %.tex Makefile
 	$(LATEX) $*
 	$(LATEX) $*
