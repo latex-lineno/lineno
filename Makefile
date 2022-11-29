@@ -6,7 +6,7 @@ PDFS = fnlineno.pdf lineno.pdf lnosuppl.pdf ulineno.pdf linenoamsmathdemo.pdf
 PKGS = ednmath0.sty edtable.sty fnlineno.sty lineno.sty vplref.sty
 TXTS = CHANGEs.txt COPYING.txt README.txt SRCFILEs.txt
 
-ZIPBALL = lineno.tds.zip
+ZIPBALL = lineno.zip
 
 .PHONY: all
 
@@ -22,14 +22,16 @@ $(PDFS): %.pdf: %.tex Makefile
 	$(DVIPDF) $*
 
 $(ZIPBALL): $(PDFS) $(PDFS:.pdf=.tex) $(PKGS) $(TXTS)
-	rm -rf zipball/
-	mkdir -p zipball/doc/latex/lineno/ zipball/tex/latex/lineno/ zipball/source/latex/lineno/
-	cp $(PDFS) $(TXTS) zipball/doc/latex/lineno/
-	cp $(PKGS) zipball/tex/latex/lineno/
-	cp $(PDFS:.pdf=.tex) zipball/source/latex/lineno/
-	cd zipball/ && $(ZIP) -r ../$(ZIPBALL) *
+	rm -rf $(ZIPBALL) lineno/
+	mkdir -p lineno/doc/ lineno/tex/ lineno/source/
+	cp $(PDFS) $(TXTS) lineno/doc/
+	cp $(PKGS) lineno/tex/
+	cp $(PDFS:.pdf=.tex) lineno/source/
+	mv lineno/doc/README.txt lineno/
+	$(ZIP) -r $(ZIPBALL) lineno/
 
 clean:
+	-rm -rf lineno/
 	-rm -f *.aux *.doc *.dvi *.log *.out *.pdf *.toc
 
 distclean: clean
