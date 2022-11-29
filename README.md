@@ -140,6 +140,7 @@ removed.
 >   --Ednotes is in
 >     http://mirror.ctan.org/macros/latex/contrib/ednotes.
 >                                                    Uwe ]
+>
 > Please have a look at a similar work of Michal Jaegermann and James
 > Fortune:
 >          http://mirror.ctan.org/obsolete/macros/latex/contrib/numline/
