@@ -9,14 +9,14 @@ reference mechanism.
 
 - Copyright 1995--2003 Stephan I. Böttcher
 - Copyright 2002--2005 Uwe Lück for versions 4.x and code from former Ednotes
-- Copyright 2011 Uwe Lück as above, for fnlineno.sty/tex/pdf
-- Copyright 2021 Karl Wette for versions 5.x
+- Copyright 2011       Uwe Lück for fnlineno.sty/tex/pdf
+- Copyright 2021--2022 Karl Wette for versions 5.x
 
-The files listed below can be redistributed and/or modified under the terms of
-the LaTeX Project Public License; either version 1.3a of the License, or any
-later version.  The latest version of this license is in
-http://www.latex-project.org/lppl.txt. We did our best to help you, but there is
-NO WARRANTY.
+The files can be redistributed and/or modified under
+the terms of the LaTeX Project Public License; either
+version 1.3a of the License, or any later version.
+The latest version of this license is in http://www.latex-project.org/lppl.txt.
+We did our best to help you, but there is NO WARRANTY.
 
 Home: http://mirror.ctan.org/macros/latex/contrib/lineno/
 
