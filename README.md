@@ -7,10 +7,10 @@ broken a paragraph into lines there will be line numbers attached to them, with
 the possibility to make references through the LaTeX \ref, \pageref cross
 reference mechanism.
 
-Copyright 1995--2003 Stephan I. Böttcher
-Copyright 2002--2005 Uwe Lück for versions 4.x and code from former Ednotes
-Copyright 2011 Uwe Lück as above, for fnlineno.sty/tex/pdf
-Copyright 2021 Karl Wette for versions 5.x
+- Copyright 1995--2003 Stephan I. Böttcher
+- Copyright 2002--2005 Uwe Lück for versions 4.x and code from former Ednotes
+- Copyright 2011 Uwe Lück as above, for fnlineno.sty/tex/pdf
+- Copyright 2021 Karl Wette for versions 5.x
 
 The files listed below can be redistributed and/or modified under the terms of
 the LaTeX Project Public License; either version 1.3a of the License, or any
@@ -61,7 +61,7 @@ especially for tabular and math mode.  (+ `print' below here).
 
 "Visible to (LaTeX)": Some users don't understand this "visibility" for a while,
 and indeed it may be somewhat non-trivial. These users may find help in
-http://mirror.ctan.org/macros/latex/ednotes/visible.txt . E.g., former users of
+https://mirrors.ctan.org/macros/latex/contrib/ednotes/visible.txt . E.g., former users of
 lineno.sty may just put all the .sty files into the folder (at their workplace)
 where they had placed lineno.sty before.  (/UL, /v4.1)
 
@@ -104,43 +104,43 @@ removed.
 
 (Prior to my taking over maintenance of the package -- KW)
 
-> ** [ UL: A few festive words on history and responsibility   **
-> **       are next preceding hard facts as to (see lower)     **
-> **       o `Files'  and                                      **
-> **       o `Installation and usage'.                       ] **
->
-> 2004-09-13 Uwe L"uck  [(UL)]  is new maintainer for lineno.sty.
->
-> lineno.sty served the purpose for which I wrote it years ago.  Uwe
-> L"uck uses lineno.sty with his Ednotes package, which required quite a
-> few changes and fixes.  His package depends on lineno, therefore
-> Uwe agreed to take over the maintenance of lineno.sty.
->
-> lineno.sty v4.0 includes most of the well tested changes that Uwe
-> needs for Ednotes.  These changes blend well into the concepts of the
-> package, so I am happy to let it go.
->
-> From here on it is Uwe's, and he may proceed to mangle it as he likes.
-> Expect some radical changes.  You may find him to be quite a bit
-> friendlier towards the poor souls who still use Windows :-).
-> Currently, you need some kind of Unix environment to extract the
-> source documentation from the sty file.
->
-> If some version 3 users run into difficulties with Uwe's newer
-> versions, but need a minor bug-fix in version 3, please do not
-> hesitate to ask me for help.  But all requests for new features or
-> major changes shall go to Uwe.
->
-> Cheers
-> Stephan
->
-> [ Thanks!  And please let me know as well should
->   compatibility problems arise!  The announced radical
->   changes are postponed again this time (v4.1).
->   --Ednotes is in
->     http://mirror.ctan.org/macros/latex/contrib/ednotes.
->                                                    Uwe ]
->
-> Please have a look at a similar work of Michal Jaegermann and James
-> Fortune:
->          http://mirror.ctan.org/obsolete/macros/latex/contrib/numline/
+    ** [ UL: A few festive words on history and responsibility   **
+    **       are next preceding hard facts as to (see lower)     **
+    **       o `Files'  and                                      **
+    **       o `Installation and usage'.                       ] **
+
+    2004-09-13 Uwe L"uck  [(UL)]  is new maintainer for lineno.sty.
+
+    lineno.sty served the purpose for which I wrote it years ago.  Uwe
+    L"uck uses lineno.sty with his Ednotes package, which required quite a
+    few changes and fixes.  His package depends on lineno, therefore
+    Uwe agreed to take over the maintenance of lineno.sty.
+
+    lineno.sty v4.0 includes most of the well tested changes that Uwe
+    needs for Ednotes.  These changes blend well into the concepts of the
+    package, so I am happy to let it go.
+
+    From here on it is Uwe's, and he may proceed to mangle it as he likes.
+    Expect some radical changes.  You may find him to be quite a bit
+    friendlier towards the poor souls who still use Windows :-).
+    Currently, you need some kind of Unix environment to extract the
+    source documentation from the sty file.
+
+    If some version 3 users run into difficulties with Uwe's newer
+    versions, but need a minor bug-fix in version 3, please do not
+    hesitate to ask me for help.  But all requests for new features or
+    major changes shall go to Uwe.
+
+    Cheers
+    Stephan
+
+    [ Thanks!  And please let me know as well should
+      compatibility problems arise!  The announced radical
+      changes are postponed again this time (v4.1).
+      --Ednotes is in
+        http://mirror.ctan.org/macros/latex/contrib/ednotes.
+                                                       Uwe ]
+
+    Please have a look at a similar work of Michal Jaegermann and James
+    Fortune:
+             http://mirror.ctan.org/obsolete/macros/latex/contrib/numline/
