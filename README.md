@@ -46,11 +46,9 @@ Authors:
 For being able to use ALL the new `lineno.sty` options, the following files must
 be "visible" to (La)TeX ("visible" explained below for beginners):
 
-```lineno.sty, edtable.sty, ednmath0.sty, ltabptch.sty```
-
-as above ("Home", note that clicking on "entire directory" suffices);
-
-`longtable.sty` -- from the standard LaTeX Tools bundle.
+- `lineno.sty`, `edtable.sty`, `ednmath0.sty`, `ltabptch.sty` -- as above
+  ("Home", note that clicking on "entire directory" suffices);
+- `longtable.sty` -- from the standard LaTeX Tools bundle.
 
 Usage always starts with loading lineno.sty by `\usepackage`.  The remaining
 `.sty` files are loaded automatically on the `lineno.sty` options (and we
