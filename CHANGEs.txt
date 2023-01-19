@@ -147,9 +147,7 @@ CHANGE  2005/01/20:
 
 We have devised macros for indexing with line numbers,
 yet we don't take the time to release them officially.
-If you are interested, please ask via
-
-    http://contact-ednotes.sty.de.vu
+If you are interested, please ask via http://contact-ednotes.sty.de.vu
 
 
 CHANGES  for lineno.sty v4.1   2004/10/19:
