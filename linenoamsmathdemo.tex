@@ -17,8 +17,15 @@
 
 \documentclass{ltxdoc}
 
-\usepackage[leqno]{amsmath}
-\usepackage[mathlines]{lineno}
+\ifdefined\AddToHook
+  \newcommand{\loadorder}{\textsf{lineno} is loaded first, and then patches \textsf{amsmath} using \texttt{\textbackslash AddToHook}}
+  \usepackage[mathlines]{lineno}
+  \usepackage[leqno]{amsmath}
+\else
+  \newcommand{\loadorder}{\textsf{amsmath} is loaded first, and then patched directly by \textsf{lineno}}
+  \usepackage[leqno]{amsmath}
+  \usepackage[mathlines]{lineno}
+\fi
 \usepackage{lipsum}
 \usepackage{hyperref}
 
@@ -39,7 +46,7 @@ cases.
 \section*{Demonstration}
 
 This section demonstrates that, with this package, line numbers are correctly
-formatted when using \textsf{amsmath} math environments.
+formatted when using \textsf{amsmath} math environments. \loadorder.
 
 \newcounter{lipsumparagraph}
 \newcommand{\nextlipsum}{\stepcounter{lipsumparagraph}\lipsum[\thelipsumparagraph][1-4]}
