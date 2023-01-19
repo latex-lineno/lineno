@@ -1,4 +1,4 @@
-# lineno.sty v5.0, fnlineno.sty v0.55
+# lineno.sty v5.1, fnlineno.sty v0.55
 
 2022-11-29
 
