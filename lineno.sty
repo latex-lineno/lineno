@@ -2892,6 +2892,13 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 % has not been loaded, no patches are applied, and a warning is issued.
 % (/New v5.1)
 %
+% (/New v5.2) Fix ~lineno~ to work with ~amsmath~'s ~\allowdisplaybreaks~
+% option. A side effect is that now ~\\*~ suppresses a line number on that
+% line. This is because ~\\*~ prohibits a page break after a given line, and
+% ~lineno~ basically works by hijacking page breaks. It's probably not possible
+% to fix this without losing the behaviour of ~\\*~.
+% (/New v5.2)
+%
 
 \RequirePackage{etoolbox}
 
@@ -2915,7 +2922,14 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
     \csappto{end#1*}{\endlinenomath}%
   }
   \newcount\linenoamsmath@ams@eqpen
-  \cspreto{math@cr@}{\advance\@eqpen\linenoamsmath@ams@eqpen\relax}
+  \cspreto{math@cr@}{%
+    %%% Uncommenting the following 2 lines restores the line number on a line
+    %%% ended with \\*, by making \\* act just like \\. This is probably
+    %%% undesirable, however, so these lines are disabled.
+    % \global\@eqpen%
+    % \ifnum\dspbrk@lvl <\z@ \interdisplaylinepenalty \else -\@getpen\dspbrk@lvl \fi%
+    \advance\@eqpen\linenoamsmath@ams@eqpen\relax%
+  }
   \newcommand*\linenoamsmath@patch@ams[1]{%
     \cspreto{#1}{%
       \linenomath%
