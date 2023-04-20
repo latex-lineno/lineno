@@ -12,21 +12,21 @@ ZIPBALL = lineno.zip
 
 all: $(ZIPBALL)
 
-lineno.tex: lineno.sty
+lineno.tex: lineno.sty Makefile
 	sh $^
 
-SRCFILEs.txt: $(PKGS) $(PDFS:.pdf=.tex)
+SRCFILEs.txt: $(PKGS) $(PDFS:.pdf=.tex) Makefile
 	tex=`awk -f srcfiles.awk $(PKGS) $(PDFS:.pdf=.tex) | sed 's/%.*//' | tr -d '\n'`; \
 	tex "$${tex}"; \
 	cat $@.tmp | column -s ':' -t > $@
 
-$(PDFS): %.pdf: %.tex Makefile
+$(PDFS): %.pdf: %.tex $(PKGS) Makefile
 	$(LATEX) $*
 	$(LATEX) $*
 	$(LATEX) $*
 	$(DVIPDF) $*
 
-$(ZIPBALL): $(PDFS) $(PDFS:.pdf=.tex) $(PKGS) $(TXTS)
+$(ZIPBALL): $(PDFS) $(PDFS:.pdf=.tex) $(PKGS) $(TXTS) Makefile
 	rm -rf $(ZIPBALL) lineno/
 	mkdir -p lineno/doc/ lineno/tex/ lineno/source/
 	cp $(PDFS) $(TXTS) lineno/doc/
