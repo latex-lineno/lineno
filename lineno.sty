@@ -2915,7 +2915,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
     \csappto{end#1*}{\endlinenomath}%
   }
   \newcount\linenoamsmath@ams@eqpen
-  \cspreto{math@cr@}{\global\@eqpen\numexpr\@eqpen+\linenoamsmath@ams@eqpen\relax}
+  \cspreto{math@cr@}{\advance\@eqpen\linenoamsmath@ams@eqpen\relax}
   \newcommand*\linenoamsmath@patch@ams[1]{%
     \cspreto{#1}{%
       \linenomath%
