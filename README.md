@@ -55,7 +55,7 @@ Usage always starts with loading lineno.sty by `\usepackage`.  The remaining
 recommend not to load them through [the mandatory argument of] `\usepackage`).
 
 For details, see `lineno.tex/pdf` and the `.sty` files mentioned above--search
-especially for tabular and math mode.  (+ `print' below here).
+especially for tabular and math mode.  (+ `print` below here).
 
 "Visible to (LaTeX)": Some users don't understand this "visibility" for a while,
 and indeed it may be somewhat non-trivial. These users may find help in
@@ -64,7 +64,7 @@ lineno.sty may just put all the .sty files into the folder (at their workplace)
 where they had placed lineno.sty before.  (/UL, /v4.1)
 
 To print the documented source: Take the style-file `lineno.sty`, and feed it to
-a Un*x shell.  (Or download the extracted source documentation `lineno.tex'.)
+a Un*x shell.  (Or download the extracted source documentation `lineno.tex`.)
 ```
 csh> source ./lineno.sty
 sh>  . ./lineno.sty
