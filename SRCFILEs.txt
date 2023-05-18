@@ -1,10 +1,10 @@
 ednmath0.sty            2005/01/10 v0.2b math support for lineno/ednotes (ul)
 edtable.sty             2005/10/03 v1.3c arrays with lineno + ednotes (ul)
 fnlineno.sty            2011/01/07 v0.55 numbers to footnote lines (UL)
-lineno.sty              2023/01/19 line numbers on paragraphs v5.1
+lineno.sty              2023/05/19 line numbers on paragraphs v5.2
 vplref.sty              2005/04/25 v0.2a page-line cross-refs
 fnlineno.tex            2011/02/14 documenting fnlineno.sty (UL)
-lineno.tex              2023/01/19 line numbers on paragraphs v5.1
+lineno.tex              2023/05/19 line numbers on paragraphs v5.2
 lnosuppl.tex            2011/02/16 documenting supplementary files
 ulineno.tex             2001/08/03 lineno.sty users manual
 linenoamsmathdemo.tex   2021/09/30 Make amsmath work with lineno

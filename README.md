@@ -1,6 +1,6 @@
-# lineno.sty v5.1, fnlineno.sty v0.55
+# lineno.sty v5.2, fnlineno.sty v0.55
 
-2022-11-29
+2023-05-19
 
 The LaTeX package lineno.sty provides line numbers on paragraphs.  After TeX has
 broken a paragraph into lines there will be line numbers attached to them, with
@@ -39,7 +39,8 @@ Authors:
   in v3.04.
 
 - `amsmath.sty`: loadable, but not fully supported, with v4.41.  Fully supported
-  with v5.0.
+  with v5.0. Use LaTeX hooks to allow independent loading of `amsmath` and `lineno`
+  with v5.1. Support `amsmath` option `\allowdisplaybreaks` with v5.2.
 
 ## Installation and usage (UL, v4.1):
 
