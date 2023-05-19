@@ -2928,8 +2928,8 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
   \ifdefined\endgather
     \def\linenoamsmath@patches#1{#1}
   \else
-    \PackageWarning{lineno}{%
-      `amsmath' must be loaded before `lineno' for patches to be applied}
+    \PackageWarningNoLine{lineno}%
+      {`amsmath' must be loaded before `lineno' for patches to be applied}
     \def\linenoamsmath@patches#1{\relax}
   \fi
 \fi
