@@ -2846,9 +2846,9 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 
 \newenvironment{bframe}
   {\par
-   \@tempdima\textwidth
+   \@tempdima\columnwidth
    \advance\@tempdima 2\bframesep
-   \setbox\bframebox\hb@xt@\textwidth{%
+   \setbox\bframebox\hb@xt@\columnwidth{%
       \hskip-\bframesep
       \vrule\@width\bframerule\@height\baselineskip\@depth\bframesep
       \advance\@tempdima-2\bframerule
@@ -2869,7 +2869,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
    \kern-\prevdepth
    \kern\bframesep
    \nointerlineskip
-   \@tempdima\textwidth
+   \@tempdima\columnwidth
    \advance\@tempdima 2\bframesep
    \hbox{\hskip-\bframesep
          \vrule\@width\@tempdima\@height\bframerule\@depth\z@}%
