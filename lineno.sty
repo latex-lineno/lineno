@@ -919,7 +919,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 % (v5.3) Handle special value of ~\prevdepth=-1000pt~. (/v5.3)
 
 \def\@LN@depthbox{%
-  \ifdim\@tempdima = -1000pt
+  \ifdim\@tempdima=-1000pt
   % \nointerlineskip is already set so we don't need set it again
   % (and we shouldn't back up)
   \else
@@ -2738,10 +2738,16 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
      \begingroup
         \c@internallinenumbers\prevgraf
         \setbox\@tempboxa\hbox{\vbox{\makeinternalLinenumbers}}%
-        \dp\@tempboxa\prevdepth
         \ht\@tempboxa\z@
-        \nobreak\vskip-\prevdepth
-        \nointerlineskip\box\@tempboxa
+        \ifdim\prevdepth=-1000pt
+        % \nointerlineskip is already set so we don't need set it again
+        % (and we shouldn't back up)
+        \else
+          \dp\@tempboxa\prevdepth
+          \nobreak\vskip-\prevdepth
+          \nointerlineskip
+        \fi
+        \box\@tempboxa
      \endgroup
      \fi\fi
      }
@@ -2879,7 +2885,9 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
    \def\makeLineNumber{\copy\bframebox\hss}%
   }
   {\par
-   \kern-\prevdepth
+   \ifdim\prevdepth=-1000pt \else
+     \kern-\prevdepth
+   \fi
    \kern\bframesep
    \nointerlineskip
    \@tempdima\columnwidth
