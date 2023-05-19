@@ -604,7 +604,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 % horizontal mode, e.g, from ~\linelabel~.
 %
 % Sorry, neither a ~\linelabel~ nor a ~\marginpar~ should
-% insert a penalty, else the following linenumber
+% insert a penalty, else the following line number
 % could go to the next page. Nor should any other
 % float.  So let us suppress the ~\interlinepenalty~
 % altogether with the ~\@nobreak~ switch.
@@ -1788,7 +1788,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 
 \let\lastLN\relax  % compare to last line on this page
 \let\firstLN\relax % compare to first line on this page
-\let\pageLN\relax  % get the page number, compute the linenumber
+\let\pageLN\relax  % get the page number, compute the line number
 \let\nextLN\relax  % move to the next page
 
 % During the end-document run through the aux-files, we
@@ -1899,8 +1899,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 \def\testNextNumberedPage#1{\ifx#1\relax
      \global\def\NumberedPageCache{\gotNumberedPage0000}%
      \PackageWarningNoLine{lineno}%
-                    {Linenumber reference failed,
-      \MessageBreak  rerun to get it right}%
+       {Line number reference failed, re-run to get it right}%
    \else
      \global\let\NumberedPageCache#1%
    \fi
@@ -2462,7 +2461,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
                                \realpagewiselinenumbers}
 
 % The options ~pagewise~ and ~running~ select the major
-% linenumber mechanism.  ~running~ line numbers refer to a real
+% line number mechanism.  ~running~ line numbers refer to a real
 % counter value, which can be reset for any paragraph,
 % even getting  multiple paragraphs on one page starting
 % with line number one.  ~pagewise~ line numbers get a
@@ -3441,7 +3440,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %                                                                        \item
 % [|\linenumbersep]                                                     \ \par
 %     This dimension register sets the separation of the
-%     linenumber to the text. Default value is ~10pt~.
+%     line number to the text. Default value is ~10pt~.
 %                                                                        \item
 % [|\linenumberwidth]                                                   \ \par
 %     This dimension register sets the width of the line
