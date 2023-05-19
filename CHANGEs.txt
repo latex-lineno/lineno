@@ -1,3 +1,10 @@
+CHANGES  for lineno pkg v5.3   2023/xx/xx:
+
+1. Handle special value of \prevdepth=-1000pt.
+2. Add package options `sep' and `width' for
+   setting line number separation and width.
+
+
 CHANGES  for lineno pkg v5.2   2023/05/19:
 
 1. Support `amsmath` option `\allowdisplaybreaks`.
