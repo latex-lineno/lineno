@@ -262,6 +262,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 \ProvidesPackage{lineno}
   [\filedate\space line numbers on paragraphs \fileversion]
 %%
+\RequirePackage{etoolbox}
 %% History of versions:
 %% v1.00 1995/03/31  SIB: first release for Petra's interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -2908,8 +2909,6 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 % to fix this without losing the behaviour of ~\\*~.
 % (/New v5.2)
 %
-
-\RequirePackage{etoolbox}
 
 \ifdefined\AddToHook
   \def\linenoamsmath@patches#1{\AddToHook{package/amsmath/after}{#1}}
