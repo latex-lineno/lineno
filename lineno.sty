@@ -263,6 +263,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
   [\filedate\space line numbers on paragraphs \fileversion]
 %%
 \RequirePackage{etoolbox}
+\RequirePackage{kvoptions}
 %% History of versions:
 %% v1.00 1995/03/31  SIB: first release for Petra's interview transcriptions
 %% v1.01 1995/10/28  SIB: added ~pagewise~ mode
@@ -2321,7 +2322,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %
 % ~addpageno~ is due to a suggestion by Sergei Mariev.
 
-\DeclareOption{addpageno}{%
+\DeclareVoidOption{addpageno}{%
   \AtEndOfPackage{\RequirePackage{vplref}[2005/04/25]}}
 
 %                                                                \subsection{%
@@ -2344,7 +2345,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 % is postponed to ~\AtBeginDocument~ when we know whether these
 % adjustments are needed.
 
-\DeclareOption{mathrefs}{\AtBeginDocument
+\DeclareVoidOption{mathrefs}{\AtBeginDocument
   {\RequirePackage{ednmath0}[2004/08/20]}}
 
 %
@@ -2410,12 +2411,12 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 
 \let\if@LN@edtable\iffalse
 
-\DeclareOption{edtable}{\let\if@LN@edtable\iftrue}
+\DeclareVoidOption{edtable}{\let\if@LN@edtable\iftrue}
 
-\DeclareOption{longtable}{\let\if@LN@edtable\iftrue
+\DeclareVoidOption{longtable}{\let\if@LN@edtable\iftrue
   \PassOptionsToPackage{longtable}{edtable}}
 
-\DeclareOption{nolongtablepatch}{%
+\DeclareVoidOption{nolongtablepatch}{%
   \PassOptionsToPackage{nolongtablepatch}{edtable}}
 
 % (/New v4.1)
@@ -2433,9 +2434,9 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 % (right) margin.  This works in all modes.  ~left~ is the
 % default.
 
-\DeclareOption{left}{\leftlinenumbers*}
+\DeclareVoidOption{left}{\leftlinenumbers*}
 
-\DeclareOption{right}{\rightlinenumbers*}
+\DeclareVoidOption{right}{\rightlinenumbers*}
 
 % Option ~switch~ (~switch*~) puts the line numbers on the
 % outer (inner) margin of the text.   This requires running
@@ -2443,22 +2444,22 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 % subtraction, getting sort of running numbers again.  The
 % ~pagewise~ option may restore true pagewise mode later.
 
-\DeclareOption{switch}{\setpagewiselinenumbers
-                       \switchlinenumbers
-                       \runningpagewiselinenumbers}
+\DeclareVoidOption{switch}{\setpagewiselinenumbers
+                           \switchlinenumbers
+                           \runningpagewiselinenumbers}
 
-\DeclareOption{switch*}{\setpagewiselinenumbers
-                        \switchlinenumbers*%
-                        \runningpagewiselinenumbers}
+\DeclareVoidOption{switch*}{\setpagewiselinenumbers
+                            \switchlinenumbers*%
+                            \runningpagewiselinenumbers}
 
 % In twocolumn mode, we can switch the line numbers to
 % the outer margin, and/or start with number 1 in each
 % column.  Margin switching is covered by the ~switch~
 % options.
 
-\DeclareOption{columnwise}{\setpagewiselinenumbers
-                           \columnwiselinenumberstrue
-                           \realpagewiselinenumbers}
+\DeclareVoidOption{columnwise}{\setpagewiselinenumbers
+                               \columnwiselinenumberstrue
+                               \realpagewiselinenumbers}
 
 % The options ~pagewise~ and ~running~ select the major
 % linenumber mechanism.  ~running~ line numbers refer to a real
@@ -2482,20 +2483,20 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 % ~\pagewiselinenumbers~,  you get margin switching, with
 % real pagewise line numbers.
 %
-\DeclareOption{pagewise}{\setpagewiselinenumbers
-                         \realpagewiselinenumbers}
+\DeclareVoidOption{pagewise}{\setpagewiselinenumbers
+                             \realpagewiselinenumbers}
 
-\DeclareOption{running}{\setrunninglinenumbers}
+\DeclareVoidOption{running}{\setrunninglinenumbers}
 
 % The option ~modulo~ causes only those linenumbers to be
 % printed which are multiples of five.
 
-\DeclareOption{modulo}{\modulolinenumbers\relax}
+\DeclareVoidOption{modulo}{\modulolinenumbers\relax}
 
 % Option ~modulo*~ modifies ~modulo~ in working like
 % ~\modulolinenumbers*~---see section_\ref{s:UserCmds}.
 
-\DeclareOption{modulo*}{\modulolinenumbers*\relax}
+\DeclareVoidOption{modulo*}{\modulolinenumbers*\relax}
 
 % The package option ~mathlines~ switches the behavior of
 % the ~{linenomath}~ environment with its star-form.
@@ -2505,7 +2506,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %
 %%% 1999-06-10: renamed ~displaymath~ to ~mathlines~.
 
-\DeclareOption{mathlines}{\linenumberdisplaymath}
+\DeclareVoidOption{mathlines}{\linenumberdisplaymath}
 
 % ~displaymath~ now calls for wrappers of the standard
 % \LaTeX\ display math environment.  This was previously
@@ -2518,9 +2519,9 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 % ~\endlinenomath~ provides ~\ignorespaces~, so what could go
 % wrong now?
 
-\DeclareOption{displaymath}{\PackageWarningNoLine{lineno}{%
-                Option [displaymath] is obsolete -- default now!}}
-%%
+\DeclareVoidOption{displaymath}{%
+  \PackageWarningNoLine{lineno}{Option [displaymath] is obsolete}}
+
 %%\let\do@mlineno\relax
 %%\DeclareOption{displaymath}{\let\do@mlineno\@empty}
 % (/New v4.3)
@@ -2545,9 +2546,8 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 % first ~\linenumbers~ and before a next one (if there is some).
 %     (/New v4.3)
 
-\DeclareOption{hyperref}{\PackageWarningNoLine{lineno}{%
-                Option [hyperref] is obsolete.
-  \MessageBreak The hyperref package is detected automatically.}}
+\DeclareVoidOption{hyperref}{%
+  \PackageWarningNoLine{lineno}{Option [hyperref] is obsolete}}
 
 \AtBeginDocument{%
   \@ifpackageloaded{nameref}{%
@@ -2598,7 +2598,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 % We stop declaring options and execute the ones that are
 % called by the user.       (/New v4.1)
 
-\ProcessOptions
+\ProcessKeyvalOptions*
 
 % (New v4.1)        Now we know whether ~edtable.sty~ is wanted
 % and (if it is) with which options it is to be called.
