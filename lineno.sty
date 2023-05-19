@@ -3200,8 +3200,8 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %                                                                     \unskip}
 %
 % (New v4.1)    We have completed inclusion of the earlier
-% extension packages ~linenox0.sty~, ~linenox1.sty~, and
-% ~lnopatch.sty~. If one of them is loaded, though,
+% extension packages ~linenox0.sty~, ~linenox1.sty~, ~lnopatch.sty~,
+% and ~linenoamsmath~. If one of them is loaded, though,
 % we produce an error message before something weird happens.
 % We avoid ~\newif~ because the switchings occur so rarely.
 
@@ -3210,10 +3210,12 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
   \@ifpackageloaded{linenox0}{\let\if@LN@obsolete\iftrue}\relax
   \@ifpackageloaded{linenox1}{\let\if@LN@obsolete\iftrue}\relax
   \@ifpackageloaded{lnopatch}{\let\if@LN@obsolete\iftrue}\relax
+  \@ifpackageloaded{linenoamsmath}{\let\if@LN@obsolete\iftrue}\relax
   \if@LN@obsolete
     \PackageError{lineno}{Obsolete extension package(s)}{%
-    With lineno.sty version 4.00 or later,\MessageBreak
-    linenox0/linenox1/lnopatch.sty must no longer be loaded.}%
+      As of \fileversion, `lineno' includes the functionality of \MessageBreak
+      `linenox0', `linenox1', `lnopatch', and `linenoamsmath'; \MessageBreak
+      these packages are therefore obsolete and must not be loaded.}%
   \fi
 }
 
