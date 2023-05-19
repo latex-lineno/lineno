@@ -37,7 +37,7 @@ $(ZIPBALL): $(PDFS) $(PDFS:.pdf=.tex) $(PKGS) $(TXTS) Makefile
 
 clean:
 	-rm -rf lineno/
-	-rm -f *.aux *.doc *.dvi *.log *.out *.pdf *.toc
+	-rm -f *.aux *.doc *.dvi *.log *.out *.pdf *.toc *.tmp
 
 distclean: clean
 	-rm -f $(ZIPBALL)
