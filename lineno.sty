@@ -914,10 +914,18 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 % (New v4.4)   The depth preserving trick is drawn here from
 % ~\MakeLineNo~ because it will be used again in
 % section_\ref{ss:calls}.
+% (v5.3) Handle special value of ~\prevdepth=-1000pt~. (/v5.3)
 
 \def\@LN@depthbox{%
-  \dp\@tempboxa=\@tempdima
-  \nointerlineskip \kern-\@tempdima \box\@tempboxa}
+  \ifdim\@tempdima = -1000pt
+  % \nointerlineskip is already set so we don't need set it again
+  % (and we shouldn't back up)
+  \else
+    \dp\@tempboxa=\@tempdima
+    \nointerlineskip
+    \kern-\@tempdima
+  \fi
+  \box\@tempboxa}
 
 % (/New v4.4)
 %
