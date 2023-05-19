@@ -1541,8 +1541,8 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 \newdimen\linenumbersep
 \newdimen\linenumberwidth
 
-\linenumberwidth=10pt
 \linenumbersep=10pt
+\linenumberwidth=10pt
 
 % Margin switching requires ~pagewise~ numbering mode, but
 % choosing the left or right margin for the numbers always
@@ -2526,6 +2526,19 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %%\DeclareOption{displaymath}{\let\do@mlineno\@empty}
 % (/New v4.3)
 %
+% (New v5.3) Options `sep' and `width' set ~\linenumbersep~ (the separation of
+% the line number to the text) and ~\linenumberwidth~ (the width of the line
+% number box on the right margin) respectively; see section_\ref{s:CustHooks}.
+
+\DeclareStringOption[\linenumbersep]{sep}
+\DeclareStringOption[\linenumberwidth]{width}
+\AtBeginDocument{%
+  \linenumbersep=\lineno@sep%
+  \linenumberwidth=\lineno@width%
+}
+
+% (/New v5.3)
+%
 %                                                                \subsection{%
 %               Compatibility with \texttt{hyperref}      %% own subsec. v4.3.
 %                                                                     \unskip}
@@ -3391,7 +3404,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %
 %                                                                \subsection{%
 %                 Customization hooks
-%                                                                     \unskip}
+%                                                  \unskip}\label{s:CustHooks}
 %
 % There are several hooks to customize the appearance of the
 % line numbers, and some low level hooks for special

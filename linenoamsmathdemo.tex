@@ -19,12 +19,12 @@
 
 \ifdefined\AddToHook
   \newcommand{\loadorder}{\textsf{lineno} is loaded first, and then patches \textsf{amsmath} using \texttt{\textbackslash AddToHook}}
-  \usepackage[mathlines]{lineno}
+  \usepackage[mathlines,sep=11pt,width=11pt]{lineno}
   \usepackage[leqno]{amsmath}
 \else
   \newcommand{\loadorder}{\textsf{amsmath} is loaded first, and then patched directly by \textsf{lineno}}
   \usepackage[leqno]{amsmath}
-  \usepackage[mathlines]{lineno}
+  \usepackage[mathlines,sep=11pt,width=11pt]{lineno}
 \fi
 \usepackage{lipsum}
 \usepackage{hyperref}
