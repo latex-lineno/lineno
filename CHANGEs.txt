@@ -1,11 +1,11 @@
 CHANGES  for lineno pkg v5.3   2023/xx/xx:
 
-1. Handle special value of \prevdepth=-1000pt.
-   (thanks to @muzimuzhi and @FrankMittelbach)
+1. Handle special value of \prevdepth=-1000pt;
+   thanks to Yukai Chou and Frank Mittelbach.
 2. Add package options `sep' and `width' for
    setting line number separation and width.
-3. Add `twocolumn` support for `bframe` env.
-   (thanks to @muzimuzhi)
+3. Add `twocolumn` support for `bframe` env;
+   thanks to Yukai Chou.
 
 
 CHANGES  for lineno pkg v5.2   2023/05/19:
