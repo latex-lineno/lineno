@@ -3,7 +3,7 @@
 
 Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
                                                                            \fi
-\def\fileversion{v5.2}  \def\filedate{2023/05/19}                     %VERSION
+\def\fileversion{v5.3}  \def\filedate{2023/05/20}                     %VERSION
 
 %%% Copyright 1995--2003 Stephan I. Böttcher
 %%% Copyright 2002--2005 Uwe Lück for versions 4.x and code from former Ednotes
@@ -390,6 +390,10 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %% v5.0  2022/07/30  KW:  Merge in `linenoamsmath' patches
 %% v5.1  2023/01/19  KW:  Patch `amsmath` with \AddToHook if possible.
 %% v5.2  2023/05/19  KW:  Support `amsmath` option `\allowdisplaybreaks`.
+%% v5.3  2023/05/20  KW:  Handle special value of \prevdepth=-1000pt.
+%%                        Add package options `sep' and `width' for
+%%                        setting line number separation and width.
+%%                        Add `twocolumn` support for `bframe` env.
 %%
 %% Acknowledgements:
 %% v3.06:  Donald Arseneau, pointed to mparhack.sty.
@@ -406,6 +410,9 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %%         Saravanan M.'s and David Josef Dev.
 %% v4.4:   David Josef Dev points out that \kern\z@ after a paragraph
 %%         tends to place its final baseline wrongly.
+%% v5.3:   Yukai Chou and Frank Mittelbach for patches to handle special
+%%         value of \prevdepth=-1000pt, and add `twocolumn` support for
+%%         `bframe` env.
 %
 %
 %                                                                   \section{%
