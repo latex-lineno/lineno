@@ -43,4 +43,4 @@ clean:
 	-rm -f *.aux *.doc *.dvi *.log *.out *.pdf *.toc *.tmp
 
 distclean: clean
-	-rm -f $(ZIPBALL)
+	-rm -f lineno.tex SRCFILEs.txt $(PDFS) $(ZIPBALL)
