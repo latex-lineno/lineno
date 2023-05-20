@@ -1,6 +1,7 @@
 LATEX = latex -interaction=nonstopmode
 DVIPDF = dvipdf
 ZIP = zip
+ZIPINFO = zipinfo
 
 PDFS = fnlineno.pdf lineno.pdf lnosuppl.pdf ulineno.pdf linenoamsmathdemo.pdf
 PKGS = ednmath0.sty edtable.sty fnlineno.sty lineno.sty vplref.sty
@@ -33,7 +34,9 @@ $(ZIPBALL): $(PDFS) $(PDFS:.pdf=.tex) $(PKGS) $(TXTS) Makefile
 	cp $(PKGS) lineno/tex/
 	cp $(PDFS:.pdf=.tex) lineno/source/
 	mv lineno/doc/README.md lineno/
-	$(ZIP) -r $(ZIPBALL) lineno/
+	chmod -R u+rwX,go+r lineno/
+	$(ZIP) -qr $(ZIPBALL) lineno/
+	$(ZIPINFO) $(ZIPBALL)
 
 clean:
 	-rm -rf lineno/
