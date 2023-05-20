@@ -2938,67 +2938,67 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %
 
 \ifdefined\AddToHook
-  \def\linenoamsmath@patches#1{\AddToHook{package/amsmath/after}{#1}}
+  \def\@LN@amsmath@patches#1{\AddToHook{package/amsmath/after}{#1}}
 \else
   \ifdefined\endgather
-    \def\linenoamsmath@patches#1{#1}
+    \def\@LN@amsmath@patches#1{#1}
   \else
     \PackageWarningNoLine{lineno}%
       {`amsmath' must be loaded before `lineno' for patches to be applied}
-    \def\linenoamsmath@patches#1{\relax}
+    \def\@LN@amsmath@patches#1{\relax}
   \fi
 \fi
 
-\linenoamsmath@patches{
-  \newcommand*\linenoamsmath@patch[1]{%
+\@LN@amsmath@patches{
+  \newcommand*\@LN@amsmath@patch[1]{%
     \cspreto{#1}{\linenomath}%
     \cspreto{#1*}{\linenomath}%
     \csappto{end#1}{\endlinenomath}%
     \csappto{end#1*}{\endlinenomath}%
   }
-  \newcount\linenoamsmath@ams@eqpen
+  \newcount\@LN@amsmath@ams@eqpen
   \cspreto{math@cr@}{%
     %%% Uncommenting the following 2 lines restores the line number on a line
     %%% ended with \\*, by making \\* act just like \\. This is probably
     %%% undesirable, however, so these lines are disabled.
     % \global\@eqpen%
     % \ifnum\dspbrk@lvl <\z@ \interdisplaylinepenalty \else -\@getpen\dspbrk@lvl \fi%
-    \advance\@eqpen\linenoamsmath@ams@eqpen\relax%
+    \advance\@eqpen\@LN@amsmath@ams@eqpen\relax%
   }
-  \newcommand*\linenoamsmath@patch@ams[1]{%
+  \newcommand*\@LN@amsmath@patch@ams[1]{%
     \cspreto{#1}{%
       \linenomath%
       \postdisplaypenalty=0%
-      \global\linenoamsmath@ams@eqpen\interdisplaylinepenalty%
+      \global\@LN@amsmath@ams@eqpen\interdisplaylinepenalty%
     }%
     \cspreto{#1*}{%
       \linenomath%
       \postdisplaypenalty=0%
-      \global\linenoamsmath@ams@eqpen\interdisplaylinepenalty%
+      \global\@LN@amsmath@ams@eqpen\interdisplaylinepenalty%
     }%
     \csappto{end#1}{%
-      \global\linenoamsmath@ams@eqpen\z@%
+      \global\@LN@amsmath@ams@eqpen\z@%
       \endlinenomath%
     }%
     \csappto{end#1*}{%
-      \global\linenoamsmath@ams@eqpen\z@%
+      \global\@LN@amsmath@ams@eqpen\z@%
       \endlinenomath%
     }%
   }
-  \linenoamsmath@patch{equation}
-  \linenoamsmath@patch@ams{multline}
-  \linenoamsmath@patch@ams{gather}
-  \linenoamsmath@patch@ams{align}
-  \linenoamsmath@patch@ams{alignat}
-  \linenoamsmath@patch@ams{flalign}
-  \let\linenoamsmath@ams@mmeasure\mmeasure@
+  \@LN@amsmath@patch{equation}
+  \@LN@amsmath@patch@ams{multline}
+  \@LN@amsmath@patch@ams{gather}
+  \@LN@amsmath@patch@ams{align}
+  \@LN@amsmath@patch@ams{alignat}
+  \@LN@amsmath@patch@ams{flalign}
+  \let\@LN@amsmath@ams@mmeasure\mmeasure@
   \def\mmeasure@#1{%
-    \global\linenoamsmath@ams@eqpen\z@%
+    \global\@LN@amsmath@ams@eqpen\z@%
     \begingroup%
     \interdisplaylinepenalty=0%
-    \linenoamsmath@ams@mmeasure{#1\\}%
+    \@LN@amsmath@ams@mmeasure{#1\\}%
     \endgroup%
-    \global\linenoamsmath@ams@eqpen\interdisplaylinepenalty%
+    \global\@LN@amsmath@ams@eqpen\interdisplaylinepenalty%
   }
 }
 
