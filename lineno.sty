@@ -2914,7 +2914,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 % demonstration.
 % (/New v5.0)
 %
-% (/New v5.1) ~lineno~ tries to use \LaTeX's hook management system to patch
+% (New v5.1) ~lineno~ tries to use \LaTeX's hook management system to patch
 % ~amsmath~, so that the two packages may be loaded independently. This requires
 % the October 2020 release of \LaTeX. As a fallback for older releases, ~lineno~
 % tests whether ~amsmath~ had already been loaded (by testing for the presence
@@ -2922,7 +2922,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 % has not been loaded, no patches are applied, and a warning is issued.
 % (/New v5.1)
 %
-% (/New v5.2) Fix ~lineno~ to work with ~amsmath~'s ~\allowdisplaybreaks~
+% (New v5.2) Fix ~lineno~ to work with ~amsmath~'s ~\allowdisplaybreaks~
 % option. A side effect is that now ~\\*~ suppresses a line number on that
 % line. This is because ~\\*~ prohibits a page break after a given line, and
 % ~lineno~ basically works by hijacking page breaks. It's probably not possible
