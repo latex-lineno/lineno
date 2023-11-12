@@ -108,10 +108,10 @@ removed.
     **       o `Files'  and                                      **
     **       o `Installation and usage'.                       ] **
 
-    2004-09-13 Uwe L"uck  [(UL)]  is new maintainer for lineno.sty.
+    2004-09-13 Uwe Lück  [(UL)]  is new maintainer for lineno.sty.
 
     lineno.sty served the purpose for which I wrote it years ago.  Uwe
-    L"uck uses lineno.sty with his Ednotes package, which required quite a
+    Lück uses lineno.sty with his Ednotes package, which required quite a
     few changes and fixes.  His package depends on lineno, therefore
     Uwe agreed to take over the maintenance of lineno.sty.
 
