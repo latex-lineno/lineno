@@ -10,7 +10,154 @@
   \MakeJobDoc{17}{\SectionLevelThreeParseInput}     %% 2010/12/16
 }
 \documentclass{article}%% TODO paper dimensions!?
-\input{makedoc.cfg} %% shared formatting settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \ProvidesFile{makedoc.cfg}[{2013/03/25 documentation settings}]
+%%
+%% \author{Uwe L\"uck\thanks{%
+%%         \url{http://contact-ednotes.sty.de.vu}}}
+%%
+%% 'hyperref':
+\RequirePackage{ifpdf}
+\usepackage[%
+  \ifpdf
+%     bookmarks=false,                  %% 2010/12/22
+%     bookmarksnumbered,
+    bookmarksopen,                      %% 2011/01/24!?
+    bookmarksopenlevel=2,               %% 2011/01/23
+%     pdfpagemode=UseNone,
+%     pdfstartpage=10,
+    pdfstartview=FitH,                  %% 2012/11/26 again
+%     pdfstartview=0 0 100,             %% 2011/08/22
+%     pdfstartview={XYZ null null 1},   %% 2011/08/25
+%     pdfstartview={XYZ null null null},%% 2011/08/25
+%     pdfstartview={XYZ null null .5},    %% 2011/08/26
+%     pdffitwindow=true,          %% 2011/08/22
+    citebordercolor={ .6 1    .6},
+    filebordercolor={1    .6 1},
+    linkbordercolor={1    .9  .7},
+     urlbordercolor={ .7 1   1},   %% playing 2011/01/24
+  \fi
+]{hyperref}
+\hypersetup{%
+    pdfauthor={Uwe L\374ck}%
+}
+%% metadata, |\MDkeywords{<text>}|, |\MDkeywordsstring|:
+%% %% 2011/08/22:
+\makeatletter
+  \newcommand*{\MDkeywords}[1]{%
+    \gdef\MDkeywordsstring{#1}%
+    \hypersetup{pdfkeywords=\MDkeywordsstring}%% TODO!?
+  }
+  \@onlypreamble\MDkeywords
+%% |\MDaddtoabstract{<par-head>}|, `:' added:
+  \newcommand*{\MDaddtoabstract}[1]{%           %% 2012/05/10
+    \par\smallskip\noindent
+    \strong{#1:}\quad\ignorespaces}
+%% \pagebreak[2]
+%% |\printMDkeywords|:
+  \newcommand*{\printMDkeywords}{%
+    \MDaddtoabstract{Keywords}%
+    \MDkeywordsstring
+%     \global\let\MDkeywordsstring\relax    %% `%' 2012/11/12
+  }
+%% The previous definitions mainly are useful with a variant
+%% |\begin{MDabstract}| of \LaTeX's `{abstract}' environment:
+  \newenvironment{MDabstract}
+                 {\abstract\noindent
+                  \hspace{1sp}%% for niceverb
+                  \ignorespaces}
+                 {\@ifundefined{MDkeywordsstring}%
+                               {}%
+                               {\printMDkeywords}%
+                  \global\let\MDabstract\relax    %% 2012/11/12
+                  \global\let\endMDabstract\relax %% 2012/11/12
+                  \endabstract}
+%% |\[MD]docnewline| 2012/11/12 from `readprov.tex':
+  \newcommand*{\MDdocnewline}{\leavevmode\@normalcr[\topsep]}
+%% <- `\leavevmode' for use with `\paragraph'.
+%%    Sometimes needs to be preceded by a space.
+%%
+%% |\MDfinaldatechecks[<tex-script>]| with \ctanpkgref{filedate}:
+  \newcommand*{\MDfinaldatechecks}[1][fdatechk]{%
+    \AtEndDocument{%
+%       \clearpage %% 2013/03/25 no avail -- with `filedate'!
+      \def\@pkgextension{sty}%
+      \def\NeedsTeXFormat##1[##2]{}%
+      \noNiceVerb                       %% 2013/03/22
+      \input{#1}%
+    }}
+  \@onlypreamble\MDfinaldatechecks
+\makeatother
+%% Use other packages:
+\RequirePackage{niceverb}[2011/01/24]
+\RequirePackage{readprov}               %% 2010/12/08
+\RequirePackage{hypertoc}               %% 2011/01/23
+\RequirePackage{texlinks}               %% 2011/01/24
+\RequirePackage{relsize}                %% 2011/06/27
+\RequirePackage{color}                  %% 2011/08/06
+\RequirePackage{lmodern}                %% 2012/10/29
+\RequirePackage{filedate}               %% 2012/11/12
+\RequirePackage{filesdo}                %% 2013/03/22
+%% \pagebreak[3]
+%% Logical markup:\qquad  |\strong{<chars>}|, |\meta{<chars>}|,
+%% |\acro{<chars>}|, |\pkg{<chars>}|,
+%% |\code{<chars>}|, |\file{<chars>}|:{\sloppy\par}
+\makeatletter
+  \def\do#1#2{\@ifdefinable#1{\let#1#2}}%% 2012/07/13
+  \do\strong\textbf \do\file\texttt \do\acro\textsmaller
+  %% <- wrong tests before 2012/07/13
+  \do\meta\textit   \do \pkg\textsf \do\code\texttt
+  \ifpdf
+    \pdfstringdefDisableCommands{%
+        \let\acro\textrm
+        \let\file\textrm                            %% 2011/11/09
+        \let\code\textrm                            %% 2011/11/20
+        \let\pkg \textrm                            %% 2012/03/23
+    }
+  \fi
+  %% TODO 2011/07/22 -> `htlogml.sty'
+\makeatother
+%% |\qtdcode{<text>}|: 2012/10/24:
+    \newcommand*{\qtdcode}[1]{`\code{#1}'}
+%% |\pkgtitle{<package-name>}{<caption>}|
+\newcommand*{\pkgtitle}[2]{%            %% 2012/07/13
+    \global\let\pkgtitle\relax
+    \pkg{\huge #1}\\---\\#2\thanks{This
+       document describes version
+       \textcolor{blue}{\UseVersionOf{\jobname.sty}}
+       of \textsf{\jobname.sty} as of \UseDateOf{\jobname.sty}.}}
+%% TODO: %% |\TODO| bad with `mdoccorr.cfg'
+\newcommand*{\TODO}{\textcolor{blue}{\acro{TODO}}}  %% 2012/11/06
+%% `\MDsampleinput[{<file>}' was added 2012/11/06.
+%% Problems with `myfilist.tex' were due to 'parskip.sty'
+%% there. On 2012/11/12, we change the former simple macro to a
+%% much more complex
+%% |\MDsamplecodeinput[<add-hfuss>]{<file>}|
+\newcommand*{\MDsamplecodeinput}[2][]{%
+    \begingroup
+        \vskip\bigskipamount \hrule
+        \nobreak\vskip-\parskip
+%         \nobreak\vskip\medskipamount
+%% Previous mistake (same below) due to manual change
+%% of `\topsep' in the file `myfilist.tex' (2012/11/30).
+        \ifx\\#1\\\else
+            \hfuzz=\textwidth \advance\hfuzz#1\relax
+        \fi
+        \noNiceVerb \verbatiminput{#2}%
+%         \nobreak\vskip\medskipamount
+        \hrule \vskip-\parskip
+        \bigskip %%% \bigbreak
+%% `\bigbreak' made much larger space in `myfilist.tex'.
+    \endgroup
+}
+%% |\ctanpkgdref{<pkg-id>}| adds the printed link to
+%% `ctan.org/pkg' as a footnote. There is a little space
+%% for coloured link borders:
+\newcommand*{\ctanpkgdref}[1]{%
+    \ctanpkgref{#1}\,\urlfoot{CtanPkgRef}{#1}}
+\errorcontextlines=4
+\pagestyle{headings}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 2022/07/30   \newcommand*{\lt}{<} \newcommand*{\gt}{>}           %% 2010/12/22
 \providecommand*{\strong}{\textbf}                  %% 2010/12/15
 \ReadPackageInfos{fnlineno}
