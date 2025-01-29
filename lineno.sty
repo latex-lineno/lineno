@@ -41,8 +41,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %%                                               %% Beware math!? (/New v4.00)
 %                                                                \def~{\verb~}
 %                                                               \let\lessthan<
-%                                                           \catcode`\<\active
-%                                   \def<#1>{$\langle${\itshape#1}\/$\rangle$}
+%                               \def\angle#1{$\langle${\itshape#1}\/$\rangle$}
 %                                                           \catcode`\|\active
 %%                                        (New v4.1: \tt star; in box anyway.)
 %                                                  \def|#1{\ttfamily\string#1}
@@ -1051,7 +1050,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 % ~\@par~ and ~\par~ are only touched, when they are ~\let~
 % to ~\@@@par~/~\linenumberpar~.  The line number may be
 % reset to 1 with the star-form, or set by an optional
-% argument ~[~<number>~]~.
+% argument ~[~\angle{number}~]~.
 %
 % (New v4.00)        We add ~\ifLineNumbers~ etc.\ since
 % a number of our new adjustments need to know whether
@@ -1294,7 +1293,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 % % numbered float was considered to be a marginpar.
 % %
 % % The float box number ~\@currbox~ is used to transfer the
-% % label name in a macro called ~\@LNL@~<box-number>.
+% % label name in a macro called ~\@LNL@~\angle{box-number}.
 % \end{verbatim}
 %                                                                    \end{old}
 % A ~\newlabel~ is written to the aux-file.  The reference
@@ -1366,8 +1365,8 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %                                                                \subsection{%
 %                  The \scs{linelabel} command
 %                                                        \unskip}\label{ss:LL}
-% To refer to a place in line ~\ref{~<foo>~}~ at page
-% ~\pageref{~<foo>~}~ you place a ~\linelabel{~<foo>~}~ at
+% To refer to a place in line ~\ref{~\angle{foo}~}~ at page
+% ~\pageref{~\angle{foo}~}~ you place a ~\linelabel{~\angle{foo}~}~ at
 % that place.
 %
 %                   \linelabel{demo}
@@ -1719,7 +1718,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 
 % Each numbered line gives a line to the aux file
 %                                                                \begin{verse}
-%     ~\@LN{~<line>~}{~<page>~}~
+%     ~\@LN{~\angle{line}~}{~\angle{page}~}~
 %                                                                  \end{verse}
 % very similar to the ~\newlabel~ business, except that we need
 % an arabic representation of the page number, not what
@@ -1778,7 +1777,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 % it for list macros anyway.
 % (/UL) (/New v4.00)
 %
-% From the aux-file we get one macro ~\LN@P~<page> for each
+% From the aux-file we get one macro ~\LN@P~\angle{page} for each
 % page with line numbers on it.  This macro calls four other
 % macros with one argument each.  These macros are
 % dynamically defined to do tests and actions, to find out
@@ -1806,10 +1805,10 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 
 % Now, this is the tricky part.  First of all, the whole
 % definition of ~\@LN~ is grouped, to avoid accumulation
-% on the save stack. Somehow ~\csname~<cs>~\endcsname~ pushes
-% an entry, which stays after an ~\xdef~ to that <cs>.
+% on the save stack. Somehow ~\csname~\angle{cs}~\endcsname~ pushes
+% an entry, which stays after an ~\xdef~ to that \angle{cs}.
 %
-% If ~\LN@P~<page> is undefined, initialize it with the
+% If ~\LN@P~\angle{page} is undefined, initialize it with the
 % current page and line number, with the
 % \emph{pointer-to-the-next-page} pointing to nothing.  And
 % the macro for the previous page will be redefined to point
@@ -1839,7 +1838,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 
 % The previous page macro gets its pointer to the
 % current one, replacing the ~\relax~ with the cs-token
-% ~\LN@P~<page>.
+% ~\LN@P~\angle{page}.
 
 \def\@@@LN#1#2{{\def\nextLN##1{\noexpand\nextLN\noexpand#2}%
                 \xdef#1{#1}}}
@@ -2215,7 +2214,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %%
 % No counter, little values allowed only---OK?---(UL)
 % The change is local---OK? The good thing is that
-% ~\global\firstlinenumber{~<number>~}~ works. Moreover,
+% ~\global\firstlinenumber{~\angle{number}~}~ works. Moreover,
 % ~\modulolinenumbers~ acts locally as well.    (/UL)
 %
 % (New v4.31)
@@ -2781,16 +2780,16 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %
 % To refer to a pagewise line number with offset:
 %                                                                \begin{quote}
-%   ~\linerefp[~<OFFSET>~]{~<LABEL>~}~
+%   ~\linerefp[~\angle{OFFSET}~]{~\angle{LABEL}~}~
 %                                                                  \end{quote}
 % To refer to a running line number with offset:
 %                                                                \begin{quote}
-%   ~\linerefr[~<OFFSET>~]{~<LABEL>~}~
+%   ~\linerefr[~\angle{OFFSET}~]{~\angle{LABEL}~}~
 %                                                                  \end{quote}
 % To refer to a line number labeled in the same mode as currently
 % selected:
 %                                                                \begin{quote}
-%   ~\lineref[~<OFFSET>~]{~<LABEL>~}~
+%   ~\lineref[~\angle{OFFSET}~]{~\angle{LABEL}~}~
 %                                                                  \end{quote}
 
 \newcommand\lineref{%
@@ -3260,10 +3259,10 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %                                                                        \item
 % [|\linenumbers*]                                              \ \par$\qquad$
 %        and reset the line number to 1.
-%                                                      \def\NL{<number>]}\item
+%                                                      \def\NL{\angle{number}]}\item
 %%                         %% Boldface italic occurs here, which is evil. (UL)
 % [|\linenumbers[\NL]                                           \ \par$\qquad$
-%        and start with <number>.
+%        and start with \angle{number}.
 %                                                                        \item
 % [|\nolinenumbers]                                                     \ \par
 %     Turn off line numbering.
@@ -3283,7 +3282,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %                                                                        \item
 % [|\resetlinenumber[\NL]                                               \ \par
 %     Reset ~[~Set~]~ the line number to 1
-%     ~[~<number>~]~.
+%     ~[~\angle{number}~]~.
 %                                                                        \item
 % [|\setrunninglinenumbers]                                             \ \par
 %     Switch to ~running~ line number mode. Do \emph{not}
@@ -3317,9 +3316,9 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %                                                                        \item
 % [|\modulolinenumbers[\NL]                                             \ \par
 %     Give a number only to lines which are multiples of
-%     ~[~<number>~]~.  If <number> is not specified, the
+%     ~[~\angle{number}~]~.  If \angle{number} is not specified, the
 %     current value in the counter ~linenumbermodulo~ is
-%     retained.  <number>=1 turns this off without changing
+%     retained.  \angle{number}=1 turns this off without changing
 %     ~linenumbermodulo~.  The counter is initialized to 5.
 %%
 %%                               %% TODO v4.4+: `counter', he says. Cf._above.
@@ -3342,13 +3341,13 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %%                                                                 (New v4.00)
 %                                                                        \item
 % [|\firstlinenumber]                                                   \ \par
-%     ~\firstlinenumber{~<filino>~}~ brings about that
-%     (after it) line numbers less than <filino> do
+%     ~\firstlinenumber{~\angle{filino}~}~ brings about that
+%     (after it) line numbers less than \angle{filino} do
 %     \emph{not} appear in the margin. Moreover, with
-%     ~\modulolinenumbers[~<number>~]~, just the line
-%     numbers which are <filino> plus a multiple of
-%     <number> are printed.---If you had
-%     ~\firstlinenumber{~<pos>~}~ with some $\mbox{<pos>}>0$
+%     ~\modulolinenumbers[~\angle{number}~]~, just the line
+%     numbers which are \angle{filino} plus a multiple of
+%     \angle{number} are printed.---If you had
+%     ~\firstlinenumber{~\angle{pos}~}~ with some $\mbox{\angle{pos}}>0$
 %     and want to switch to printing multiples of, e.g.,
 %     4, you best do ~\modulolinenumbers[4]~ and
 %     ~\firstlinenumber{0}~. (See subsection_\ref{ss:Mod}
@@ -3367,10 +3366,10 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %     ~{linenomath*}~ environment.  This is the default.
 %                                                                        \item
 % [|\linelabel]                                                         \ \par
-%     Set a ~\linelabel{~<foo>~}~ to the line number where
+%     Set a ~\linelabel{~\angle{foo}~}~ to the line number where
 %     this commands is in.  Refer to it with the \LaTeX\
-%     referencing commands ~\ref{~<foo>~}~ and
-%     ~\pageref{~<foo>~}~.
+%     referencing commands ~\ref{~\angle{foo}~}~ and
+%     ~\pageref{~\angle{foo}~}~.
 %                                                            \end{description}
 % The commands can be used globally, locally within groups
 % or as environments.  It is important to know that they
@@ -3381,29 +3380,29 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %%
 %%                     %% TODO: sure? ~\modulo...~, e.g.? well, in a sense ...
 %%
-% ~\end{~<mode>~linenumbers}~ commands provide a ~\par~.
+% ~\end{~\angle{mode}~linenumbers}~ commands provide a ~\par~.
 % Examples:
 %                                                                \begin{verse}
-%   ~{\linenumbers~  <text> ~\par}~                                         \\
+%   ~{\linenumbers~  \angle{text} ~\par}~                                         \\
 %                                                                         \ \\
 %   ~\begin{linenumbers}~                                                   \\
-%       <text>                                                              \\
+%       \angle{text}                                                              \\
 %   ~\end{linenumbers}~                                                     \\
 %                                                                         \ \\
-%   <paragraph> ~{\linenumbers\par}~                                        \\
+%   \angle{paragraph} ~{\linenumbers\par}~                                        \\
 %                                                                         \ \\
 %   ~\linenumbers~                                                          \\
-%     <text> ~\par~                                                         \\
+%     \angle{text} ~\par~                                                         \\
 %   ~\nolinenumbers~                                                        \\
 %                                                                         \ \\
 %   ~\linenumbers~                                                          \\
-%   <paragraph> ~{\nolinenumbers\par}~                                      \\
+%   \angle{paragraph} ~{\nolinenumbers\par}~                                      \\
 %                                                                  \end{verse}
 % (New v4.00)
-% However, the examples containing <paragraph> show what you
+% However, the examples containing \angle{paragraph} show what you
 % should \emph{not} do, at least if you use ~\pagebreak~,
 % ~\nopagebreak~, ~\vspace~, ~\\*~ or
-% ~\\[~<space>~]~---cf._section_\ref{s:MVadj}.
+% ~\\[~\angle{space}~]~---cf._section_\ref{s:MVadj}.
 %
 % The same care should be applied to the ``wizard'' devices
 % ~\ifLineNumbers~ (subsection_\ref{ss:OnOff}) and
