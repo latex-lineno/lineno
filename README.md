@@ -1,6 +1,6 @@
-# lineno.sty v5.3, fnlineno.sty v0.55
+# lineno.sty v5.4, fnlineno.sty v0.55
 
-2023-05-20
+2025-01-29
 
 The LaTeX package lineno.sty provides line numbers on paragraphs.  After TeX has
 broken a paragraph into lines there will be line numbers attached to them, with
@@ -10,7 +10,7 @@ reference mechanism.
 - Copyright 1995--2003 Stephan I. Böttcher
 - Copyright 2002--2005 Uwe Lück for versions 4.x and code from former Ednotes
 - Copyright 2011       Uwe Lück for fnlineno.sty/tex/pdf
-- Copyright 2021--2023 Karl Wette for versions 5.x
+- Copyright 2021--2025 Karl Wette for versions 5.x
 
 The files can be redistributed and/or modified under
 the terms of the LaTeX Project Public License; either
