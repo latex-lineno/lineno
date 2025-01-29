@@ -31,11 +31,10 @@
 \usepackage{url}
 
 \def~{\verb~}
-\catcode`\<\catcode`\~
-\def<#1>{$\langle${\itshape#1}\/$\rangle$}
+\def\angle#1{$\langle${\itshape#1}\/$\rangle$}
 \catcode`\|\catcode`\~
 \def|#1{{\ttfamily\string#1}}
-\def\NL{<number>]}
+\def\NL{\angle{number}]}
 
 \begin{document}
 \begin{runninglinenumbers}
@@ -105,12 +104,12 @@ The home of \lineno.sty is \url{https://github.com/latex-lineno/lineno}.  Here y
 
 As any other \LaTeXe\ package, you need to load it with
 \begin{quote}
-   ~\usepackage[~<options>~]{lineno}~
+   ~\usepackage[~\angle{options}~]{lineno}~
 \end{quote}
 
 \subsection{Package options}
 
-The available <options> are:
+The available \angle{options} are:
 \begin{description}
 
 \item[\texttt{[left]}:]  Put the line numbers into the left margin
@@ -276,17 +275,17 @@ You get this mode by
 
 You can reset the line number with
 \begin{quote}
-  ~\resetlinenumber[~<number>~]~
+  ~\resetlinenumber[~\angle{number}~]~
 \end{quote}
 where the default is to reset the line number to one.
 
 Alternatively, you can give the line number in an optional argument to
 any command that turns on the line numbering in this mode:
 \begin{quote}\obeylines
-  ~\linenumbers[~<number>~]~
-  ~\runninglinenumbers[~<number>~]~
-  ~\begin{linenumbers}[~<number>~]~
-  ~\begin{runninglinenumbers}[~<number>~]~
+  ~\linenumbers[~\angle{number}~]~
+  ~\runninglinenumbers[~\angle{number}~]~
+  ~\begin{linenumbers}[~\angle{number}~]~
+  ~\begin{runninglinenumbers}[~\angle{number}~]~
 \end{quote}
 or reset the line number to 1 with any of the following:
 \begin{quote}\obeylines
@@ -480,16 +479,16 @@ printed
 \subsection{Numbering only one in five lines}
 
 You can ask lineno to print the line numbers only if they devide by
-<n>, by saying
+\angle{n}, by saying
 \begin{quote}
-  ~\modulolinenumbers[~<n>~]~
+  ~\modulolinenumbers[~\angle{n}~]~
 \end{quote}
 If you omit the optional argument, it will be every fifth line, or
 whatever you used last (the current value of the counter
 ~linenumbermodulo~).  You get the same effect by giving the package
 option ~[modulo]~.
 
-If you set <n> to 1, the modulo value is not changed, but modulo
+If you set \angle{n} to 1, the modulo value is not changed, but modulo
 numbering is turned off.
 
 Changing the counter ~linenumbermodulo~ does not turn on modulo
@@ -539,7 +538,7 @@ You can redefine it to make the numbers appear in a differnt font
 \end{quote}
 The distance on the left margin can be changed with
 \begin{quote}
-  ~\setlength\linenumbersep{~<distance>~}~
+  ~\setlength\linenumbersep{~\angle{distance}~}~
 \end{quote}
 The distance on the right margin is ~\linenumbersep~ plus
 ~\linenumberwidth~, both are set to 10\,pt by default.
@@ -657,8 +656,8 @@ point of the refered line to the reference here.
 \section[Line number references]
         {Line number references\linelabel{ll1}}
 
-\lineno.sty allows to refer to a line number with ~\ref{~<label>~}~.
-The label is set by ~\linelabel{~<label>~}~, anywhere in a paragraph
+\lineno.sty allows to refer to a line number with ~\ref{~\angle{label}~}~.
+The label is set by ~\linelabel{~\angle{label}~}~, anywhere in a paragraph
 that gets line numbers.  If you put a ~\linelabel~ somewhere else, the
 line number it refers to is pretty meaningless, but no error message
 is issued.  (This section begins on line \ref{ll1}, page
@@ -816,7 +815,7 @@ It is currently not possible to put a ~\linelabel~ into math mode.
 This should not impose problems with inline math, since you can attach
 the label just outside the math shift, like\linelabel{rll1}
 \begin{quote}
-  ~... \linelabel{~<label>~}$x=f(y)$ ...~
+  ~... \linelabel{~\angle{label}~}$x=f(y)$ ...~
 \end{quote}
 but to refer to a line in display math, you cannot label it directly.
 \end{runninglinenumbers}
@@ -831,17 +830,17 @@ You put the ~\linelabel~ at the end of the preceeding line, and refer
 to that number, plus 1 or, in case of multiline displays, by any other
 offset.\linelabel{rll2}
 \begin{quote}
-  ~...\linelabel{~<label>~}~ \\
+  ~...\linelabel{~\angle{label}~}~ \\
   ~\begin{equation}~ \\
   ~     y=f'(x)~ \\
   ~\end{equation}~ \\
-  ~... the formula in line \lineref[+1]{~<label>~}~
+  ~... the formula in line \lineref[+1]{~\angle{label}~}~
 \end{quote}
 The offset calculation is different for pagewise or running line
 numbers, and you will have to make sure the right method is used.
 \end{pagewiselinenumbers}
 
-The macro ~\lineref[~<offset>~]{~<label>~}~ uses the method of the
+The macro ~\lineref[~\angle{offset}~]{~\angle{label}~}~ uses the method of the
 currently selected mode (line numbering need not be activated).  To
 specify the mode explicitly, use ~\linerefr~ or ~\linerefp~ for
 running or pagewise mode respectively.
