@@ -2595,6 +2595,13 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
     }%
   }%
 }
+%%
+% (New 5.4) Option to allow ~\linelabel~ with ~\nolinenumbers~.
+
+\DeclareVoidOption{nolinelabelerror}{\def\@LN@LLerror{\relax}}
+
+% (/New 5.4)
+%%
 
 % (/New v4.3)
 %
