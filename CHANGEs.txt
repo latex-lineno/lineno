@@ -1,3 +1,8 @@
+CHANGES  for lineno pkg v5.5   2025/05/13:
+
+1. Protect \\ with \protect instead of \DeclareRobustCommand.
+
+
 CHANGES  for lineno pkg v5.4   2025/01/29:
 
 1. Option to allow ~\linelabel~ with ~\nolinenumbers~.
