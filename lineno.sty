@@ -3184,7 +3184,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 % of ~\protect~.)
 %%                                                               %% TODO v4.4+
 
-\DeclareRobustCommand\\{%
+\protected\def\\{%
   \ifLineNumbers
     \expandafter \@LN@cr
   \else
