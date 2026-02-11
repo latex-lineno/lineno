@@ -17,7 +17,7 @@ lineno.tex: lineno.sty Makefile
 	sh $^
 
 SRCFILEs.txt: $(PKGS) $(PDFS:.pdf=.tex) Makefile
-	tex=`gawk -f srcfiles.awk $(PKGS) $(PDFS:.pdf=.tex) | sed 's/%.*//' | tr -d '\n'`; \
+	tex=`awk -f srcfiles.awk $(PKGS) $(PDFS:.pdf=.tex) | sed 's/%.*//' | tr -d '\n'`; \
 	tex "$${tex}"; \
 	cat $@.tmp | column -s ':' -t > $@
 
