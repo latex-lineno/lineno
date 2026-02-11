@@ -1996,9 +1996,22 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 % routine, in order to print a column tag to the .aux
 % file.
 
-\AtBeginDocument{% v4.2, revtex4.cls (e.g.).
- % <- TODO v4.4+: Or better in \LineNoLaTeXOutput!?
+\ifdefined\IfFormatAtLeastTF \IfFormatAtLeastTF{2025-06-01}{%
+ \AtBeginDocument{%
+   %disable lineno
+   \let\@LN@makecol\@makecol
+   % replace with hook code
+   \AddToHook{build/column/before}{\protected@write\@auxout{}{%
+           \string\@LN@col{\if@firstcolumn2\else1\fi}}}
+  }}{%
+ \AtBeginDocument{%
+   \let\@LN@orig@makecol\@makecol}}
+\else
+ \AtBeginDocument{% v4.2, revtex4.cls (e.g.).
+  % <- TODO v4.4+: Or better in \LineNoLaTeXOutput!?
   \let\@LN@orig@makecol\@makecol}
+\fi
+
 \def\@LN@makecol{%
    \@LN@orig@makecol
    \setbox\@outputbox \vbox{%
