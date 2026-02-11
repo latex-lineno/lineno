@@ -1,6 +1,7 @@
 *.aux
 *.doc
 *.dvi
+*.hd
 *.log
 *.out
 *.pdf
