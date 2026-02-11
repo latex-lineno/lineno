@@ -61,10 +61,9 @@
 %     \global\let\MDkeywordsstring\relax    %% `%' 2012/11/12
   }
 %% The previous definitions mainly are useful with a variant
-%% |\begin{MDabstract}| of \LaTeX's `{abstract}' environment:
+%% |\begin{MDabstract}| of \LaTeX's \verb|{abstract}| environment:
   \newenvironment{MDabstract}
                  {\abstract\noindent
-                  \hspace{1sp}%% for niceverb
                   \ignorespaces}
                  {\@ifundefined{MDkeywordsstring}%
                                {}%
@@ -72,9 +71,9 @@
                   \global\let\MDabstract\relax    %% 2012/11/12
                   \global\let\endMDabstract\relax %% 2012/11/12
                   \endabstract}
-%% |\[MD]docnewline| 2012/11/12 from `readprov.tex':
+%% |\[MD]docnewline| 2012/11/12 from \verb|readprov.tex|:
   \newcommand*{\MDdocnewline}{\leavevmode\@normalcr[\topsep]}
-%% <- `\leavevmode' for use with `\paragraph'.
+%% <- \verb|\leavevmode| for use with \verb|\paragraph|.
 %%    Sometimes needs to be preceded by a space.
 %%
 %% |\MDfinaldatechecks[<tex-script>]| with \ctanpkgref{filedate}:
@@ -83,13 +82,11 @@
 %       \clearpage %% 2013/03/25 no avail -- with `filedate'!
       \def\@pkgextension{sty}%
       \def\NeedsTeXFormat##1[##2]{}%
-      \noNiceVerb                       %% 2013/03/22
       \input{#1}%
     }}
   \@onlypreamble\MDfinaldatechecks
 \makeatother
 %% Use other packages:
-\RequirePackage{niceverb}[2011/01/24]
 \RequirePackage{readprov}               %% 2010/12/08
 \RequirePackage{hypertoc}               %% 2011/01/23
 \RequirePackage{texlinks}               %% 2011/01/24
@@ -118,7 +115,7 @@
   %% TODO 2011/07/22 -> `htlogml.sty'
 \makeatother
 %% |\qtdcode{<text>}|: 2012/10/24:
-    \newcommand*{\qtdcode}[1]{`\code{#1}'}
+    \newcommand*{\qtdcode}[1]{\verb|\code{#1}|}
 %% |\pkgtitle{<package-name>}{<caption>}|
 \newcommand*{\pkgtitle}[2]{%            %% 2012/07/13
     \global\let\pkgtitle\relax
@@ -128,7 +125,7 @@
        of \textsf{\jobname.sty} as of \UseDateOf{\jobname.sty}.}}
 %% TODO: %% |\TODO| bad with `mdoccorr.cfg'
 \newcommand*{\TODO}{\textcolor{blue}{\acro{TODO}}}  %% 2012/11/06
-%% `\MDsampleinput[{<file>}' was added 2012/11/06.
+%% \verb|\MDsampleinput[{<file>}| was added 2012/11/06.
 %% Problems with `myfilist.tex' were due to 'parskip.sty'
 %% there. On 2012/11/12, we change the former simple macro to a
 %% much more complex
@@ -139,19 +136,19 @@
         \nobreak\vskip-\parskip
 %         \nobreak\vskip\medskipamount
 %% Previous mistake (same below) due to manual change
-%% of `\topsep' in the file `myfilist.tex' (2012/11/30).
+%% of \verb|\topsep| in the file \verb|myfilist.tex| (2012/11/30).
         \ifx\\#1\\\else
             \hfuzz=\textwidth \advance\hfuzz#1\relax
         \fi
-        \noNiceVerb \verbatiminput{#2}%
+        \verbatiminput{#2}%
 %         \nobreak\vskip\medskipamount
         \hrule \vskip-\parskip
         \bigskip %%% \bigbreak
-%% `\bigbreak' made much larger space in `myfilist.tex'.
+%% \verb|\bigbreak| made much larger space in \verb|myfilist.tex|.
     \endgroup
 }
 %% |\ctanpkgdref{<pkg-id>}| adds the printed link to
-%% `ctan.org/pkg' as a footnote. There is a little space
+%% \verb|ctan.org/pkg| as a footnote. There is a little space
 %% for coloured link borders:
 \newcommand*{\ctanpkgdref}[1]{%
     \ctanpkgref{#1}\,\urlfoot{CtanPkgRef}{#1}}
@@ -176,9 +173,9 @@
 \CtanPkgRef{lineno}{lineno.sty}\urlpkgfoot{lineno}
 (created by Stephan~I. Böttcher)
 such that even
-`\footnote'                                 %% `\' 2010/12/09
+\verb|\footnote|                                 %% `\' 2010/12/09
 lines are numbered and can be referred to
-using `\linelabel', `\ref', etc.
+using \verb|\linelabel|, \verb|\ref|, etc.
 %% rm. 2011/02/09:
 % Version v0.5 aims at working as a user expects
 % (just cf.~``Limitations"), otherwise please complain!
@@ -208,7 +205,7 @@ may be ``exported" as standalone packages later.
 2.~The method of typesetting footnotes on the main vertical list
 may later lead to applying the line numbering method to
 several \emph{parallel} texts (with footnotes) and to
-`inner' material such as table cells.
+\verb|inner| material such as table cells.
 %% <- 2011/02/14 ->
 % \dots
 
