@@ -34,7 +34,7 @@ $(ZIPBALL): $(PDFS) $(PDFS:.pdf=.tex) $(PKGS) $(TXTS) Makefile
 	cp $(PKGS) lineno/tex/
 	cp $(PDFS:.pdf=.tex) lineno/source/
 	mv lineno/doc/README.md lineno/
-	chmod -R u+rwX,go+r lineno/
+	chmod -R u=rwX,g=r,o=r lineno/
 	$(ZIP) -qr $(ZIPBALL) lineno/
 	$(ZIPINFO) $(ZIPBALL)
 
