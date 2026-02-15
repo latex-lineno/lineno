@@ -12,6 +12,8 @@ ZIPBALL = lineno.zip
 .PHONY: all
 
 all: $(ZIPBALL)
+	tag=`git log -1 --pretty='format:%s' | sed -n 's/^lineno version \([0-9][0-9.]*\)$$/v\1/p'`; \
+	if test "X$$tag" != X; then git tag -f $$tag; fi
 
 lineno.tex: lineno.sty Makefile
 	sh $^
