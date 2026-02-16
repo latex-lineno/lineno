@@ -1998,35 +1998,39 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 % routine, in order to print a column tag to the .aux
 % file.
 
-\ifdefined\IfFormatAtLeastTF \IfFormatAtLeastTF{2025-06-01}{%
- \AtBeginDocument{%
-   %disable lineno
-   \let\@LN@makecol\@makecol
-   % replace with hook code
-   \AddToHook{build/column/before}{\protected@write\@auxout{}{%
-           \string\@LN@col{\if@firstcolumn2\else1\fi}}}
-  }}{%
- \AtBeginDocument{%
-   \let\@LN@orig@makecol\@makecol}}
-\else
- \AtBeginDocument{% v4.2, revtex4.cls (e.g.).
+\AtBeginDocument{% v4.2, revtex4.cls (e.g.).
   % <- TODO v4.4+: Or better in \LineNoLaTeXOutput!?
-  \let\@LN@orig@makecol\@makecol}
-\fi
+  \let\@LN@orig@makecol\@makecol
+}
 
 \def\@LN@makecol{%
    \@LN@orig@makecol
    \setbox\@outputbox \vbox{%
       \boxmaxdepth \@maxdepth
       \protected@write\@auxout{}{%
-          \string\@LN@col{\if@firstcolumn1\else2\fi}%
+         \string\def\string\@LN@column{\if@firstcolumn1\else2\fi}%
       }%
       \box\@outputbox
    }% \vbox
 } %% TODO cf. revtexln.sty.
 
-\def\@LN@col{\def\@LN@column} % v4.22, removed #1.
-\@LN@col{1}
+\def\@LN@column{1}
+
+\ifdefined\IfFormatAtLeastTF
+   \IfFormatAtLeastTF{2025-06-01}{
+      % disable \@LN@makecol
+      \AtBeginDocument{%
+         \let\@LN@makecol\@makecol
+      }
+      % replace with hook code
+      \AddToHook{build/column/before}{%
+         \protected@write\@auxout{}{%
+            \string\def\string\@LN@column{\if@firstcolumn1\else2\fi}%
+         }%
+      }
+   }{
+   }
+\fi
 
 %
 %                                                                \subsection{%
