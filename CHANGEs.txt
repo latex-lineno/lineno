@@ -4,6 +4,7 @@ CHANGES  for lineno pkg v5.6   2026/02/11:
    mode againt LaTeX2e 2026-06-01 PL2 and later;
    thanks to Akira Yokosawa.
 
+
 CHANGES  for lineno pkg v5.5   2025/05/13:
 
 1. Protect \\ with \protect instead of \DeclareRobustCommand.
