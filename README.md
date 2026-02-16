@@ -1,6 +1,6 @@
-# lineno.sty v5.6, fnlineno.sty v0.55
+# lineno.sty v5.7, fnlineno.sty v0.55
 
-2026/02/11
+2026/02/16
 
 The LaTeX package lineno.sty provides line numbers on paragraphs.  After TeX has
 broken a paragraph into lines there will be line numbers attached to them, with
