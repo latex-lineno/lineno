@@ -2026,7 +2026,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
       % replace with hook code
       \AddToHook{build/column/before}{%
          \protected@write\@auxout{}{%
-            \string\def\string\@LN@column{\if@firstcolumn1\else2\fi}%
+            \string\def\string\@LN@column{\if@firstcolumn2\else1\fi}%
          }%
       }
    }{
