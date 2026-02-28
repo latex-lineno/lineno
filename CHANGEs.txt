@@ -1,3 +1,9 @@
+CHANGES  for lineno pkg v5.8   2026/02/28:
+
+1. Fix issue with twocolumn in version 5.7;
+   thanks to @benebrue.
+
+
 CHANGES  for lineno pkg v5.7   2026/02/16:
 
 1. Adjust twocolumn mode compatibility fix after regression
