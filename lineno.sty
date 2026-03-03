@@ -2029,7 +2029,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
       }
       % replace with hook code
       \AddToHook{build/column/after}{%
-        \setbox\@outputbox \vbox{%
+        \setbox\@outputbox \vbox to\ht\@outputbox{%
           \boxmaxdepth \@maxdepth
           \protected@write\@auxout{}{%
             \string\def\string\@LN@column{\if@firstcolumn1\else2\fi}%
