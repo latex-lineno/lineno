@@ -49,10 +49,10 @@ jobs:
           make V=1 check
 
       - name: Upload artifacts
-        if: always()
+        if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: pdf-diffs:${{ matrix.tag }}
+          name: failed-tests:${{ matrix.tag }}
           path: |
             test/**/diff*.pdf
             test/**/test*.pdf
