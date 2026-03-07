@@ -3,7 +3,7 @@
 
 Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
                                                                            \fi
-\def\fileversion{v5.8}  \def\filedate{2026/02/28}                     %VERSION
+\def\fileversion{v5.9}  \def\filedate{2026/03/08}                     %VERSION
 
 %%% Copyright 1995--2003 Stephan I. Böttcher
 %%% Copyright 2002--2005 Uwe Lück for versions 4.x and code from former Ednotes
@@ -399,6 +399,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %%                        againt LaTeX2e 2026-06-01 PL2 and later
 %% v5.7  2026/02/16  KW:  Adjust twocolumn mode compatibility fix after regression
 %% v5.8  2026/02/16  KW:  Fix issue with twocolumn in version 5.7
+%% v5.9  2026/03/08  KW:  Fix hook use introduced in v5.6
 %%
 %% Acknowledgements:
 %% v3.06:  Donald Arseneau, pointed to mparhack.sty.
@@ -418,9 +419,10 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 %% v5.3:   Yukai Chou and Frank Mittelbach for patches to handle special
 %%         value of \prevdepth=-1000pt, and add `twocolumn` support for
 %%         `bframe` env.
-%% v5.6-8  Akira Yokosawa for fix for compatibility issue of twocolumn
-%%         mode againt LaTeX2e 2026-06-01 PL2 and later, and @bgvoisin
-%%         and @benebrue for reporting subsequent regressions.
+%% v5.6-9  Akira Yokosawa for fix for compatibility issue of twocolumn
+%%         mode againt LaTeX2e 2026-06-01 PL2 and later, @bgvoisin
+%%         and @benebrue for reporting subsequent regressions, and
+%%         Akira Yokosawa and Frank Mittelbach for further bugfixes.
 %
 %
 %                                                                   \section{%

@@ -1,3 +1,10 @@
+CHANGES  for lineno pkg v5.9   2026/03/08:
+
+1. Add test suite
+2. Fix hook use introduced in v5.6;
+   thanks to Akira Yokosawa and Frank Mittelbach.
+
+
 CHANGES  for lineno pkg v5.8   2026/02/28:
 
 1. Fix issue with twocolumn in version 5.7;
