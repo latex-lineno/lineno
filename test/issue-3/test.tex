@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{lineno}
+\usepackage{multicol}
+
+\begin{document}
+\newpage
+
+\def\testWithPrevdepth#1{{%
+  \noindent\texttt{\detokenize{#1}}\par
+  before text\par
+  #1%
+  \noindent\vskip0pt % any vskip triggers the problem
+  content\par
+  after text\par}\medskip}
+
+\def\tests#1{{#1%
+  \testWithPrevdepth{\relax}
+  \testWithPrevdepth{\prevdepth=10pt}
+  \testWithPrevdepth{\prevdepth=-10pt}
+  \testWithPrevdepth{\prevdepth=-100pt}
+  \testWithPrevdepth{\prevdepth=-1000pt}
+  \newpage
+}}
+
+\tests{}
+\tests{\linenumbers}
+
+\end{document}
