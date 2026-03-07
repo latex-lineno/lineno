@@ -3,12 +3,13 @@
 \title{\textsf{fnlineno.sty}\\---\\Numbering Footnote Lines\thanks{This
        document %%% manual %% 2010/12/28
        describes version
-       \textcolor{blue}{\UseVersionOf{fnlineno.sty}}
-       of \textsf{fnlineno.sty} as of \UseDateOf{fnlineno.sty}.}}
+       \textcolor{blue}{v0.55}
+       of \textsf{fnlineno.sty} as of 2011/01/07.}}
 % \listfiles                                          %% 2010/12/22
-{ \RequirePackage{makedoc}[2010/12/20] \ProcessLineMessage{}
-  \MakeJobDoc{17}{\SectionLevelThreeParseInput}     %% 2010/12/16
-}
+%% KW: 2026/03/08 - no longer building on modern TeX
+%% { \RequirePackage{makedoc}[2010/12/20] \ProcessLineMessage{}
+%%   \MakeJobDoc{17}{\SectionLevelThreeParseInput}     %% 2010/12/16
+%% }
 \documentclass{article}%% TODO paper dimensions!?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% \ProvidesFile{makedoc.cfg}[{2013/03/25 documentation settings}]
@@ -87,9 +88,10 @@
   \@onlypreamble\MDfinaldatechecks
 \makeatother
 %% Use other packages:
-\RequirePackage{readprov}               %% 2010/12/08
-\RequirePackage{hypertoc}               %% 2011/01/23
-\RequirePackage{texlinks}               %% 2011/01/24
+%% KW: 2026/03/08 - no longer building on modern TeX
+%% \RequirePackage{readprov}               %% 2010/12/08
+%% \RequirePackage{hypertoc}               %% 2011/01/23
+%% \RequirePackage{texlinks}               %% 2011/01/24
 \RequirePackage{relsize}                %% 2011/06/27
 \RequirePackage{color}                  %% 2011/08/06
 \RequirePackage{lmodern}                %% 2012/10/29
@@ -121,8 +123,8 @@
     \global\let\pkgtitle\relax
     \pkg{\huge #1}\\---\\#2\thanks{This
        document describes version
-       \textcolor{blue}{\UseVersionOf{\jobname.sty}}
-       of \textsf{\jobname.sty} as of \UseDateOf{\jobname.sty}.}}
+       \textcolor{blue}{v0.55}
+       of \textsf{fnlineno.sty} as of 2011/01/07.}}
 %% TODO: %% |\TODO| bad with `mdoccorr.cfg'
 \newcommand*{\TODO}{\textcolor{blue}{\acro{TODO}}}  %% 2012/11/06
 %% \verb|\MDsampleinput[{<file>}| was added 2012/11/06.
@@ -150,14 +152,16 @@
 %% |\ctanpkgdref{<pkg-id>}| adds the printed link to
 %% \verb|ctan.org/pkg| as a footnote. There is a little space
 %% for coloured link borders:
-\newcommand*{\ctanpkgdref}[1]{%
-    \ctanpkgref{#1}\,\urlfoot{CtanPkgRef}{#1}}
+%% KW: 2026/03/08 - no longer building on modern TeX
+%% \newcommand*{\ctanpkgdref}[1]{%
+%%     \ctanpkgref{#1}\,\urlfoot{CtanPkgRef}{#1}}
 \errorcontextlines=4
 \pagestyle{headings}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 2022/07/30   \newcommand*{\lt}{<} \newcommand*{\gt}{>}           %% 2010/12/22
 \providecommand*{\strong}{\textbf}                  %% 2010/12/15
-\ReadPackageInfos{fnlineno}
+%% KW: 2026/03/08 - no longer building on modern TeX
+%% \ReadPackageInfos{fnlineno}
 \usepackage{color}
 % \hypersetup{bookmarksopen}    %% rm. 2010/12/21, cf. .cfg
 %% 2010/12/21: %% 2010/12/26 not sure, splits code
@@ -170,7 +174,7 @@
 \begin{abstract}\noindent
 'fnlineno.sty' extends
 % Stephan~I. Böttcher's
-\CtanPkgRef{lineno}{lineno.sty}\urlpkgfoot{lineno}
+\verb|lineno|
 (created by Stephan~I. Böttcher)
 such that even
 \verb|\footnote|                                 %% `\' 2010/12/09
@@ -187,9 +191,9 @@ Making the package was motivated as support for
 %% <- 2011/02/09 ->
 of \emph{printed works with footnotes}
 as opposed to scholarly critical editions of \emph{manuscripts.}
-For this purpose, an extension 'edfnotes' of the \ctanpkgref{ednotes}
+For this purpose, an extension 'edfnotes' of the \verb|ednotes|
 package for critical editions, building on 'fnlineno', is provided
-by the \textit{ednotes} bundle.\urlfoot{CtanPkgRef}{ednotes}
+by the \textit{ednotes} bundle.%%\urlfoot{CtanPkgRef}{ednotes}
 
 'lineno.sty' has also been used for the revision process
 of \emph{submissions.}
