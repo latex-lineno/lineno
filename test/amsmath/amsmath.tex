@@ -12,31 +12,14 @@
 %
 % The Current Maintainer of this work is Karl Wette.
 
-\ProvidesFile{linenoamsmathdemo.tex}
-             [2021/09/30 Make amsmath work with lineno]
-
-\documentclass{ltxdoc}
-
-\ifdefined\AddToHook
-  \newcommand{\loadorder}{\textsf{lineno} is loaded first, and then patches \textsf{amsmath} using \texttt{\textbackslash AddToHook}}
-  \usepackage[mathlines,sep=11pt,width=11pt]{lineno}
-  \usepackage[leqno]{amsmath}
-\else
-  \newcommand{\loadorder}{\textsf{amsmath} is loaded first, and then patched directly by \textsf{lineno}}
-  \usepackage[leqno]{amsmath}
-  \usepackage[mathlines,sep=11pt,width=11pt]{lineno}
-\fi
 \usepackage{lipsum}
 \usepackage{hyperref}
 
 \allowdisplaybreaks
 
-\begin{document}
-
-\title{Make \textsf{amsmath}\footnote{\url{https://ctan.org/pkg/amsmath}}~ work with \textsf{lineno}}
 \author{Karl Wette}
 
-\maketitle
+\begin{document}
 
 This document demonstrates patches to the \textsf{amsmath} package to work with
 the \textsf{lineno} package. The code I've used is largely based on the posts
@@ -519,8 +502,3 @@ formatted when using \textsf{amsmath} math environments. \loadorder.
 \nolinenumbers
 
 \end{document}
-
-% Local Variables:
-% mode: doctex
-% TeX-master: t
-% End:
