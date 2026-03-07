@@ -2028,10 +2028,14 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
          \let\@LN@makecol\@makecol
       }
       % replace with hook code
-      \AddToHook{build/column/before}{%
-         \protected@write\@auxout{}{%
-            \string\def\string\@LN@column{\if@firstcolumn2\else1\fi}%
-         }%
+      \AddToHook{build/column/after}{%
+        \setbox\@outputbox \vbox to\ht\@outputbox{%
+          \boxmaxdepth \@maxdepth
+          \protected@write\@auxout{}{%
+            \string\def\string\@LN@column{\if@firstcolumn1\else2\fi}%
+          }%
+          \unvbox\@outputbox
+        }%
       }
    }{
    }
