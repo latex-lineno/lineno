@@ -1,0 +1,20 @@
+\documentclass{article}
+%\usepackage[mathlines]{lineno} % bad
+\usepackage{lineno} % good
+\linenumbers
+
+\usepackage{amsmath}
+\allowdisplaybreaks %bad
+
+
+\begin{document}
+\begin{align*}
+    &a
+\end{align*}
+This line does not appear in the output with TexLive 2023.
+\begin{align*}
+ & b
+\end{align*}
+This should not be the first line.
+
+\end{document}
