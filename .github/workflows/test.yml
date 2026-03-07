@@ -1,0 +1,72 @@
+name: Test package
+
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        tag:
+          - "TL2022-historic"
+          - "TL2023-historic"
+          - "TL2024-historic"
+          - "latest"
+          - "pretest"
+
+    container:
+      image: docker://texlive/texlive:${{ matrix.tag }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Print versions
+        run: |
+          cat /etc/os-release
+          tex --version
+
+      - name: Install dependencies
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 5
+          max_attempts: 3
+          retry_wait_seconds: 30
+          command: |
+            apt-get update -y -q
+            apt-get install -y gawk diff-pdf-wx
+
+      - name: Run tests
+        run: |
+          make V=1 check
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf-diffs:${{ matrix.tag }}
+          path: |
+            test/**/diff*.pdf
+            test/**/test*.pdf
+          
+      - name: Build package
+        run: |
+          make V=1 zip
+
+  all-done:
+    runs-on: ubuntu-latest
+
+    needs: test
+
+    steps:
+      - name: All done
+        run: |
+          echo All done
