@@ -1,0 +1,57 @@
+#!/usr/bin/perl
+
+if (@ARGV != 2) {
+  print STDERR "usage: new_release <version> <year>/<month>/<day>\n";
+  exit 1;
+}
+
+my $vers = $ARGV[0];
+my $date = $ARGV[1];
+my $year = (split "/", $date)[0];
+
+open IN, "lineno.sty" or die $!;
+open OUT, ">lineno.sty.out" or die $1;
+my $add_history = 1;
+while (<IN>) {
+  if (/^%% v$vers/) {
+    $add_history = 0;
+  }
+  if ($add_history && /^%% \(end history of versions\)/) {
+    $_ = sprintf "%%%% v%-4s %s  KW:  TODO\n%s", $vers, $date, $_;
+  } else {
+    $fv = sprintf("%-5s", "$vers}");
+    s|\\def\\fileversion{v.....|\\def\\fileversion{v$fv|;
+    s|\\def\\filedate{\d+/\d+/\d+}|\\def\\filedate{$date}|;
+    s|Copyright 2021--\d+ Karl Wette|Copyright 2021--$year Karl Wette|;
+  }
+  print OUT $_;
+}
+close IN;
+close OUT;
+rename("lineno.sty.out", "lineno.sty");
+
+open IN, "CHANGEs.txt" or die $!;
+open OUT, ">CHANGEs.txt.out" or die $1;
+$_ = <IN>;
+if (!/v$vers/) {
+  printf OUT "CHANGES  for lineno pkg v%-4s  %s:\n\n1. TODO\n\n\n", $vers, $date;
+}
+print OUT $_;
+while (<IN>) {
+  print OUT $_;
+}
+close IN;
+close OUT;
+rename("CHANGEs.txt.out", "CHANGEs.txt");
+
+open IN, "README.md" or die $!;
+open OUT, ">README.md.out" or die $1;
+while (<IN>) {
+  s|^# lineno\.sty v\d+\.\d+|# lineno.sty v$vers|;
+  s|^\d+/\d+/\d+$}|$date|;
+  s|Copyright 2021--\d+ Karl Wette|Copyright 2021--$year Karl Wette|;
+  print OUT $_;
+}
+close IN;
+close OUT;
+rename("README.md.out", "README.md");
