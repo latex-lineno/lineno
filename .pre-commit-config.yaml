@@ -1,0 +1,15 @@
+default_install_hook_types: [pre-commit, post-commit]
+
+repos:
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+
+  - repo: https://github.com/assorted-pre-commit-hooks/version-tag
+    rev: v0.1
+    hooks:
+      - id: version-tag
+        args: [--subject-prefix,lineno version]
