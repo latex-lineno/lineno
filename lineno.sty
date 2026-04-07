@@ -1914,8 +1914,7 @@ Macro file lineno.sty for LaTeX: attach line numbers, refer to them.
 
 \def\testNextNumberedPage#1{\ifx#1\relax
      \global\def\NumberedPageCache{\gotNumberedPage0000}%
-     \PackageWarningNoLine{lineno}%
-       {Line number reference failed, re-run to get it right}%
+     \PackageWarning{lineno}{Label(s) may have changed. Rerun to get cross-references right.}%
    \else
      \global\let\NumberedPageCache#1%
    \fi
